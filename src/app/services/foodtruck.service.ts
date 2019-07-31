@@ -5,9 +5,8 @@ import { User } from 'src/entity/user';
 
 const header = {
   headers: new HttpHeaders({
-    //'responseType':'text/plain',
-    'Content-Type':'application/json',
-    'observe':'response'
+    'Content-Type': 'application/json',
+    'observe': 'response'
   })
 };
 
@@ -23,7 +22,7 @@ export class HttpService {
   private foodtruckData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public foodtruck$ = this.foodtruckData.asObservable();
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   public fetchLocation() {
     this.httpClient.get('http://ip-api.com/json')
@@ -33,10 +32,10 @@ export class HttpService {
       });
   }
 
-  public fetchFoodTrucksByLocation(city:string, state:string) {
-    if(city != null && state != null) {
-      this.httpClient.get('http://localhost:8888/foodtrucks/city='+city+'/state='+state)
-        .subscribe((payload) => {this.foodtruckData.next(payload);});
+  public fetchFoodTrucksByLocation(city: string, state: string) {
+    if (city != null && state != null) {
+      this.httpClient.get('http://localhost:8888/foodtrucks?city=' + city + '&state=' + state)
+        .subscribe((payload) => { this.foodtruckData.next(payload); });
     }
   }
 }

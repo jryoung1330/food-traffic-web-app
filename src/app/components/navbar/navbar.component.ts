@@ -16,11 +16,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.userService.user$.subscribe((data) => {
-      if(data != undefined && data != null) {
+      if (data !== undefined && data != null) {
         this.user = data;
       }
     });
   }
-
-  
 }

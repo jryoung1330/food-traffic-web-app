@@ -13,17 +13,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  steps:Array<boolean> = new Array<boolean>(10);
   @Input('user') user: User = new User;
   @Input('password2') password2: string = '';
+  @Input('foodtruckToAdd') foodtruckToAdd: FoodTruck = new FoodTruck;
+
+  steps: Array<boolean> = new Array<boolean>(10);
   isEmployee: boolean;
   location: Location;
   foodtrucks: Array<FoodTruck>;
   file: File;
   newUser: User;
-  @Input('foodtruckToAdd') foodtruckToAdd: FoodTruck = new FoodTruck;
 
-  constructor(private httpService: HttpService, private userService: UserService, private routingService:RoutingService) { }
+  constructor(private httpService: HttpService, private userService: UserService, private routingService: RoutingService) { }
 
   ngOnInit() {
     this.routingService.setActiveIcon();
@@ -35,28 +36,28 @@ export class RegisterComponent implements OnInit {
   }
 
   moveForward() {
-    for(var i=0; i<this.steps.length; i++) {
-      if(this.steps[i] == true && i+1 < this.steps.length) {
+    for (let i = 0; i < this.steps.length; i++) {
+      if (this.steps[i] === true && i + 1 < this.steps.length) {
         this.steps[i] = false;
-        this.steps[i+1] = true;
+        this.steps[i + 1] = true;
         break;
-      } 
+      }
     }
   }
 
   moveBack() {
-    for(var i=0; i<this.steps.length; i++) {
-      if(this.steps[i] == true && i-1 >= 0) {
+    for (let i = 0; i < this.steps.length; i++) {
+      if (this.steps[i] === true && i - 1 >= 0) {
         this.steps[i] = false;
-        this.steps[i-1] = true;
+        this.steps[i - 1] = true;
         break;
-      } 
+      }
     }
   }
 
   onSubmit() {
     this.user.passwordHash = btoa(this.user.passwordHash);
-    this.userService.postNewUser(this.user);
+    //this.userService.postNewUser(this.user);
     this.moveForward();
     this.initializeFoodTruck();
   }
@@ -67,7 +68,7 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeFoodTruck() {
-    if(this.location != null){
+    if (this.location != null) {
       this.foodtruckToAdd.city = this.location.city;
       this.foodtruckToAdd.state = this.location.region;
       this.foodtruckToAdd.zipCode = this.location.zip;
@@ -77,7 +78,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  setEmployeeFlag(bool:boolean) {
+  setEmployeeFlag(bool: boolean) {
     this.isEmployee = bool;
   }
 }

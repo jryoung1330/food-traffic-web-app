@@ -5,8 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 
 const header = {
   headers: new HttpHeaders({
-    'Content-Type':'application/json',
-    'observe':'response'
+    'Content-Type': 'application/json',
+    'observe': 'response'
   })
 };
 
@@ -18,15 +18,15 @@ export class UserService {
   private userData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public user$ = this.userData.asObservable();
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   public loginUser(user: User) {
-    this.httpClient.post('http://localhost:8888/users/login', JSON.stringify(user), header)
-      .subscribe((payload)=>{this.userData.next(payload);})
+    this.httpClient.post('http://localhost:8889/users/login', JSON.stringify(user), header)
+      .subscribe((payload) => { this.userData.next(payload); });
   }
 
-  public postNewUser(user:User) {
-    this.httpClient.post('http://localhost:8888/users', JSON.stringify(user), header)
-      .subscribe((payload)=>{this.userData.next(payload);});
+  public postNewUser(user: User) {
+    this.httpClient.post('http://localhost:8889/users', JSON.stringify(user), header)
+      .subscribe((payload) => { this.userData.next(payload); });
   }
 }

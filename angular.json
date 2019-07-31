@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lococator-web-app": {
+    "lococater-web-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lococator-web-app",
+            "outputPath": "dist/lococater-web-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lococator-web-app:build"
+            "browserTarget": "lococater-web-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lococator-web-app:build:production"
+              "browserTarget": "lococater-web-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lococator-web-app:build"
+            "browserTarget": "lococater-web-app:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "lococator-web-app-e2e": {
+    "lococater-web-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "lococator-web-app:serve"
+            "devServerTarget": "lococater-web-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "lococator-web-app:serve:production"
+              "devServerTarget": "lococater-web-app:serve:production"
             }
           }
         },
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "lococator-web-app"
+  "defaultProject": "lococater-web-app"
 }
