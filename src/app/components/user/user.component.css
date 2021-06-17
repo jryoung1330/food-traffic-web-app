@@ -1,0 +1,47 @@
+#user-component {
+    padding-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+#profile-container {
+    width: 50%;
+    margin-top: 3rem;
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+}
+
+#profile-container>h3 {
+    margin-bottom: 2rem;
+}
+
+.row {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row-left {
+    display: flex;
+    flex-direction: wrap;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.row-left-header {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#spacer {
+    width: 50%;
+}
+
+#submit {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    color: white;
+    background-color: #007bff;
+}

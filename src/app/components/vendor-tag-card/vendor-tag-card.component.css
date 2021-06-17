@@ -1,0 +1,13 @@
+.vendor-tag-card {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 15px;
+    width: fit-content;
+    font-weight: bold;
+}
+
+.vendor-tag-card:hover {
+    color: #fd7e14;
+    border-color: #fd7e14;
+    cursor: pointer;
+}
