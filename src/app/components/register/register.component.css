@@ -23,7 +23,7 @@ i {
 }
 
 .icon-holder:hover {
-    color: orangered;
+    color: #fd7e14;
     cursor: pointer;
 }
 
@@ -38,3 +38,34 @@ i {
     color: blue;
     cursor: pointer;
 }
+
+.form-reg {
+    padding-top: 70px;
+}
+
+#title {
+    font-size: 1.5rem;
+}
+
+#tag-container {
+    margin-top: 40px;
+    margin-bottom: 30vh;
+}
+
+#tag-container>ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.vendor-card-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5rem;
+}
+
+/* select.custom-select {
+    color: black;
+} */

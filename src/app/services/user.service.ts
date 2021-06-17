@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from 'src/entity/user';
-import { BehaviorSubject } from 'rxjs';
+import { HandleError, HttpErrorHandler } from './http-error-handler.service';
 
 const header = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'observe': 'response'
-  })
+    'observe': 'response',
+  }),
+  withCredentials: true
 };
 
 @Injectable({
@@ -16,17 +20,34 @@ const header = {
 export class UserService {
 
   private userData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
-  public user$ = this.userData.asObservable();
+  public user$: Observable<User> = this.userData.asObservable();
+  private handleError: HandleError;
 
-  constructor(private httpClient: HttpClient) { }
-
-  public loginUser(user: User) {
-    this.httpClient.post('http://localhost:8889/users/login', JSON.stringify(user), header)
-      .subscribe((payload) => { this.userData.next(payload); });
+  constructor(private httpClient: HttpClient, httpErrorHandler: HttpErrorHandler) { 
+    this.handleError = httpErrorHandler.createHandleError('UserService');
   }
 
-  public postNewUser(user: User) {
-    this.httpClient.post('http://localhost:8889/users', JSON.stringify(user), header)
+  public loginUser(user: User, credentials: string): Observable<User> {
+    header.headers = header.headers.set('Authorization', 'Basic ' + credentials);
+    this.httpClient.post<User>('http://localhost:8889/users/login', JSON.stringify(user), header)
+      .pipe(catchError(this.handleError('loginUser', user)))
       .subscribe((payload) => { this.userData.next(payload); });
+    return this.user$;
   }
+
+  public postNewUser(user: User, credentials: string): Observable<User> {
+    header.headers = header.headers.set('Authorization', 'Basic ' + credentials);
+    user.passwordHash = '';
+    return this.httpClient.post<User>('http://localhost:8889/users', JSON.stringify(user), header)
+      .pipe(catchError(this.handleError('addUser', user)));
+  }
+
+  public getUserByToken(): Observable<User> {
+    return this.httpClient.post<User>('http://localhost:8889/users/token', null, header);
+  }
+
+  public logoutUser(userId: string, router: Router): Observable<User> {
+    return this.httpClient.post<User>('http://localhost:8889/users/' + userId + '/logout', null, header);
+  }
+
 }

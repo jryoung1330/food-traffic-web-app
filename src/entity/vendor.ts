@@ -1,9 +1,12 @@
+import { Tag } from "./tag";
+
 export class Vendor {
     id: number;
-    name: string;
+    userName: string;
+    displayName: string;
     company: string;
-    lon: number;
-    lat: number;
+    longitude: number;
+    latitude: number;
     streetAddress: string;
     city: string;
     state: string;
@@ -11,4 +14,6 @@ export class Vendor {
     zipCode: number;
     locationDetails: string;
     description: string;
+    profileImage: string;
+    tags: Array<Tag>
 }

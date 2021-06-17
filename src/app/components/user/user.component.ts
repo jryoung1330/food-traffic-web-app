@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/entity/user';
 
 @Component({
   selector: 'app-user',
@@ -8,10 +10,24 @@ import { RoutingService } from 'src/app/services/routing.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private routingService:RoutingService) { }
+  @Input() user: User;
+  emailFlag: boolean;
+  passwordFlag: boolean;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.routingService.setActiveIcon();
+    this.getUser();
+    this.emailFlag = true;
+    this.passwordFlag = true;
+  }
+
+  getUser() {
+    this.userService.getUserByToken().subscribe(
+      (payload) => {
+        this.user = payload;
+      }
+    );
   }
 
 }

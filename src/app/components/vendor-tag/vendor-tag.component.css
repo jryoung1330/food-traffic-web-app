@@ -1,0 +1,16 @@
+.vendor-tag {
+    font-size: inherit;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.vendor-tag:hover {
+    text-decoration: underline;
+}
+
+.tag-separator {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    background-color: #fd7e14;
+}

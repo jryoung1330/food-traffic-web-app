@@ -1,3 +1,31 @@
-<p>
-  user works!
-</p>
+<div class="col-12" id="user-component">
+  <div id="profile-container">
+    <h3>My Profile</h3>
+    <div class="row">
+      <div class="row-left">
+        <div class="row-left-header">User Name:</div>
+        <div>{{this.user.username}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-left">
+        <div *ngIf="emailFlag" class="row-left-header">Email:</div>
+        <div *ngIf="emailFlag">{{this.user.email}}</div>
+        <input *ngIf="!emailFlag" type="text" placeholder="Email" />
+      </div>
+      <button class="btn" (click)="emailFlag = !emailFlag">Change</button>
+    </div>
+    <div class="row">
+      <div class="row-left">
+        <div *ngIf="passwordFlag" class="row-left-header">Password:</div>
+        <div *ngIf="passwordFlag">XXXXXXXXXXXXX</div>
+        <input *ngIf="!passwordFlag" type="password" placeholder="Password" />
+      </div>
+      <button class="btn" (click)="passwordFlag = !passwordFlag">Change</button>
+    </div>
+    <div class="row">
+      <div id="spacer"></div>
+      <button id="submit" class="btn">Submit</button>
+    </div>
+  </div>
+</div>

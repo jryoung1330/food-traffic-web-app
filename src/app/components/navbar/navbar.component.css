@@ -1,27 +1,81 @@
-.navbar-brand {
-    color: orangered;
-    font-size: 28px;
-    width: 275px;
-    font-family: 'Oswald', 'sans serif';
-}
-
 #navbarNav {
+    height: 58px;
+    padding: 10px;
+}
+
+button>a>i, button>div>i {
+    font-family: 'Material Icons';
+    color: #fd7e14;
+}
+
+button>a>i:hover, button>div>i:hover {
+    color: #fd7d14b7;
+}
+
+.text-link {
+    font-weight: bold;
+    padding: 10px;
+    color: #fd7e14;
+}
+
+.text-link:hover {
+    color: #fd7e14;
+}
+
+nav {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
-li>a>i {
-    font-size: 36px;
-    font-family: 'Material Icons';
-    color: rgba(255, 69, 0, 0.4);
+button {
+    background-color: white;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-li.active>a>i {
-    font-size: 36px;
-    font-family: 'Material Icons';
-    color: rgba(255, 69, 0, 1);
+#navbar-left-container {
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.btn {
-    color: red;
+#title {
+    padding: 10px;
+    color: #fd7d14;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
 }
+
+#title-user {
+    margin-left: 10px;
+    background-color: #fd7d14;
+    color: white;
+    border-radius: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  #account-circle:hover .dropdown-content {display: block;}

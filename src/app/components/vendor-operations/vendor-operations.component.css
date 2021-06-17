@@ -1,0 +1,22 @@
+.op-container {
+    padding: 0.5rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: inherit;
+    color: inherit;
+}
+
+.op-header {
+    padding: 0.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid;
+    color: inherit
+}
+
+.op-body {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: inherit;
+}

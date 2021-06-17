@@ -12,7 +12,7 @@
 </div>
 
 <!-- User Registration Form -->
-<div class="container col-4" *ngIf="steps[1]">
+<div class="container col-4 form-reg" *ngIf="steps[1]">
   <form>
     <fieldset>
       <legend>User Registration:</legend>
@@ -52,7 +52,7 @@
               <!-- <label class="custom-file-label" for="CustomFile">{{filename}}</label> -->
             </div>
           <div id="button-div" class="form-group col-md-12">
-            <button id="back-button" class="btn" (click)="moveBack()">Back</button>
+            <button id="back-button" type="button" class="btn" (click)="moveBack()">Back</button>
             <button [disabled]="!(password2 == user.passwordHash)" type="submit" class="btn btn-primary" (click)="onSubmit()">Continue</button>
           </div>
       </div>
@@ -61,7 +61,7 @@
 </div>
 
 <!-- Employee Registration Form -->
-<div class="container col-8" *ngIf="steps[2] && isEmployee">
+<div class="container col-8 form-reg" *ngIf="steps[2] && isEmployee">
     <form>
       <fieldset>
         <legend>Employee Registration:</legend>
@@ -69,13 +69,13 @@
             <div class="form-group col-md-6">
               <select class="custom-select">
                   <option value="0" disabled>Select Your Vendor</option>
-                  <option name="vendor-option" *ngFor="let vendor of vendors;" value="{{vendor.id}}">{{vendor.name}}</option>
+                  <option name="vendor-option" *ngFor="let vendor of vendors;" value="{{vendor.id}}">{{vendor.displayName}}</option>
               </select>
               <a id="register-vendor" (click)="moveForward()">Register a new vendor</a>
             </div>
             <div id="button-div" class="form-group col-md-12">
               <button id="back-button" class="btn">Back</button>
-              <button type="submit" class="btn btn-primary" (click)="onSubmitVendor()">Continue</button>
+              <button type="submit" class="btn btn-primary" (click)="continue()">Continue</button>
             </div>
         </div>
       </fieldset>
@@ -83,44 +83,71 @@
   </div>
 
 <!-- Vendor Registration Form -->
-<div class="container col-8" *ngIf="steps[3] && isEmployee">
-    <form>
-      <fieldset>
-        <legend>Vendor Registration:</legend>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-              <!-- <label for="name">Name</label> -->
-              <input type="text" [(ngModel)]="vendorToAdd.name" name="name" class="form-control" id="name" placeholder="Vendor Name">
-            </div>
-            <div class="form-group col-md-6">
-              <!-- <label for="city">City</label> -->
-              <input type="text" [(ngModel)]="vendorToAdd.city"  name="city" class="form-control" id="city" placeholder="City">
-            </div>
-            <div class="form-group col-md-6">
-              <!-- <label for="company">Company</label> -->
-              <input type="text" [(ngModel)]="vendorToAdd.company" name="company" class="form-control" id="company" placeholder="Company Name">
-            </div>
-            <div class="form-group col-md-6">
-                <!-- <label for="state">State</label> -->
-                <input type="text" [(ngModel)]="vendorToAdd.state"  name="state" class="form-control" id="state" placeholder="State">
-            </div>
-            <div class="form-group col-md-6">
-                <!-- <label for="description">Description</label> -->
-                <input type="text" [(ngModel)]="vendorToAdd.description"  name="description" class="form-control" id="description" placeholder="Vendor Description">
-            </div>
-            <div class="form-group col-md-6">
-                <!-- <label for="zipcode">Zip Code</label> -->
-                <input type="text" [(ngModel)]="vendorToAdd.zipCode"  name="zipcode" class="form-control" id="zipcode" placeholder="Zipcode">
-            </div>
-            <div class="form-group col-md-6">
-                <!-- <label for="locationDetails">Location Details</label> -->
-                <textarea type="text" rows="5" [(ngModel)]="vendorToAdd.locationDetails"  name="locationDetails" class="form-control" id="locationDetails" placeholder="Location Details"></textarea>
-            </div>
-            <div id="button-div" class="form-group col-md-12">
-              <button id="back-button" class="btn" (click)="moveBack()">Back</button>
-              <button type="submit" class="btn btn-primary" (click)="onSubmitVendor()">Continue</button>
-            </div>
+<div class="container col-8 form-reg" *ngIf="steps[3] && isEmployee">
+  <form>
+    <fieldset>
+      <legend>Vendor Registration:</legend>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.userName" name="userName" class="form-control" id="userName"
+            placeholder="Vendor Account Name">
         </div>
-      </fieldset>
-    </form>
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.displayName" name="displayName" class="form-control"
+            id="displayName" placeholder="Vendor Display Name">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.company" name="company" class="form-control" id="company"
+            placeholder="Company Name">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.city" name="city" class="form-control" id="city"
+            placeholder="City">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.state" name="state" class="form-control" id="state"
+            placeholder="State">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="text" [(ngModel)]="vendorToAdd.zipCode" name="zipcode" class="form-control" id="zipcode"
+            placeholder="Zipcode">
+        </div>
+        <div class="form-group col-md-12">
+          <input type="text" [(ngModel)]="vendorToAdd.description" name="description" class="form-control"
+            id="description" placeholder="Vendor Description">
+        </div>
+        <div class="form-group col-md-12">
+          <textarea type="text" rows="4" [(ngModel)]="vendorToAdd.locationDetails" name="locationDetails"
+            class="form-control" id="locationDetails" placeholder="Location Details"></textarea>
+        </div>
+        <div id="button-div" class="form-group col-md-12">
+          <button id="back-button" class="btn" (click)="moveBack()">Back</button>
+          <button type="submit" class="btn btn-primary" (click)="continue()">Continue</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <div class="vendor-card-preview">
+    <app-vendor-card class="list-group-item bg-white border-bottom box-shadow col-10" [vendor]=vendorToAdd>
+    </app-vendor-card>
   </div>
+</div>
+
+<div class="container col-8 form-reg" *ngIf="steps[4] && isEmployee">
+  <div id="title">Pick Up To 3 Tags To Help Customers Find Your Business:</div>
+      <div id="tag-container">
+        <ul>
+          <app-vendor-tag-card *ngFor="let tag of this.tags" [tag] = tag (click)="toggleTag(tag)"></app-vendor-tag-card>
+        </ul>
+      </div>
+      <div id="button-div" class="form-group col-md-12">
+        <button id="back-button" class="btn" (click)="moveBack()">Back</button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmitVendor()">Continue</button>
+      </div>
+
+  <div class="vendor-card-preview">
+    <app-vendor-card class="list-group-item bg-white border-bottom box-shadow col-10" [vendor]=vendorToAdd>
+    </app-vendor-card>
+  </div>
+</div>

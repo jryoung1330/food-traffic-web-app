@@ -1,7 +1,20 @@
-<div id="card" (click)="toggleExpansion()">
-  <h3>{{this.vendor.name}}</h3>
-  <p>{{this.vendor.locationDetails}}</p>
-  <i *ngIf="expanded">{{this.vendor.description}}</i>
+<div id="card">
+  <div id="vendor-details-container">
+    <div id="vendor-image">
+      <!-- <img src={{this.vendor.profileImage}} /> -->
+    </div>
+    <div id="vendor-details">
+      <div id="card-title">{{this.vendor.displayName}}</div>
+      <div id="card-subtitle">{{this.vendor.description}}</div>
+      <div>
+        <ul id="vendor-tag-list" class="list-group list-group-flush">
+          <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag] = tag></app-vendor-tag>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- <p>{{this.vendor.locationDetails}}</p> -->
+  <!-- <i *ngIf="expanded">{{this.vendor.description}}</i> -->
+  <i class="material-icons col-2" (click)="toggleFavorite()" *ngIf="!isFavorited">favorite_border</i>
+  <i class="material-icons col-2" (click)="toggleFavorite()" *ngIf="isFavorited">favorite</i>
 </div>
-<i class="material-icons" (click)="toggleFavorite()" *ngIf="!isFavorited">favorite_border</i>
-<i class="material-icons" (click)="toggleFavorite()" *ngIf="isFavorited">favorite</i>
