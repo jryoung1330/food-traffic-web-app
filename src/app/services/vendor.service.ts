@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { User } from 'src/entity/user';
-import { Vendor } from 'src/entity/vendor';
+import { User } from 'src/entities/user';
+import { Vendor } from 'src/entities/vendor';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
-import { Tag } from 'src/entity/tag';
-import { Operation } from 'src/entity/operation';
-import { Menu } from 'src/entity/menu';
+import { Tag } from 'src/entities/tag';
+import { Operation } from 'src/entities/operation';
+import { Menu } from 'src/entities/menu';
 
 const header = {
   headers: new HttpHeaders({
@@ -38,22 +38,26 @@ export class HttpService {
     this.httpClient.get('http://ip-api.com/json')
       .subscribe((payload) => {
         this.locationData.next(payload);
-        this.fetchVendorsByLocation(payload['city'], payload['region']);
+        this.getVendorsByLocation(payload['city'], payload['region']);
       });
   }
 
-  public fetchVendorsByLocation(city: string, state: string) {
+  public getVendorsByLocation(city: string, state: string) {
     if (city != null && state != null) {
       this.httpClient.get('http://localhost:8888/vendors?city=' + city + '&state=' + state)
         .subscribe((payload) => { this.vendorData.next(payload); });
     }
   }
 
+  public getVendor(id: string): Observable<Vendor> {
+    return this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id, header);
+  }
+
   public createVendor(vendor: Vendor): Observable<Vendor> {
     if(vendor != null) {
-      return this.httpClient.post<Vendor>('http://localhost:8888/vendors', JSON.stringify(vendor), header)
-        .pipe(catchError(this.handleError));
+      return this.httpClient.post<Vendor>('http://localhost:8888/vendors', JSON.stringify(vendor), header);
         // .subscribe((payload) => { this.vendorData.next(payload);});
+        // .pipe(catchError(this.handleError));
     } else {
       return null;
     }

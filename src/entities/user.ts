@@ -1,3 +1,4 @@
+import { Employee } from "./employee";
 import { Vendor } from "./vendor";
 
 export class User {
@@ -6,9 +7,6 @@ export class User {
     username: string;
     passwordHash: string;
     joinDate: Date;
-    employeeId: number;
-    isOwner: boolean;
-    hasAdminPrivileges: boolean;
-    vendorId: number;
+    employee: Employee;
     favorites: Array<Vendor>;
 }

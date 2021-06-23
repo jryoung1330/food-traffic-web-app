@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
-import { Vendor } from 'src/entity/vendor';
-import { Location } from 'src/entity/location';
+import { Vendor } from 'src/entities/vendor';
+import { Location } from 'src/entities/location';
 import { HttpService } from 'src/app/services/vendor.service';
-import { User } from 'src/entity/user';
+import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Tag } from 'src/entity/tag';
+import { Tag } from 'src/entities/tag';
 
 @Component({
   selector: 'app-register',

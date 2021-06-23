@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OperationItem } from 'src/entity/operationItem';
+import { OperationItem } from 'src/entities/operationItem';
 
 @Component({
   selector: 'app-vendor-operations',
@@ -9,6 +9,7 @@ import { OperationItem } from 'src/entity/operationItem';
 export class VendorOperationsComponent implements OnInit {
 
   @Input('op') op: OperationItem;
+  editText:boolean = false;
 
   constructor() { }
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/entity/user';
+import { User } from 'src/entities/user';
 
 @Component({
   selector: 'app-user',

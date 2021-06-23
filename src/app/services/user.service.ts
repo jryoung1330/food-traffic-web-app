@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from 'src/entity/user';
+import { User } from 'src/entities/user';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
 
 const header = {
@@ -30,7 +30,7 @@ export class UserService {
   public loginUser(user: User, credentials: string): Observable<User> {
     header.headers = header.headers.set('Authorization', 'Basic ' + credentials);
     this.httpClient.post<User>('http://localhost:8889/users/login', JSON.stringify(user), header)
-      .pipe(catchError(this.handleError('loginUser', user)))
+      .pipe(catchError(this.handleError('loginUser', null)))
       .subscribe((payload) => { this.userData.next(payload); });
     return this.user$;
   }
@@ -47,6 +47,7 @@ export class UserService {
   }
 
   public logoutUser(userId: string, router: Router): Observable<User> {
+    this.userData.next(null);
     return this.httpClient.post<User>('http://localhost:8889/users/' + userId + '/logout', null, header);
   }
 

@@ -1,0 +1,14 @@
+<div class="op-container">
+    <div class="op-header">
+        <i class="material-icons calendar">calendar_today</i>
+        <div>{{this.capitalCase(this.op.dayOfWeek)}}</div>
+    </div>
+    <div class="op-body" (mouseover)="this.editText=true" (mouseout)="this.editText=false">
+        <!-- <div *ngIf="!this.op.closed">Open - {{this.getTime(this.op.openDateTime)}}</div>
+        <div *ngIf="!this.op.closed">Close - {{this.getTime(this.op.closeDateTime)}}</div> -->
+        <div *ngIf="!this.op.closed">{{this.getTime(this.op.openDateTime)}} - {{this.getTime(this.op.closeDateTime)}}
+            <span *ngIf="this.editText"><i class="material-icons edit">edit</i></span>
+        </div>
+        <div *ngIf="this.op.closed">CLOSED <span><i class="material-icons edit" *ngIf="this.editText">edit</i></span></div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tag } from 'src/entity/tag';
+import { Tag } from 'src/entities/tag';
 
 @Component({
   selector: 'app-vendor-tag',

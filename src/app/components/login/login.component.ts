@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/entity/user';
+import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { NavbarComponent } from '../customer/navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +25,17 @@ export class LoginComponent implements OnInit {
   loginUser() {
     let credentials = btoa(this.user.username + ':' + this.user.passwordHash);
     this.userService.loginUser(this.user, credentials).subscribe((payload : User) => {
+      console.log(payload);
       if(payload != undefined && payload != null) {
         this.loggedInUser = payload;
         window.localStorage.setItem('user', payload.id + ':' + payload.username);
-        if(this.loggedInUser.id > 0) this.router.navigateByUrl('/home');
+        let vendorId = null;
+        if(payload.employee !== undefined && payload.employee !== null && payload.employee.admin) {
+          vendorId = payload.employee.vendorId.toString();
+          window.localStorage.setItem('vendor', vendorId);
+        }
+        let url = vendorId !== null ? '/vendors/' + vendorId + '/home' : '/home';
+        this.router.navigateByUrl(url);
       }
     });
   }

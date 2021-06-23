@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/entity/user';
-import { Vendor } from 'src/entity/vendor';
+import { User } from 'src/entities/user';
+import { Vendor } from 'src/entities/vendor';
 
 @Component({
   selector: 'app-vendor-card',

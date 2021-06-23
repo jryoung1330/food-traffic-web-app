@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Vendor } from 'src/entity/vendor';
+import { Component, OnInit } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
 import { HttpService } from 'src/app/services/vendor.service';
-import { slideInLeftOnEnterAnimation, slideOutLeftOnLeaveAnimation } from 'angular-animations';
-import { Operation } from 'src/entity/operation';
-import { OperationItem } from 'src/entity/operationItem';
-import { Menu } from 'src/entity/menu';
+import { Menu } from 'src/entities/menu';
+import { Operation } from 'src/entities/operation';
+import { OperationItem } from 'src/entities/operationItem';
+import { Vendor } from 'src/entities/vendor';
 
 const header = {
   headers: new HttpHeaders({
@@ -21,74 +20,25 @@ const MILLISECONS_TO_HOURS : number = 36000000;
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  animations: [slideInLeftOnEnterAnimation({delay: 0, duration: 500}),
-              slideOutLeftOnLeaveAnimation({delay: 0, duration: 500})]
+  selector: 'app-vendor-home',
+  templateUrl: './vendor-home.component.html',
+  styleUrls: ['./vendor-home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class VendorHomeComponent implements OnInit {
 
-  city: string;
-  state: string;
-  vendors: Array<Vendor>;
-  expanded: number;
-  searchKey: string;
-  showVendor: boolean;
   vendor: Vendor;
-  showFavorites: boolean;
   operationItems: OperationItem[];
   menus: Array<Menu>;
 
   constructor(private http: HttpClient, private httpService: HttpService, private routingService: RoutingService) { }
 
-  ngOnInit() {
-    this.getLocation();
-    this.showFavorites = false;
-  }
-
-  getLocation() {
-    this.http.get('http://ip-api.com/json')
-    .subscribe((data) => {
-      this.city = data['city'],
-      this.state = data['region'];
-      this.getVendorsInArea();
-    });
-  }
-
-  getVendorsInArea() {
-    if (this.city != null && this.state != null) {
-      this.http.get('http://localhost:8888/vendors?city=' + this.city + '&state=' + this.state)
-      .subscribe((data: Array<Vendor>) => {
-        this.vendors = data;
+  ngOnInit(): void {
+    this.httpService.getVendor(window.localStorage.getItem('vendor'))
+      .subscribe((payload) => {
+        this.vendor = payload;
+        this.getHoursOfOperation(this.vendor);
+        this.getMenus(this.vendor);
       });
-    }
-  }
-
-  searchVendors(value : string) {
-    this.http.get('http://localhost:8888/vendors?name=' + value)
-      .subscribe((data: Array<Vendor>) => {
-        this.vendors = data;
-      });
-  }
-
-  toggleShowVendor(vendor: Vendor) {
-    if(this.vendor === undefined || vendor.id == this.vendor.id) this.showVendor = !this.showVendor;
-    this.vendor = vendor;
-    this.getHoursOfOperation(this.vendor);
-    this.getMenus(this.vendor);
-  }
-
-  toggleFavorites() {
-    this.showFavorites = !this.showFavorites;
-    if (this.showFavorites) {
-      this.http.get('http://localhost:8888/vendors/favorites', header)
-        .subscribe((data: Array<Vendor>) => {
-          this.vendors = data;
-        });
-    } else {
-      this.getVendorsInArea()
-    }
   }
 
   getHoursOfOperation(vendor: Vendor) {
@@ -150,5 +100,4 @@ export class HomeComponent implements OnInit {
       this.menus = null;
     }
   }
-
 }
