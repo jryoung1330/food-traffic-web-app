@@ -1,5 +1,5 @@
 <div class="menu-container">
-    <div class="menu-title">{{this.menu.description}}</div>
+    <div class="menu-title">{{this.menu.name}}</div>
     <ul class="menu-item-list">
         <i class="material-icons" *ngIf="this.menuItems.length > 3" (click)="shiftLeft()">arrow_left</i>
         <app-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-menu-item>

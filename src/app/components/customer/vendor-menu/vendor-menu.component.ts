@@ -18,7 +18,7 @@ export class VendorMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.menuItems = this.menu.menuItems;
+    this.menuItems = this.menu.menuItems ? this.menu.menuItems : [];
     this.menuItemTriplet = [];
     this.start = 0;
     this.end = 0;

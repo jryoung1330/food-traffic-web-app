@@ -1,0 +1,29 @@
+<div id="profile-component" class="col-8">
+    <div id="vendor-pic-container">
+        <img src="{{this.vendor.profileImage}}" />
+    </div>
+    <div id="vendor-name">{{this.vendor.displayName}}</div>
+    <div class="row">
+        <ul id="vendor-tag-list">
+            <div class="tag-separator"></div>
+            <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag]=tag>
+            </app-vendor-tag>
+        </ul>
+    </div>
+    <div class="row-header">Hours of Operation</div>
+    <div class="row">
+        <ul id="vendor-ops-list">
+            <app-vendor-operations *ngFor="let item of this.operationItems" [op]=item></app-vendor-operations>
+        </ul>
+    </div>
+    <div class="row-header" (mouseenter)="this.addMenu = true" (mouseleave)="this.addMenu = false">Menus <span *ngIf="this.addMenu" (click)="this.createNewMenu = !this.createNewMenu"><i class="material-icons">add_circle</i></span></div>
+    <div class="menu-form" *ngIf="this.createNewMenu">
+        <input type="text" name="menuName" placeholder="Menu Name" [(ngModel)]="newMenu.description">
+        <div class="add-button" (click)="createMenu()">Add</div>
+    </div>
+    <div id="menus">
+        <ul id="menu-list">
+            <app-menu *ngFor="let menu of this.menus" [menu]=menu></app-menu>
+        </ul>
+    </div>
+</div>

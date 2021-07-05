@@ -20,8 +20,10 @@ export class VendorCardComponent implements OnInit {
 
   ngOnInit() {
     let user = window.localStorage.getItem('user');
-    this.userId = user.substring(0, user.indexOf(':'));
-    this.getFavorite();
+    if(user !== null) {
+      this.userId = user.substring(0, user.indexOf(':'));
+      this.getFavorite();
+    }
   }
 
   toggleFavorite() {

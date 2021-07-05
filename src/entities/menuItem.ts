@@ -5,11 +5,10 @@ export class MenuItem {
     description: String;
     price: number;
     calories: number;
-    ingredients: String;
     remarks: String;
-    isVegan: boolean;
-    isVegetarian: boolean;
-    isGlutenFree: boolean;
-    isDairyFree: boolean;
+    vegan: boolean;
+    vegetarian: boolean;
+    glutenFree: boolean;
+    dairyFree: boolean;
     containsNuts: boolean;
 }

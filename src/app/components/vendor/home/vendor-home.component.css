@@ -1,8 +1,7 @@
 #home-component {
-    margin-top: 60px;
+    padding-top: 60px;
     margin-left: 0;
     margin-right: 0;
-    padding: 0;
     display: flex;
     flex-direction: row;
     flex-flow: nowrap;
@@ -24,7 +23,6 @@
 }
 
 #vendor-page {
-    border-right: 1px solid black;
     color: black;
     height: 93.8vh;
     display: flex;
@@ -98,6 +96,7 @@ img {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 5rem;
 }
 
 #vendor-ops-list {
@@ -106,8 +105,8 @@ img {
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
+    width: 100%;
     margin-top: 2rem;
-    width: 80%;
 }
 
 app-vendor-operations {
@@ -125,25 +124,12 @@ app-vendor-operations {
     color: black;
 }
 
-#menus {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5rem;
-}
-
-#vendor-menu-list {
-    margin-top: 2rem;
-    width: 100%;
-}
-
-#buttons {
+.buttons {
     display: flex;
     flex-direction: row;
     flex-flow: row-reverse;
-    width: 100%;
+    width: 80%;
+    margin-top: 2rem;
 }
 
 .btn {
@@ -151,27 +137,34 @@ app-vendor-operations {
     margin-left: 0.5rem;
 }
 
-#left-footer {
-    position: absolute;
-    bottom: 0;
-    background-color: green;
-    color: white;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    text-align: center;
+.row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }
 
-#left-footer:hover {
-    position: absolute;
-    bottom: 0;
-    background-color: rgba(0, 128, 0, 0.705);
-    color: white;
+.row-header {
     font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    text-decoration: underline;
+    font-size: 1.2rem;
     width: 100%;
-    text-align: center;
-    cursor: pointer;
+    margin-top: 3rem;
+}
+
+.menu-item-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    width: 100%;
+    padding-left: 0;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#updateProfile {
+    background-color: #007bff;
+    color: white;
 }

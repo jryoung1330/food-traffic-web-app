@@ -1,3 +1,5 @@
+import { Time } from "./time";
+
 export class OperationItem {
     id: number;
     operationId: number;
@@ -10,4 +12,6 @@ export class OperationItem {
     openDateTime: Date;
     closeDateTime: Date;
     timeLeft: number;
+    open: Time;
+    close: Time;
 }

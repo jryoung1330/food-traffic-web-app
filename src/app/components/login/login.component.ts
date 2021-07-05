@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../customer/navbar/navbar.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',

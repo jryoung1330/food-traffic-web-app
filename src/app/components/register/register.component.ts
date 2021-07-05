@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
 import { Vendor } from 'src/entities/vendor';
 import { Location } from 'src/entities/location';
-import { HttpService } from 'src/app/services/vendor.service';
+import { VendorService } from 'src/app/services/vendor.service';
 import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   newUser: User;
   tags: Array<Tag>;
 
-  constructor(private httpService: HttpService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
+  constructor(private httpService: VendorService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
 
   ngOnInit() {
     this.routingService.setActiveIcon();
@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
           this.moveForward();
           this.initializeVendor();
         } else if (this.user.id > 0 && !this.isEmployee) {
+          window.localStorage.setItem('user', user.id + ':' + user.username);
           this.router.navigateByUrl('/home');
         }
       });
@@ -81,7 +82,9 @@ export class RegisterComponent implements OnInit {
       .subscribe((vendor) => {
         this.vendorToAdd = vendor;
         if (this.vendorToAdd.id > 0) {
-          this.router.navigateByUrl('/home');
+          window.localStorage.setItem('user', this.user.id + ':' + this.user.username);
+          window.localStorage.setItem('vendor', vendor.id.toString());
+          this.router.navigateByUrl('/vendors/' + vendor.id + '/home');
         }
         (error) => {
           console.log(error);

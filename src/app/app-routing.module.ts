@@ -5,7 +5,8 @@ import { UserComponent } from './components/customer/user/user.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FavoritesComponent } from './components/customer/favorites/favorites.component';
 import { LoginComponent } from './components/login/login.component';
-import { VendorHomeComponent } from './components/vendor/vendor-home/vendor-home.component';
+import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
+import { VendorProfileComponent } from './components/vendor/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'vendors/:id/home',
     component:VendorHomeComponent
+  },
+  {
+    path: 'vendors/:id',
+    component:VendorProfileComponent
   }
 ];
 

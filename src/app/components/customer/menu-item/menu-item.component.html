@@ -1,6 +1,8 @@
 <div class="menu-item-container">
-    <div class="menu-item-image">
-        <div class="menu-item-price">${{this.item.price}}</div>
+    <div class="menu-item-image" (click)="openDialog()">
+        <div *ngIf="this.item.id !== undefined" class="menu-item-price">${{this.item.price.toFixed(2)}}</div>
+        <div *ngIf="this.item.id === undefined" class="add-menu-item"><i class="material-icons">add_circle</i></div>
     </div>
-    <div class="menu-item-name">{{this.item.name}}</div>
+    <div *ngIf="this.item.id !== undefined" class="menu-item-name">{{this.item.name}}</div>
+    <div *ngIf="this.item.id === undefined" class="menu-item-name">New Menu Item</div>
 </div>

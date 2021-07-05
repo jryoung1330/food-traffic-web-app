@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { throwError } from 'rxjs';
+import { VendorService } from 'src/app/services/vendor.service';
+import { Error } from 'src/entities/error';
 import { OperationItem } from 'src/entities/operationItem';
+import { Time } from 'src/entities/time';
 
 @Component({
   selector: 'app-vendor-operations',
@@ -9,12 +14,11 @@ import { OperationItem } from 'src/entities/operationItem';
 export class VendorOperationsComponent implements OnInit {
 
   @Input('op') op: OperationItem;
-  editText:boolean = false;
+  editText: boolean = false;
 
-  constructor() { }
+  constructor(public dialog: MatDialog, private vendorService: VendorService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   capitalCase(str: String) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -33,11 +37,69 @@ export class VendorOperationsComponent implements OnInit {
     return num >= 12 ? 'PM' : 'AM';
   }
 
-  getTime(date: Date) {
-    const hours = this.convert12Hour(date.getHours());
-    const minutes = this.pad(date.getMinutes().toString(), 2);
-    return hours + ':' + minutes + ' ' + this.getTimeOfDay(date.getHours());
+  convertTime(time: String) {
+    const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
+    const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
+    return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
   }
 
-  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(OperationEditDialog, {
+      width: '25rem',
+      data: this.op
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined && this.validateTime(result.open) && this.validateTime(result.close)) {
+        result.openTime = result.open.toString();
+        result.closeTime = result.close.toString();
+        this.vendorService.updateOperationItem(window.location.pathname, this.op).subscribe((payload) => {
+          console.log(payload);
+          this.op = payload;
+        });
+      }
+    });
+  }
+
+  // TODO: set up form validation
+  validateTime(time: Time): boolean {
+    let hours = Number.parseInt(time.hours);
+    let minutes = Number.parseInt(time.minutes);
+
+    if(hours < 0 || hours > 12) {
+      console.log('Invalid hours');
+      return false;
+    }
+
+    if(minutes < 0 || minutes > 59) {
+      console.log("Invalid minutes");
+      return false;
+    }
+
+    return true;
+  }
+}
+
+@Component({
+  selector: 'operation-edit-dialog',
+  templateUrl: 'operation-edit-dialog.html',
+  styleUrls: ['./vendor-operations.component.css']
+})
+export class OperationEditDialog {
+  constructor(
+    public dialogRef: MatDialogRef<OperationEditDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: OperationItem) {
+      this.data.open = new Time();
+      this.data.open.splitTime(this.data.openTime);
+      this.data.close = new Time();
+      this.data.close.splitTime(this.data.closeTime);
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close(undefined);
+  }
+
+  capitalCase(str: String) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
 }

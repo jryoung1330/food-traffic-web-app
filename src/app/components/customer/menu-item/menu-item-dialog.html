@@ -1,0 +1,42 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div [mat-dialog-close]="this.data">Save</div>
+    </div>
+    <div class="menu-item-image-lg"></div>
+    <div class="dialog-row">
+        <input class="fill-row" type="text" maxlength="100" [(ngModel)]="this.data.name" placeholder="Name">
+    </div>
+    <div class="dialog-row">
+        <textarea class="fill-row" maxlength="300" rows="3" [(ngModel)]="this.data.description" placeholder="Description"></textarea>
+    </div>
+    <div class="dialog-row">
+        <input class="input-row" type="number" [(ngModel)]="this.data.price" placeholder="Price">
+        <input class="input-row" type="number" [(ngModel)]="this.data.calories" placeholder="Calories">
+    </div>
+    <div class="dialog-row">
+        <div class="checkbox-input">
+            <label for="closed">Vegan</label>
+            <input type="checkbox" [checked]="this.data.vegan" name="Vegan" (change)="this.data.vegan = !this.data.vegan">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Vegetarian</label>
+            <input type="checkbox" [checked]="this.data.vegetarian" name="Vegetarian" (change)="this.data.vegetarian = !this.data.vegetarian">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Gluten Free</label>
+            <input type="checkbox" [checked]="this.data.glutenFree" name="Gluten Free" (change)="this.data.glutenFree = !this.data.glutenFree">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Dairy Free</label>
+            <input type="checkbox" [checked]="this.data.dairyFree" name="Dairy Free" (change)="this.data.dairyFree = !this.data.dairyFree">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Contains Nuts</label>
+            <input type="checkbox" [checked]="this.data.containsNuts" name="Contains Nuts" (change)="this.data.containsNuts = !this.data.containsNuts">
+        </div>
+    </div>
+</div>

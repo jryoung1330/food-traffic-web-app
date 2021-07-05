@@ -8,6 +8,8 @@ import { HandleError, HttpErrorHandler } from './http-error-handler.service';
 import { Tag } from 'src/entities/tag';
 import { Operation } from 'src/entities/operation';
 import { Menu } from 'src/entities/menu';
+import { OperationItem } from 'src/entities/operationItem';
+import { MenuItem } from 'src/entities/menuItem';
 
 const header = {
   headers: new HttpHeaders({
@@ -21,12 +23,16 @@ const header = {
   providedIn: 'root'
 })
 
-export class HttpService {
+export class VendorService {
+  
   private locationData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public location$ = this.locationData.asObservable();
 
   private vendorData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public vendor$ = this.vendorData.asObservable();
+
+  private MenuData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public menu$ = this.MenuData.asObservable();
 
   private handleError: HandleError;
 
@@ -67,11 +73,38 @@ export class HttpService {
     return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
   }
 
-  public getHoursOfOperation(id: number): Observable<Operation> {
-    return this.httpClient.get<Operation>('http://localhost:8888/vendors/' + id + "/operations?search=3-day");
+  public getHoursOfOperation(id: number, searchKey: string): Observable<Operation> {
+    return this.httpClient.get<Operation>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {
     return this.httpClient.get<Array<Menu>>('http://localhost:8888/vendors/' + id + "/menus");
   }
+
+  public getMenusForSub(id: number) {
+    this.httpClient.get<Array<Menu>>('http://localhost:8888/vendors/' + id + "/menus")
+      .subscribe((payload) => this.MenuData.next(payload));
+  }
+
+  public updateOperationItem(path: string, operationItem: OperationItem): Observable<OperationItem> {
+    return this.httpClient.put<OperationItem>('http://localhost:8888' + path + "/operations/" + operationItem.operationId + "/operation-items/" + operationItem.id, 
+      JSON.stringify(operationItem), header);
+  }
+
+  public createMenu(path: string, menu: Menu) {
+    return this.httpClient.post<Menu>('http://localhost:8888' + path + '/menus', JSON.stringify(menu), header);
+  }
+
+  public createMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.post<MenuItem>('http://localhost:8888' + path + '/menus/' + menuItem.menuId + '/menu-items', JSON.stringify(menuItem), header);
+  }
+
+  public updateMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.put<MenuItem>('http://localhost:8888' + path + '/menus/' + menuItem.menuId + '/menu-items/' + menuItem.id, JSON.stringify(menuItem), header);
+  }
+
+  public getTopMenuItems(id: number): Observable<Array<MenuItem>> {
+    return this.httpClient.get<Array<MenuItem>>('http://localhost:8888/vendors/' + id + '/menus/menu-items/top-sellers');
+  }
+
 }

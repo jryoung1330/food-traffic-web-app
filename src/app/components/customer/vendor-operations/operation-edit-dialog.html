@@ -1,0 +1,31 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div [mat-dialog-close]="this.data">Save</div>
+    </div>
+    <i class="material-icons calendar">calendar_today</i>
+    <div mat-dialog-title>{{this.capitalCase(this.data.dayOfWeek)}}</div>
+    <div class="dialog-row">
+        <label for="open">Open:</label>
+        <input type="number" [(ngModel)]="this.data.open.hours" [disabled]="this.data.closed">
+        <div>:</div>
+        <input type="number" [(ngModel)]="this.data.open.minutes" [disabled]="this.data.closed">
+        <select [(ngModel)]="this.data.open.timeOfDay" [disabled]="this.data.closed">
+            <option>AM</option>
+            <option>PM</option>
+        </select>
+    </div>
+    <div class="dialog-row">
+        <label for="close">Close:</label>
+        <input type="number" [(ngModel)]="this.data.close.hours" [disabled]="this.data.closed">
+        <div>:</div>
+        <input type="number" [(ngModel)]="this.data.close.minutes" [disabled]="this.data.closed">
+        <select [(ngModel)]="this.data.close.timeOfDay" [disabled]="this.data.closed">
+            <option>AM</option>
+            <option>PM</option>
+        </select>
+    </div>
+    <div class="dialog-row-sm">
+        <label for="closed">Closed?</label>
+        <input type="checkbox" [(ngModel)]="this.data.closed" name="closed">
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Vendor } from 'src/entities/vendor';
 import { RoutingService } from 'src/app/services/routing.service';
-import { HttpService } from 'src/app/services/vendor.service';
+import { VendorService } from 'src/app/services/vendor.service';
 import { slideInLeftOnEnterAnimation, slideOutLeftOnLeaveAnimation } from 'angular-animations';
 import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   operationItems: OperationItem[];
   menus: Array<Menu>;
 
-  constructor(private http: HttpClient, private httpService: HttpService, private routingService: RoutingService) { }
+  constructor(private http: HttpClient, private vendorService: VendorService, private routingService: RoutingService) { }
 
   ngOnInit() {
     this.getLocation();
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
 
   getHoursOfOperation(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
-      this.httpService.getHoursOfOperation(vendor.id).subscribe((payload: Operation) => {
+      this.vendorService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: Operation) => {
         if(payload !== null) {
           this.operationItems = this.convertOperations(payload.operationItems);
         } else {
@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
 
   getMenus(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
-      this.httpService.getMenus(vendor.id).subscribe((payload: Array<Menu>) => {
+      this.vendorService.getMenus(vendor.id).subscribe((payload: Array<Menu>) => {
         if(payload !== null) {
           this.menus = payload;
         } else {
