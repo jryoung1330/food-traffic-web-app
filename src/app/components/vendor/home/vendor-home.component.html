@@ -12,8 +12,8 @@
         <div class="row">
             <div class="row-header">Hours of Operation</div>
             <ul id="vendor-ops-list">
-                <app-vendor-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}"
-                    *ngFor="let item of this.operationItems" [op]=item></app-vendor-operations>
+                <app-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}"
+                    *ngFor="let item of this.operationItems" [op]=item></app-operations>
             </ul>
         </div>
         <div class="row">

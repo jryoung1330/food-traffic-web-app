@@ -18,13 +18,15 @@ import { VendorTagComponent } from './components/customer/vendor-tag/vendor-tag.
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
 import { VendorTagCardComponent } from './components/customer/vendor-tag-card/vendor-tag-card.component';
-import { OperationEditDialog, VendorOperationsComponent } from './components/customer/vendor-operations/vendor-operations.component';
+import { VendorOperationsComponent } from './components/customer/vendor-operations/vendor-operations.component';
 import { VendorMenuComponent } from './components/customer/vendor-menu/vendor-menu.component';
-import { MenuItemComponent, MenuItemDialog } from './components/customer/menu-item/menu-item.component';
+import { MenuItemComponent, MenuItemDialog } from './components/vendor/menu/menu-item/menu-item.component';
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MenuComponent } from './components/vendor/menu/menu.component';
+import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
+import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MenuComponent } from './components/vendor/menu/menu.component';
     VendorProfileComponent,
     OperationEditDialog,
     MenuItemDialog,
-    MenuComponent
+    MenuComponent,
+    VendorMenuItemComponent,
+    OperationsComponent
   ],
   imports: [
     BrowserModule,

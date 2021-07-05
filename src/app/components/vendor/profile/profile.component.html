@@ -13,7 +13,7 @@
     <div class="row-header">Hours of Operation</div>
     <div class="row">
         <ul id="vendor-ops-list">
-            <app-vendor-operations *ngFor="let item of this.operationItems" [op]=item></app-vendor-operations>
+            <app-operations *ngFor="let item of this.operationItems" [op]=item></app-operations>
         </ul>
     </div>
     <div class="row-header" (mouseenter)="this.addMenu = true" (mouseleave)="this.addMenu = false">Menus <span *ngIf="this.addMenu" (click)="this.createNewMenu = !this.createNewMenu"><i class="material-icons">add_circle</i></span></div>
