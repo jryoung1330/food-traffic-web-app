@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Vendor } from 'src/entities/vendor';
-import { RoutingService } from 'src/app/services/routing.service';
-import { VendorService } from 'src/app/services/vendor.service';
+import { Component, OnInit } from '@angular/core';
 import { slideInLeftOnEnterAnimation, slideOutLeftOnLeaveAnimation } from 'angular-animations';
+import { VendorService } from 'src/app/services/vendor.service';
+import { Menu } from 'src/entities/menu';
 import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
-import { Menu } from 'src/entities/menu';
+import { Vendor } from 'src/entities/vendor';
 
 const header = {
   headers: new HttpHeaders({
@@ -40,7 +39,7 @@ export class HomeComponent implements OnInit {
   operationItems: OperationItem[];
   menus: Array<Menu>;
 
-  constructor(private http: HttpClient, private vendorService: VendorService, private routingService: RoutingService) { }
+  constructor(private http: HttpClient, private vendorService: VendorService) { }
 
   ngOnInit() {
     this.getLocation();

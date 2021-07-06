@@ -1,0 +1,34 @@
+#landing-container {
+    height: 100vh;
+}
+
+#landing-top {
+    height: 100%;
+    background-color: #fd7d149c;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 8rem;
+}
+
+#subtitle {
+    font-size: 1.5rem;
+}
+
+#button-group {
+    width: 10%;
+    margin-top: 5rem;
+}
+
+.btn {
+    color: #fd7d14;
+    background-color: white;
+    font-weight: bold;
+    border-radius: 1rem;
+}

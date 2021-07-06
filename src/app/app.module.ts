@@ -27,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MenuComponent } from './components/vendor/menu/menu.component';
 import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
 import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { OperationEditDialog, OperationsComponent } from './components/vendor/op
     MenuItemDialog,
     MenuComponent,
     VendorMenuItemComponent,
-    OperationsComponent
+    OperationsComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

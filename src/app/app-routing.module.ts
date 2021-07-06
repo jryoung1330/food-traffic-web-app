@@ -7,20 +7,20 @@ import { FavoritesComponent } from './components/customer/favorites/favorites.co
 import { LoginComponent } from './components/login/login.component';
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    component:LandingComponent
   },
   {
     path: 'login',
     component:LoginComponent
   },
   {
-      path: 'home', 
-      component:HomeComponent        
+    path: 'home', 
+    component:HomeComponent        
   },
   {
     path: 'user',
