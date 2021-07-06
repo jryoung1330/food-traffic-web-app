@@ -1,0 +1,26 @@
+<div class="col-12" id="home-component">
+    <div id="left-side" class="col-4">
+        <div id="map">SPACE RESERVED FOR THE MAP</div>
+    </div>
+    <div id="vendor-page" class="col-8">
+        <div class="buttons">
+            <div class="button-row">
+                <button id="acceptOrders" class="btn">Accept Orders</button>
+                <button id="updateProfile" class="btn" routerLink="/vendors/{{this.vendor.id}}">Update Profile</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-header">Hours of Operation</div>
+            <ul id="vendor-ops-list">
+                <app-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}"
+                    *ngFor="let item of this.operationItems" [op]=item></app-operations>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="row-header">Top Sellers</div>
+            <ul class="menu-item-list">
+                <app-menu-item *ngFor="let item of this.menuItems" [item]=item></app-menu-item>
+            </ul>
+        </div>
+    </div>
+</div>

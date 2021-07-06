@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoutingService } from 'src/app/services/routing.service';
-import { Vendor } from 'src/entity/vendor';
-import { Location } from 'src/entity/location';
-import { HttpService } from 'src/app/services/vendor.service';
-import { User } from 'src/entity/user';
+import { Vendor } from 'src/entities/vendor';
+import { Location } from 'src/entities/location';
+import { VendorService } from 'src/app/services/vendor.service';
+import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Tag } from 'src/entity/tag';
+import { Tag } from 'src/entities/tag';
 
 @Component({
   selector: 'app-register',
@@ -27,16 +27,15 @@ export class RegisterComponent implements OnInit {
   newUser: User;
   tags: Array<Tag>;
 
-  constructor(private httpService: HttpService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
+  constructor(private vendorService: VendorService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
 
   ngOnInit() {
     this.routingService.setActiveIcon();
     this.steps[0] = true;
-    this.httpService.location$.subscribe((data) => this.location = data);
-    this.httpService.vendor$.subscribe((data) => this.vendors = data);
-    // this.userService.user$.subscribe((data) => this.newUser = data);
-    this.httpService.fetchLocation();
-    this.httpService.getAllTags().subscribe((tags) => this.tags = tags);
+    this.vendorService.location$.subscribe((data) => this.location = data);
+    this.vendorService.vendor$.subscribe((data) => this.vendors = data);
+    this.vendorService.fetchLocation();
+    this.vendorService.getAllTags().subscribe((tags) => this.tags = tags);
   }
 
   moveForward() {
@@ -67,6 +66,7 @@ export class RegisterComponent implements OnInit {
           this.moveForward();
           this.initializeVendor();
         } else if (this.user.id > 0 && !this.isEmployee) {
+          window.localStorage.setItem('user', user.id + ':' + user.username);
           this.router.navigateByUrl('/home');
         }
       });
@@ -77,11 +77,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitVendor() {
-    this.httpService.createVendor(this.vendorToAdd)
+    this.vendorService.createVendor(this.vendorToAdd)
       .subscribe((vendor) => {
         this.vendorToAdd = vendor;
         if (this.vendorToAdd.id > 0) {
-          this.router.navigateByUrl('/home');
+          window.localStorage.setItem('user', this.user.id + ':' + this.user.username);
+          window.localStorage.setItem('vendor', vendor.id.toString());
+          this.router.navigateByUrl('/vendors/' + vendor.id + '/home');
         }
         (error) => {
           console.log(error);

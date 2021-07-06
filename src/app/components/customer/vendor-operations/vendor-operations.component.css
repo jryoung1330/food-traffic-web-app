@@ -1,0 +1,35 @@
+.op-container {
+    padding: 0.5rem;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    height: inherit;
+    color: inherit;
+}
+
+.op-header {
+    padding: 0.2rem;
+    color: inherit;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.op-body {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: inherit;
+    font-weight: bold;
+}
+
+.op-time {
+    width: 100%;
+}
+
+.calendar {
+    font-size: 3rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}

@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/entity/user';
-import { UserService } from 'src/app/services/user.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/entities/user';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +27,13 @@ export class LoginComponent implements OnInit {
       if(payload != undefined && payload != null) {
         this.loggedInUser = payload;
         window.localStorage.setItem('user', payload.id + ':' + payload.username);
-        if(this.loggedInUser.id > 0) this.router.navigateByUrl('/home');
+        let vendorId = null;
+        if(payload.employee !== undefined && payload.employee !== null && payload.employee.admin) {
+          vendorId = payload.employee.vendorId.toString();
+          window.localStorage.setItem('vendor', vendorId);
+        }
+        let url = vendorId !== null ? '/vendors/' + vendorId + '/home' : '/home';
+        this.router.navigateByUrl(url);
       }
     });
   }
