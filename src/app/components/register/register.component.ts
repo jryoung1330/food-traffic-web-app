@@ -27,16 +27,15 @@ export class RegisterComponent implements OnInit {
   newUser: User;
   tags: Array<Tag>;
 
-  constructor(private httpService: VendorService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
+  constructor(private vendorService: VendorService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
 
   ngOnInit() {
     this.routingService.setActiveIcon();
     this.steps[0] = true;
-    this.httpService.location$.subscribe((data) => this.location = data);
-    this.httpService.vendor$.subscribe((data) => this.vendors = data);
-    // this.userService.user$.subscribe((data) => this.newUser = data);
-    this.httpService.fetchLocation();
-    this.httpService.getAllTags().subscribe((tags) => this.tags = tags);
+    this.vendorService.location$.subscribe((data) => this.location = data);
+    this.vendorService.vendor$.subscribe((data) => this.vendors = data);
+    this.vendorService.fetchLocation();
+    this.vendorService.getAllTags().subscribe((tags) => this.tags = tags);
   }
 
   moveForward() {
@@ -78,7 +77,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmitVendor() {
-    this.httpService.createVendor(this.vendorToAdd)
+    this.vendorService.createVendor(this.vendorToAdd)
       .subscribe((vendor) => {
         this.vendorToAdd = vendor;
         if (this.vendorToAdd.id > 0) {

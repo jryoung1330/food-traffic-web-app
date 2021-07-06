@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'src/entities/user';
-import { UserService } from 'src/app/services/user.service';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavbarComponent } from '../navbar/navbar.component';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/entities/user';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
   loginUser() {
     let credentials = btoa(this.user.username + ':' + this.user.passwordHash);
     this.userService.loginUser(this.user, credentials).subscribe((payload : User) => {
-      console.log(payload);
       if(payload != undefined && payload != null) {
         this.loggedInUser = payload;
         window.localStorage.setItem('user', payload.id + ':' + payload.username);

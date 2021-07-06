@@ -78,13 +78,6 @@ export class VendorProfileComponent implements OnInit {
   getMenus(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
       this.vendorService.getMenusForSub(vendor.id);
-      // .subscribe((payload) => {
-      //   if(payload === undefined || payload === null || payload.length === 0) {
-      //     this.menus = [];
-      //   } else {
-      //     this.menus = payload;
-      //   }
-      // });
     } else {
       this.menus = [];
     }

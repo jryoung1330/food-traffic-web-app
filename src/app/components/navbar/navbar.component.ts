@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   isVendor: boolean;
   vendorId: string;
 
-  constructor(private userService: UserService, private httpService: VendorService, private router: Router) {
+  constructor(private userService: UserService, private vendorService: VendorService, private router: Router) {
     this.hRouter = router;
   }
 
@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getVendorName() {
-    this.httpService.getVendor(window.localStorage.getItem('vendor'))
+    this.vendorService.getVendor(window.localStorage.getItem('vendor'))
       .subscribe((payload) => {
         if(payload !== undefined && payload !== null) {
           this.username = payload.displayName;
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     let user = window.localStorage.getItem('user');
     this.userService.logoutUser(user.substring(0, user.indexOf(':')), this.router)
-      .subscribe((payload) => {
+      .subscribe(() => {
         window.localStorage.removeItem('user');
         window.localStorage.removeItem('vendor');
         this.username = null;
