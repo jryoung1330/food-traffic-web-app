@@ -1,5 +1,9 @@
 <nav class="navbar fixed-top navbar-expand-lg bg-white border-bottom box-shadow">
-  <div id="title">Food Traffic <div id="title-user" *ngIf="username != null">{{this.username}}</div></div>
+  <div id="title" routerLink="/"> 
+    <div id="title-logo" *ngIf="username == null">T</div>
+    FOOD TRAFFIC
+    <div id="title-user" *ngIf="username != null">{{username}}</div>
+  </div>
   <div *ngIf="!('/login' === hRouter.url || '/register' === hRouter.url) && !isVendor">
     <button class="btn">
       <a routerLink="/home"><i class="material-icons">map</i></a>
@@ -19,16 +23,16 @@
   </div>
   <div *ngIf="!('/login' === hRouter.url || '/register' === hRouter.url) && isVendor">
     <button class="btn">
-      <a routerLink="vendors/{{this.vendorId}}/home"><i class="material-icons">home</i></a>
+      <a routerLink="/vendors/{{vendorId}}/home"><i class="material-icons">home</i></a>
     </button>
     <button class="btn">
-      <a routerLink="vendors/orders"><i class="material-icons">store</i></a>
+      <a routerLink="/vendors/orders"><i class="material-icons">store</i></a>
     </button>
     <button class="btn">
       <div id="account-circle">
-        <i routerLink="/vendor" class="material-icons">local_shipping</i>
+        <i routerLink="#" class="material-icons">local_shipping</i>
         <div class="dropdown-content">
-          <a routerLink="vendors/{{this.vendorId}}">Edit Profile</a>
+          <a routerLink="/vendors/{{vendorId}}">Edit Profile</a>
           <a routerLink="/user">Account Settings</a>
           <a (click)="logout()">Logout</a>
         </div>

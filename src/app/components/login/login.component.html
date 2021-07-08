@@ -1,9 +1,9 @@
 <!-- User Login Form -->
-<div class="flexcon component-container">
-  <div class="flexcon col-3">
+<div id="login-container" class="flexcon component-container">
+  <div id="login-form" class="flexcon col-3">
     <form>
       <fieldset>
-        <legend>Sign In:</legend>
+        <legend>Log In:</legend>
         <div class="form-row">
             <div class="form-group col-md-12">
               <input type="text" [(ngModel)]="user.username" name="username" class="form-control" id="username" placeholder="Username">
@@ -12,10 +12,10 @@
               <input type="password" [(ngModel)]="user.passwordHash" name="passwordHash" class="form-control" id="password" placeholder="Password">
             </div>
             <div id="button-div" class="form-group col-md-12">
-              <button class="btn btn-primary" (click)="loginUser()">Sign In</button>
+              <button class="btn-primary" (click)="loginUser()">Log In</button>
             </div>
             <div id="button-div" class="form-group col-md-12">
-              <a routerLink="/register">Register here!</a>
+              <a routerLink="/register">Sign Up!</a>
             </div>
         </div>
       </fieldset>

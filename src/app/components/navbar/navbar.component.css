@@ -1,10 +1,11 @@
 #navbarNav {
     height: 58px;
-    padding: 10px;
+    padding: 1rem;
 }
 
 button>a>i, button>div>i {
     font-family: 'Material Icons';
+    font-size: 1.8rem;
     color: #fd7e14;
 }
 
@@ -14,7 +15,7 @@ button>a>i:hover, button>div>i:hover {
 
 .text-link {
     font-weight: bold;
-    padding: 10px;
+    padding: 1rem;
     color: #fd7e14;
 }
 
@@ -29,8 +30,8 @@ nav {
 
 button {
     background-color: white;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 #navbar-left-container {
@@ -39,20 +40,34 @@ button {
 }
 
 #title {
-    padding: 10px;
+    padding: 0.5rem;
     color: #fd7d14;
     font-weight: bold;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 #title-user {
-    margin-left: 10px;
+    margin-left: 0.5rem;
     background-color: #fd7d14;
     color: white;
-    border-radius: 20px;
-    padding-right: 10px;
-    padding-left: 10px;
+    border-radius: 1.2rem;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+}
+
+#title-logo {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 0.2rem;
+    background-color: #fd7d14;
+    margin-right: 0.5rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 }
 
 /* Dropdown Content (Hidden by Default) */

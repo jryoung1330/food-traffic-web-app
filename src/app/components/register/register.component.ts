@@ -58,8 +58,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    this.userService.postNewUser(this.user, btoa(this.user.username + ':' + this.user.passwordHash))
+  onSubmit(canMove: boolean) {
+    if(canMove) {
+      this.userService.postNewUser(this.user, btoa(this.user.username + ':' + this.user.passwordHash))
       .subscribe(user => {
         this.user = user;
         if(this.user.id > 0 && this.isEmployee) {
@@ -70,10 +71,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigateByUrl('/home');
         }
       });
-  }
-
-  continue() {
-    this.moveForward();
+    }
   }
 
   onSubmitVendor() {
