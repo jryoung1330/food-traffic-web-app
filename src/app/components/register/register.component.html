@@ -1,18 +1,19 @@
-<div id="user-type" class="col-12" *ngIf="steps[0]" (click)="moveForward()">
-  <div class="col-12"></div>
-  <div class="col-2 icon-holder" (click)="setEmployeeFlag(true)">
-    <i class="material-icons">directions_bus</i>
-    <p>Owner/Employee</p>
-  </div>
-  <div id="middle-section" class="col-12"></div>
-  <div class="col-2 icon-holder" (click)="setEmployeeFlag(false)">
-      <i class="material-icons">face</i>
-      <p>General User</p>
+<div id="user-type" class="component-container flexcon-around" *ngIf="steps[0]">
+  <div id="icon-container" class="flexcon-around">
+    <div class="icon-holder" (click)="setEmployeeFlag(true)">
+      <i class="material-icons">lunch_dining</i>
+      <div>Vendor</div>
+    </div>
+    <div class="icon-holder" (click)="setEmployeeFlag(false)">
+      <i class="material-icons">person</i>
+      <div>Customer</div>
+    </div>
   </div>
 </div>
 
 <!-- User Registration Form -->
-<div class="container col-4 form-reg" *ngIf="steps[1]">
+<div class="form-container" *ngIf="steps[1]">
+  <i class="material-icons back" (click)="moveBack()">arrow_left</i>
   <form>
     <fieldset>
       <legend>User Registration:</legend>
@@ -23,73 +24,69 @@
         <div class="form-group col-md-12">
           <input type="text" [(ngModel)]="user.lastName" name="lastName" class="form-control" id="lastName" placeholder="Last Name">
         </div>
-          <div class="form-group col-md-12">
-            <!-- <label for="username">Username</label> -->
-            <input type="text" [(ngModel)]="user.username" name="username" class="form-control" id="username" placeholder="Username">
-            <div class="warn" *ngIf="user.username == ''">
-                Oops! It seems this username is already taken!
-              </div>
-          </div>
-          <div class="form-group col-md-12">
-            <!-- <label for="email">Email</label> -->
-            <input type="email" [(ngModel)]="user.email" name="email" class="form-control" id="email" placeholder="Email">
-            <div class="warn" *ngIf="user.email == ''">
-                This email is already linked to an account
+        <div class="form-group col-md-12">
+          <input type="text" [(ngModel)]="user.username" name="username" class="form-control" id="username" placeholder="Username">
+          <div class="warn" *ngIf="user.username == ''">
+              Oops! It seems this username is already taken!
             </div>
+        </div>
+        <div class="form-group col-md-12">
+          <input type="email" [(ngModel)]="user.email" name="email" class="form-control" id="email" placeholder="Email">
+          <div class="warn" *ngIf="user.email == ''">
+              This email is already linked to an account
           </div>
-          <div class="form-group col-md-12">
-            <!-- <label for="passwordHash">passwordHash</label> -->
-            <input type="password" [(ngModel)]="user.passwordHash"  name="passwordHash" class="form-control" id="password" placeholder="Password">
-            <div class="warn" *ngIf="user.passwordHash == ''">
-                Password must be at least 8 characters (Letters, Numbers, '@', or '!')
-            </div>
+        </div>
+        <div class="form-group col-md-12">
+          <input type="password" [(ngModel)]="user.passwordHash"  name="passwordHash" class="form-control" id="password" placeholder="Password">
+          <div class="warn" *ngIf="user.passwordHash == ''">
+              Password must be at least 8 characters (Letters, Numbers, '@', or '!')
           </div>
-          <div class="form-group col-md-12">
+        </div>
+        <div class="form-group col-md-12">
+          <input type="password" [(ngModel)]="password2"  name="password2" class="form-control" id="Password2" placeholder="Re-enter Password">
+          <div class="err" *ngIf="password2 !== user.passwordHash">
+            Passwords do not match!
+          </div>
+        </div>
+        <!-- <div class="form-group col-md-12"> -->
             <!-- <label for="Password2">Re-enter Password</label> -->
-            <input type="password" [(ngModel)]="password2"  name="password2" class="form-control" id="Password2" placeholder="Re-enter Password">
-            <div class="warn" *ngIf="password2 !== user.passwordHash">
-              Passwords do not match!
-            </div>
+            <!-- <input type="file" (change)="onFileUpload($event)"  name="image" class="form-control" id="Image" placeholder="Browse"> -->
+            <!-- <input type="file" class="custom-file-input" (change)="onFileUpload($event)" name="file" id="CustomFile"> -->
+            <!-- <label class="custom-file-label" for="CustomFile">{{filename}}</label> -->
+          <!-- </div> -->
+          <div class="row flexcon-around">
+            <button [hidden]="true" [disabled]="password2 !== user.passwordHash" type="submit" class="btn btn-primary" (click)="onSubmit(user.passwordHash.length > 0 && password2 !== user.passwordHash)">Continue</button>
           </div>
-          <div class="form-group col-md-12">
-              <!-- <label for="Password2">Re-enter Password</label> -->
-              <!-- <input type="file" (change)="onFileUpload($event)"  name="image" class="form-control" id="Image" placeholder="Browse"> -->
-              <!-- <input type="file" class="custom-file-input" (change)="onFileUpload($event)" name="file" id="CustomFile"> -->
-              <!-- <label class="custom-file-label" for="CustomFile">{{filename}}</label> -->
-            </div>
-          <div id="button-div" class="form-group col-md-12">
-            <button id="back-button" type="button" class="btn" (click)="moveBack()">Back</button>
-            <button [disabled]="!(password2 == user.passwordHash)" type="submit" class="btn btn-primary" (click)="onSubmit()">Continue</button>
-          </div>
+        </div>
+      </fieldset>
+    </form>
+    <i class="material-icons next" (click)="onSubmit(user.passwordHash.length > 0 && password2 !== user.passwordHash)">arrow_right</i>
+</div>
+
+<!-- Employee Registration Form -->
+<div class="form-container" *ngIf="steps[2] && isEmployee">
+  <form>
+    <fieldset>
+      <legend>Employee Registration:</legend>
+      <div class="row flexcon">
+        <div class="flexcon-col row-sm">
+          <select class="custom-select">
+              <option value="0" selected>Select Your Vendor</option>
+              <option name="vendor-option" *ngFor="let vendor of vendors" value="{{vendor.id}}">{{vendor.displayName}}</option>
+          </select>
+          <div id="register-vendor" (click)="moveForward()">Register a new vendor</div>
+        </div>
+        <div class="flexcon-around row">
+          <button class="btn-primary">Finish</button>
+        </div>
       </div>
     </fieldset>
   </form>
 </div>
 
-<!-- Employee Registration Form -->
-<div class="container col-8 form-reg" *ngIf="steps[2] && isEmployee">
-    <form>
-      <fieldset>
-        <legend>Employee Registration:</legend>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-              <select class="custom-select">
-                  <option value="0" disabled>Select Your Vendor</option>
-                  <option name="vendor-option" *ngFor="let vendor of vendors;" value="{{vendor.id}}">{{vendor.displayName}}</option>
-              </select>
-              <a id="register-vendor" (click)="moveForward()">Register a new vendor</a>
-            </div>
-            <div id="button-div" class="form-group col-md-12">
-              <button id="back-button" class="btn">Back</button>
-              <button type="submit" class="btn btn-primary" (click)="continue()">Continue</button>
-            </div>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-
 <!-- Vendor Registration Form -->
-<div class="container col-8 form-reg" *ngIf="steps[3] && isEmployee">
+<div class="form-container wrap" *ngIf="steps[3] && isEmployee">
+  <i class="material-icons back" (click)="moveBack()">arrow_left</i>
   <form>
     <fieldset>
       <legend>Vendor Registration:</legend>
@@ -126,13 +123,13 @@
           <textarea type="text" rows="4" [(ngModel)]="vendorToAdd.locationDetails" name="locationDetails"
             class="form-control" id="locationDetails" placeholder="Location Details"></textarea>
         </div>
-        <div id="button-div" class="form-group col-md-12">
-          <button id="back-button" class="btn" (click)="moveBack()">Back</button>
-          <button type="submit" class="btn btn-primary" (click)="continue()">Continue</button>
+        <div>
+          <button [hidden]="true" type="submit" class="btn btn-primary" (click)="moveForward()">Continue</button>
         </div>
       </div>
     </fieldset>
   </form>
+  <i class="material-icons next" (click)="moveForward()">arrow_right</i>
 
   <div class="vendor-card-preview">
     <app-vendor-card class="list-group-item bg-white border-bottom box-shadow col-10" [vendor]=vendorToAdd>
@@ -140,17 +137,20 @@
   </div>
 </div>
 
-<div class="container col-8 form-reg" *ngIf="steps[4] && isEmployee">
-  <div id="title">Pick Up To 3 Tags To Help Customers Find Your Business:</div>
-      <div id="tag-container">
-        <ul>
-          <app-vendor-tag-card *ngFor="let tag of this.tags" [tag] = tag (click)="toggleTag(tag)"></app-vendor-tag-card>
-        </ul>
-      </div>
-      <div id="button-div" class="form-group col-md-12">
-        <button id="back-button" class="btn" (click)="moveBack()">Back</button>
-        <button type="submit" class="btn btn-primary" (click)="onSubmitVendor()">Continue</button>
-      </div>
+<div class="form-container wrap" *ngIf="steps[4] && isEmployee">
+  <i class="material-icons back" (click)="moveBack()">arrow_left</i>
+  <div id="tag-selection">
+    <div id="title">Pick Up To 3 Tags To Help Customers Find Your Business:</div>
+    <div id="tag-container">
+      <ul>
+        <app-vendor-tag-card *ngFor="let tag of this.tags" [tag] = tag (click)="toggleTag(tag)"></app-vendor-tag-card>
+      </ul>
+    </div>
+    <div>
+      <button [hidden]="true" type="submit" class="btn btn-primary" (click)="onSubmitVendor()">Finish</button>
+    </div>
+  </div>
+  <i class="material-icons next done" (click)="onSubmitVendor()">done</i>
 
   <div class="vendor-card-preview">
     <app-vendor-card class="list-group-item bg-white border-bottom box-shadow col-10" [vendor]=vendorToAdd>

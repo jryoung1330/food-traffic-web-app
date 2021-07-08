@@ -1,46 +1,60 @@
 #user-type {
-    display: flex;
-    flex-flow: wrap;
-    flex-direction: row;
-    justify-content: center;
-    height: 90vh;
-    margin: 0;
+    height: 80%;
+}
+
+#icon-container {
+    width: 60%;
 }
 
 .icon-holder {
     display: flex;
-    flex-flow: wrap;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    padding: 10px;
-    height: fit-content;
-    font-size: 24px;
+    align-items: center;
+    font-size: 2rem;
     font-weight: bold;
+    border-radius: 0.5rem;
+    color: #fd7e14;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    cursor: pointer;
+    width: 18rem;
+    height: 18rem;
+}
+
+.icon-holder:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 i {
     font-size: 5rem;
 }
 
-.icon-holder:hover {
-    color: #fd7e14;
-    cursor: pointer;
-}
-
-#back-button {
-    color: white;
-    background-color: red;
-    margin-right: 5px;
+form, #tag-selection {
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 0.5rem;
+    width: 40%;
 }
 
 #register-vendor {
     text-decoration: underline;
     color: blue;
     cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-.form-reg {
-    padding-top: 70px;
+.form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8rem;
+}
+
+.wrap {
+    flex-wrap: wrap;
 }
 
 #title {
@@ -48,8 +62,8 @@ i {
 }
 
 #tag-container {
-    margin-top: 40px;
-    margin-bottom: 30vh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 #tag-container>ul {
@@ -57,6 +71,7 @@ i {
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    padding: 0;
 }
 
 .vendor-card-preview {
@@ -64,8 +79,43 @@ i {
     flex-direction: row;
     justify-content: center;
     padding: 5rem;
+    width: 50%;
 }
 
-/* select.custom-select {
-    color: black;
-} */
+legend {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.row {
+    width: 100%;
+    margin: 0;
+}
+
+.row-sm {
+    width: 40%;
+    margin: 0;
+}
+
+.err {
+    color: red;
+}
+
+.done {
+    color: #28a745;
+}
+
+.next, .back {
+    font-size: 4rem;
+    padding: 0.2rem;
+    margin-right: 4rem;
+    margin-left: 4rem;
+}
+
+.next:hover, .back:hover {
+    font-size: 4rem;
+    padding: 0.2rem;
+    border-radius: 100%;
+    cursor: pointer;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}

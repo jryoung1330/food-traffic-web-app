@@ -11,25 +11,19 @@ import { VendorService } from 'src/app/services/vendor.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() username: string;
+  username: string;
   hRouter: Router;
   isVendor: boolean;
   vendorId: string;
 
   constructor(private userService: UserService, private vendorService: VendorService, private router: Router) {
     this.hRouter = router;
-  }
-
-  ngOnInit() {
     this.userService.user$.subscribe((payload: User) => {
-      if (payload === null || payload.id === undefined) {
-        this.vendorId = window.localStorage.getItem('vendor');
-        let user = window.localStorage.getItem('user');
-        this.isVendor = this.vendorId !== undefined ? true : false;
-        if (user !== null && !this.isVendor) {
-          this.username = user.substring(user.indexOf(':') + 1);
-        } else if (user !== null && this.isVendor) {
-          this.getVendorName();
+      if (payload !== undefined && payload !== null) {
+        if(payload.id === undefined) {
+          this.setUpComponentByStorage();
+        } else {
+          this.setUpComponentByPayload(payload);
         }
       } else {
         this.username = null;
@@ -37,8 +31,31 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  getVendorName() {
-    this.vendorService.getVendor(window.localStorage.getItem('vendor'))
+  ngOnInit() { }
+
+  setUpComponentByPayload(payload: User) {
+    if(payload.employee !== undefined && payload.employee.admin) {
+      this.isVendor = true;
+      this.vendorId = payload.employee.vendorId.toString();
+      this.getVendorName(payload.employee.vendorId.toString());
+    } else {
+      this.username = payload.username;
+    }
+  }
+
+  setUpComponentByStorage() {
+    this.vendorId = window.localStorage.getItem('vendor');
+    let user = window.localStorage.getItem('user');
+    this.isVendor = this.vendorId !== undefined;
+    if (user !== null && !this.isVendor) {
+      this.username = user.substring(user.indexOf(':') + 1);
+    } else if (user !== null && this.isVendor) {
+      this.getVendorName(window.localStorage.getItem('vendor'));
+    }
+  }
+
+  getVendorName(vendorId: string) {
+    this.vendorService.getVendor(vendorId)
       .subscribe((payload) => {
         if(payload !== undefined && payload !== null) {
           this.username = payload.displayName;

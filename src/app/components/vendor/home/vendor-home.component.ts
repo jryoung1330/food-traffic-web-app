@@ -21,7 +21,7 @@ export class VendorHomeComponent implements OnInit {
   operationItems: OperationItem[];
   menuItems: Array<MenuItem>;
 
-  constructor(private http: HttpClient, private vendorService: VendorService, private routingService: RoutingService) { }
+  constructor(private vendorService: VendorService) { }
 
   ngOnInit(): void {
     this.vendorService.getVendor(window.localStorage.getItem('vendor'))
