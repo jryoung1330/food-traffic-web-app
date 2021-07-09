@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   end: number;
   newMenuItem: MenuItem = new MenuItem();
 
-  constructor(public dialog: MatDialog, private vendorService: VendorService) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.menuItems = this.menu.menuItems ? this.menu.menuItems : [];

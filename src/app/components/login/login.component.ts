@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    if(window.localStorage.getItem('user') !== null && window.localStorage.getItem('user') !== 'undefined') {
+    if(window.localStorage.getItem('vendor') !== null && window.localStorage.getItem('vendor') !== 'undefined') {
+      this.router.navigateByUrl('/vendors/' + window.localStorage.getItem('vendor') + '/home');
+    } else if(window.localStorage.getItem('user') !== null && window.localStorage.getItem('user') !== 'undefined') {
       this.router.navigateByUrl('/home');
     }
   }

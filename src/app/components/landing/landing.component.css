@@ -4,6 +4,7 @@
 
 #landing-top {
     height: 100%;
+    width: 100%;
     background-color: #fd7d149c;
     display: flex;
     flex-flow: column;
@@ -22,7 +23,7 @@
 }
 
 #button-group {
-    width: 10%;
+    width: 12%;
     margin-top: 5rem;
 }
 

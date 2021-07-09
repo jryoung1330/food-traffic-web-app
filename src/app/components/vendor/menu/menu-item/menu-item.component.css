@@ -99,6 +99,7 @@
 
 .dialog-header>div {
     color: #fd7e14;
+    font-weight: bold;
 }
 
 .dialog-header>div:hover {
