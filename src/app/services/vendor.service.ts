@@ -78,11 +78,11 @@ export class VendorService {
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {
-    return this.httpClient.get<Array<Menu>>('http://localhost:8888/vendors/' + id + "/menus");
+    return this.httpClient.get<Array<Menu>>('http://localhost:8892/vendors/' + id + "/menus");
   }
 
   public getMenusForSub(id: number) {
-    this.httpClient.get<Array<Menu>>('http://localhost:8888/vendors/' + id + "/menus")
+    this.httpClient.get<Array<Menu>>('http://localhost:8892/vendors/' + id + "/menus")
       .subscribe((payload) => this.MenuData.next(payload));
   }
 
@@ -92,19 +92,23 @@ export class VendorService {
   }
 
   public createMenu(path: string, menu: Menu) {
-    return this.httpClient.post<Menu>('http://localhost:8888' + path + '/menus', JSON.stringify(menu), header);
+    return this.httpClient.post<Menu>('http://localhost:8892' + path + '/menus', JSON.stringify(menu), header);
   }
 
   public createMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
-    return this.httpClient.post<MenuItem>('http://localhost:8888' + path + '/menus/' + menuItem.menuId + '/menu-items', JSON.stringify(menuItem), header);
+    return this.httpClient.post<MenuItem>('http://localhost:8892' + path + '/menus/' + menuItem.menuId + '/menu-items', JSON.stringify(menuItem), header);
   }
 
   public updateMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
-    return this.httpClient.put<MenuItem>('http://localhost:8888' + path + '/menus/' + menuItem.menuId + '/menu-items/' + menuItem.id, JSON.stringify(menuItem), header);
+    return this.httpClient.put<MenuItem>('http://localhost:8892' + path + '/menus/' + menuItem.menuId + '/menu-items/' + menuItem.id, JSON.stringify(menuItem), header);
+  }
+
+  public deleteMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
+    return this.httpClient.delete<MenuItem>('http://localhost:8892' + path + '/menus/' + menuItem.menuId + '/menu-items/' + menuItem.id, header);
   }
 
   public getTopMenuItems(id: number): Observable<Array<MenuItem>> {
-    return this.httpClient.get<Array<MenuItem>>('http://localhost:8888/vendors/' + id + '/menus/menu-items/top-sellers');
+    return this.httpClient.get<Array<MenuItem>>('http://localhost:8892/vendors/' + id + '/menus/menu-items/top-sellers');
   }
 
 }

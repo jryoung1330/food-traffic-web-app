@@ -11,7 +11,7 @@ import { VendorService } from 'src/app/services/vendor.service';
 })
 export class NavbarComponent implements OnInit {
 
-  username: string;
+  displayName: string;
   hRouter: Router;
   isVendor: boolean;
   vendorId: string;
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
           this.setUpComponentByPayload(payload);
         }
       } else {
-        this.username = null;
+        this.displayName = null;
       }
     });
   }
@@ -37,28 +37,30 @@ export class NavbarComponent implements OnInit {
     if(payload.employee !== undefined && payload.employee.admin) {
       this.isVendor = true;
       this.vendorId = payload.employee.vendorId.toString();
-      this.getVendorName(payload.employee.vendorId.toString());
+      this.displayName = payload.firstName + " " + payload.lastName;
+      // this.getVendorName(payload.employee.vendorId.toString());
     } else {
-      this.username = payload.username;
+      this.displayName = payload.firstName + " " + payload.lastName;
     }
   }
 
   setUpComponentByStorage() {
     this.vendorId = window.localStorage.getItem('vendor');
-    let user = window.localStorage.getItem('user');
+    // let user = window.localStorage.getItem('user');
     this.isVendor = this.vendorId !== undefined;
-    if (user !== null && !this.isVendor) {
-      this.username = user.substring(user.indexOf(':') + 1);
-    } else if (user !== null && this.isVendor) {
-      this.getVendorName(window.localStorage.getItem('vendor'));
-    }
+    // if (user !== null && !this.isVendor) {
+    //   this.displayName = user.substring(user.indexOf(':') + 1);
+    // } else if (user !== null && this.isVendor) {
+    //   this.getVendorName(window.localStorage.getItem('vendor'));
+    // }
+    this.displayName = window.localStorage.getItem('userFullName');
   }
 
   getVendorName(vendorId: string) {
     this.vendorService.getVendor(vendorId)
       .subscribe((payload) => {
         if(payload !== undefined && payload !== null) {
-          this.username = payload.displayName;
+          this.displayName = payload.displayName;
         }
       });
   }
@@ -69,7 +71,7 @@ export class NavbarComponent implements OnInit {
       .subscribe(() => {
         window.localStorage.removeItem('user');
         window.localStorage.removeItem('vendor');
-        this.username = null;
+        this.displayName = null;
         this.router.navigateByUrl('/login');
       });
   }

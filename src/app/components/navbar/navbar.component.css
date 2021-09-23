@@ -6,21 +6,25 @@
 button>a>i, button>div>i {
     font-family: 'Material Icons';
     font-size: 1.8rem;
-    color: #fd7e14;
+    /* color: #fd7e14; */
+    color: white;
 }
 
 button>a>i:hover, button>div>i:hover {
-    color: #fd7d14b7;
+    /* color: #fd7d14b7; */
+    color: white;
 }
 
 .text-link {
     font-weight: bold;
     padding: 1rem;
-    color: #fd7e14;
+    /* color: #fd7e14; */
+    color: white;
 }
 
 .text-link:hover {
-    color: #fd7e14;
+    /* color: #fd7e14; */
+    color: white;
 }
 
 nav {
@@ -29,7 +33,8 @@ nav {
 }
 
 button {
-    background-color: white;
+    /* background-color: white; */
+    background-color: transparent;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
@@ -41,7 +46,8 @@ button {
 
 #title {
     padding: 0.5rem;
-    color: #fd7d14;
+    /* color: #fd7d14; */
+    color: white;
     font-weight: bold;
     display: flex;
     flex-direction: row;
@@ -52,8 +58,10 @@ button {
 
 #title-user {
     margin-left: 0.5rem;
-    background-color: #fd7d14;
-    color: white;
+    /* background-color: #fd7d14; */
+    background-color: white;
+    /* color: white; */
+    color: #fd7d14cc;
     border-radius: 1.2rem;
     padding-right: 0.8rem;
     padding-left: 0.8rem;
@@ -63,9 +71,12 @@ button {
     height: 1.5rem;
     width: 1.5rem;
     border-radius: 0.2rem;
-    background-color: #fd7d14;
+    /* background-color: #fd7d14; */
+    border: 1px solid #fd7d14;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     margin-right: 0.5rem;
-    color: white;
+    /* color: white; */
+    color: #fd7d14;
     font-weight: bold;
     text-align: center;
 }

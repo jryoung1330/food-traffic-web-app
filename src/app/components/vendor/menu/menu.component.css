@@ -28,15 +28,79 @@
     background: transparent;  /* Optional: just make scrollbar invisible */
 }
 
-i {
+.arrow {
     font-size: 3rem;
     padding: 0.2rem;
 }
 
-i:hover {
+.arrow:hover {
     font-size: 3rem;
     padding: 0.2rem;
     border-radius: 100%;
     cursor: pointer;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+span>.material-icons {
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Dialog Styling */
+
+.button-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+
+.dialog-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.dialog-row {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.dialog-header {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dialog-header>div {
+    font-weight: bold;
+}
+
+.dialog-header>div:hover {
+    cursor: pointer;
+}
+
+.caution {
+    color: red;
+}
+
+.caution-btn {
+    color: white;
+    background-color: red;
+}
+
+.save {
+    color: #fd7e14;
+}
+
+#title {
+    font-size: 1.5rem;
 }

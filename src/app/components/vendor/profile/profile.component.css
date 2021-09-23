@@ -1,34 +1,54 @@
-#profile-component {
-    margin-top: 60px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-bottom: 10rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#profile-container {
+    height: 100vh;
+    width: 100vw;
 }
 
-#vendor-pic-container {
-    border-bottom: 1px solid black;
+#top-container {
+    height: 60%;
+    width: inherit;
+    background-color: #fd7d149c;
+    color: white;
+    padding-top: 80px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
 }
 
-#vendor-name {
-    width: inherit;
-    text-align: center;
+#top {
+    width: 50%;
+    height: 70%;
+}
+
+#name {
     font-weight: bold;
-    text-decoration: underline;
-    font-size: 2rem;
+    font-size: 3rem;
+    white-space: pre;
+    width: 100%;
+    height: 30%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: end;
 }
 
-#vendor-tag-list {
+#description {
+    width: 100%;
+    height: 10%;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+}
+
+#today {
+    font-weight: bold;
+    width: 100%;
+    height: 45%;
+    display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    padding-left: 0;
+    justify-content: center;
+}
+
+#tags {
+    align-items: center;
+    height: 15%;
 }
 
 .tag-separator {
@@ -39,99 +59,18 @@
     margin-right: 5px;
 }
 
+#vendor-tag-list {
+    display: flex;
+    flex-direction: row;
+}
+
 app-vendor-tag {
     border: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-right: 5px;
-    color: #fd7e14;
-    font-size: 0.9rem;
-}
-
-img {
-    max-width:100%;
-    max-height:100%;
-    object-fit: cover;
-}
-
-#ops {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-#vendor-ops-list {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0;
-}
-
-app-operations {
-    height: 12rem;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 0.5rem;
-    width: 30%;
-    color: black;
-    margin-top: 2rem;
-}
-
-#menus {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5rem;
-}
-
-#menu-list {
-    margin-top: 2rem;
-    width: 100%;
-}
-
-.row {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.row-header {
-    width: 80%;
-    font-weight: bold;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: left;
-    margin-top: 1rem;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
-}
-
-.row-header>span {
-    margin-left: 0.5rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #fd7e14;
-}
-
-.menu-form {
-    width: 80%;
-    font-weight: bold;
-    font-size: 1rem;
-    display: flex;
-    justify-content: left;
-    margin-top: 1rem;
-}
-
-.add-button {
-    margin-left: 1rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #fd7e14;
-    background-color: none;
+    color: white;
+    font-size: 0.8rem;
+    background-color: transparent;
 }

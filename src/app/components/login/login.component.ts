@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       if(payload != undefined && payload != null) {
         this.loggedInUser = payload;
         window.localStorage.setItem('user', payload.id + ':' + payload.username);
+        window.localStorage.setItem('userFullName', payload.firstName + " " + payload.lastName);
         let vendorId = null;
         if(payload.employee !== undefined && payload.employee !== null && payload.employee.admin) {
           vendorId = payload.employee.vendorId.toString();

@@ -1,9 +1,9 @@
 <div class="menu-container">
-    <div class="menu-title">{{this.menu.name}}</div>
+    <div class="menu-title">{{this.menu.name}} <span><i class="material-icons" (click)="openDialog()">edit</i></span></div>
     <ul class="menu-item-list">
-        <i class="material-icons" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
+        <i class="material-icons arrow" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
         <app-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-menu-item>
         <app-menu-item [item]="newMenuItem"></app-menu-item>
-        <i class="material-icons" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
+        <i class="material-icons arrow" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
     </ul>
 </div>

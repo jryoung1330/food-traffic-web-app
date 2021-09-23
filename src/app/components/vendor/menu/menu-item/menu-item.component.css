@@ -94,7 +94,8 @@
     width: 100%;
     display: flex;
     flex-flow: row;
-    justify-content: flex-end;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 
 .dialog-header>div {
@@ -155,4 +156,13 @@ input[type=number] {
     flex-flow: column-reverse;
     align-items: center;
     font-size: 0.8rem;
+}
+
+.caution {
+    color: red !important;
+}
+
+.caution-btn {
+    background-color: red;
+    color: white;
 }

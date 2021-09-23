@@ -6,6 +6,7 @@ import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
 
 const MILLISECONS_TO_HOURS : number = 36000000;
+const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +21,7 @@ export class VendorProfileComponent implements OnInit {
   createNewMenu: boolean = false;
   newMenu: Menu = new Menu();
   addMenu: boolean = false;
+  today: OperationItem;
 
   constructor(private vendorService: VendorService) { }
 
@@ -53,6 +55,10 @@ export class VendorProfileComponent implements OnInit {
   convertOperations(operationItems: OperationItem[]) {
     let now = new Date();
     operationItems.forEach(op => {
+      if(op.dayOfWeek === DAYS[now.getDay()]) {
+        this.today = op;
+      }
+
       if(!op.closed) {
         let closeTime = new Date();
         closeTime.setHours(this.getHours(op.closeTime), this.getMinutes(op.closeTime), 0, 0);
@@ -74,7 +80,7 @@ export class VendorProfileComponent implements OnInit {
   getMinutes(time: String) : number {
     return parseInt(time.split(':')[1]);
   }
-
+ 
   getMenus(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
       this.vendorService.getMenusForSub(vendor.id);
@@ -84,7 +90,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   createMenu() {
-    if(this.newMenu.description != null && this.newMenu.description.length !== 0) {
+    if(this.newMenu.name != null && this.newMenu.name.length !== 0) {
       this.newMenu.vendorId = this.vendor.id;
       this.vendorService.createMenu(window.location.pathname, this.newMenu).subscribe((payload) => {
         this.menus.push(payload);
@@ -94,6 +100,34 @@ export class VendorProfileComponent implements OnInit {
     } else {
       // TODO: handle error
     }
+  }
+
+  spaceOut(name: String) : String {
+    let newName = "";
+    for(let i=0; i<name.length; i++) {
+      newName += name.charAt(i) + " ";
+    }
+    return newName.trim();
+  }
+
+  pad(num: String, size: number) {
+    while (num.length < size) num = "0" + num;
+    return num;
+  }
+
+  convert12Hour(num: number) {
+    return num > 12 ? num - 12 : num;
+  }
+
+  getTimeOfDay(num: number) {
+    return num >= 12 ? 'PM' : 'AM';
+  }
+
+  convertTime(time: String) {
+    if(time === null) return '';
+    const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
+    const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
+    return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
   }
 
 }

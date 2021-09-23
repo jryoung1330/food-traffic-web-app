@@ -1,8 +1,8 @@
-<nav class="navbar fixed-top navbar-expand-lg bg-white border-bottom box-shadow">
+<nav class="navbar fixed-top navbar-expand-lg">
   <div id="title" routerLink="/"> 
-    <div id="title-logo" *ngIf="username == null">T</div>
+    <div id="title-logo" *ngIf="displayName == null">T</div>
     FOOD TRAFFIC
-    <div id="title-user" *ngIf="username != null">{{username}}</div>
+    <div id="title-user" *ngIf="displayName != null">{{displayName}}</div>
   </div>
   <div *ngIf="!('/login' === hRouter.url || '/register' === hRouter.url) && !isVendor">
     <button class="btn">

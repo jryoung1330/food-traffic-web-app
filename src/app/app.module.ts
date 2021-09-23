@@ -24,7 +24,7 @@ import { MenuItemComponent, MenuItemDialog } from './components/vendor/menu/menu
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MenuComponent } from './components/vendor/menu/menu.component';
+import { MenuComponent, MenuDialog } from './components/vendor/menu/menu.component';
 import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
 import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
 import { LandingComponent } from './components/landing/landing.component';
@@ -49,6 +49,7 @@ import { LandingComponent } from './components/landing/landing.component';
     OperationEditDialog,
     MenuItemDialog,
     MenuComponent,
+    MenuDialog,
     VendorMenuItemComponent,
     OperationsComponent,
     LandingComponent

@@ -2,6 +2,7 @@
     font-size: inherit;
     margin-right: 5px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .vendor-tag:hover {

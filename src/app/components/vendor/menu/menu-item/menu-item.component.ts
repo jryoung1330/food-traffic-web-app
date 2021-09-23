@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { VendorService } from 'src/app/services/vendor.service';
 import { MenuItem } from 'src/entities/menuItem';
 
+const DELETE = 'DELETE';
+
 @Component({
   selector: 'app-menu-item',
   templateUrl: './menu-item.component.html',
@@ -26,7 +28,9 @@ export class MenuItemComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if(result !== undefined) {
-        if(result.id === undefined) {
+        if(result === DELETE) {
+          this.deleteMenuItem(this.item);
+        } else if(result.id === undefined) {
           this.createMenuItem(result);
         } else {
           this.updateMenuItem(result);
@@ -43,7 +47,6 @@ export class MenuItemComponent implements OnInit {
     menuItem.glutenFree = menuItem.glutenFree !== undefined;
     menuItem.dairyFree = menuItem.dairyFree !== undefined;
     menuItem.containsNuts = menuItem.containsNuts !== undefined;
-    console.log()
     this.vendorService.createMenuItem(window.location.pathname, menuItem).subscribe((payload) => {
       if(payload !== undefined) {
         this.vendorService.getMenusForSub(Number.parseInt(localStorage.getItem('vendor')));
@@ -56,6 +59,14 @@ export class MenuItemComponent implements OnInit {
     this.vendorService.updateMenuItem(window.location.pathname, menuItem).subscribe();
   }
 
+  deleteMenuItem(menuItem: MenuItem): void {
+    this.vendorService.deleteMenuItem(window.location.pathname, menuItem).subscribe((payload) => {
+      if(payload !== undefined) {
+        this.vendorService.getMenusForSub(Number.parseInt(localStorage.getItem('vendor')));
+      }
+    });
+  }
+
 }
 
 @Component({
@@ -66,9 +77,43 @@ export class MenuItemComponent implements OnInit {
 export class MenuItemDialog {
   constructor(
     public dialogRef: MatDialogRef<MenuItemDialog>,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: MenuItem) {}
 
     onNoClick(): void {
       this.dialogRef.close(undefined);
+    }
+
+    openDialog(): void {
+      const dialogRef = this.dialog.open(ConfirmationDialog, {
+        width: '25rem',
+        data: this.data
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          this.dialogRef.close(DELETE);
+        }
+      });
+    }
+    
+}
+
+@Component({
+  selector: 'confirmation-dialog',
+  templateUrl: 'confirmation-dialog.html',
+  styleUrls: ['./menu-item.component.css']
+})
+export class ConfirmationDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmationDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: MenuItem) {}
+
+    onNoClick(): void {
+      this.dialogRef.close(undefined);
+    }
+
+    delete(): void {
+      this.dialogRef.close(true);
     }
 }
