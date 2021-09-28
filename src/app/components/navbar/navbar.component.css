@@ -30,6 +30,9 @@ button>a>i:hover, button>div>i:hover {
 nav {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 0;
 }
 
 button {
