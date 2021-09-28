@@ -1,9 +1,13 @@
 <div class="menu-container">
     <div class="menu-title">{{this.menu.name}} <span><i class="material-icons" (click)="openDialog()">edit</i></span></div>
     <ul class="menu-item-list">
-        <i class="material-icons arrow" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
-        <app-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-menu-item>
-        <app-menu-item [item]="newMenuItem"></app-menu-item>
-        <i class="material-icons arrow" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
+        <app-menu-item id="new-item" [item]="newMenuItem"></app-menu-item>
+        <div id="list-container" class="flexcon">
+            <i class="material-icons arrow arrow-left" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
+            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.start !== 0))"></div>
+            <app-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-menu-item>
+            <i class="material-icons arrow arrow-right" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
+            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.end < this.menuItems.length))"></div>
+        </div>
     </ul>
 </div>

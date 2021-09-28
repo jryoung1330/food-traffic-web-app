@@ -13,7 +13,18 @@
         <div id="today" *ngIf="this.today.openTime == null">Hours: Closed</div>
       </div>
     </div>
-    <div id="bottom">
-    
+    <div id="bottom" class="flexcon">
+      <div id="schedule">
+        <header id="ops-header">Hours of Operation</header>
+        <ul id="vendor-ops-list" class="list-group list-group-flush">
+          <app-operations *ngFor="let item of this.operationItems" [op]=item [list]="true"></app-operations>
+        </ul>
+      </div>
+      <div id="menus">
+        <header>Menus</header>
+        <ul id="menu-list" class="list-group list-group-flush">
+          <app-menu class="list-group-item p-0 bg-inherit" *ngFor="let menu of this.menus" [menu] = menu></app-menu>
+        </ul>
+      </div>
     </div>
 </div>

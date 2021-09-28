@@ -1,4 +1,4 @@
-<div class="op-container" (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
+<div *ngIf="!this.list" class="op-container" (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
     <div class="op-header">
         <i class="material-icons calendar">calendar_today</i>
         <div>{{this.capitalCase(this.op.dayOfWeek)}}</div>
@@ -10,5 +10,14 @@
         <div *ngIf="this.op.closed">CLOSE
             <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
+    </div>
+</div>
+<div *ngIf="this.list" id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'"  (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
+    <div class="dayOfWeek">{{this.capitalCase(this.op.dayOfWeek)}}</div>
+    <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}
+        <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
+    </div>
+    <div *ngIf="this.op.closed">CLOSE
+        <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
 </div>

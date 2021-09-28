@@ -4,6 +4,8 @@ import { VendorService } from 'src/app/services/vendor.service';
 import { OperationItem } from 'src/entities/operationItem';
 import { Time } from 'src/entities/time';
 
+const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+
 @Component({
   selector: 'app-operations',
   templateUrl: './operations.component.html',
@@ -12,6 +14,7 @@ import { Time } from 'src/entities/time';
 export class OperationsComponent implements OnInit {
 
   @Input('op') op: OperationItem;
+  @Input('list') list: boolean;
   editText: boolean = false;
 
   constructor(public dialog: MatDialog, private vendorService: VendorService) {}
@@ -39,6 +42,10 @@ export class OperationsComponent implements OnInit {
     const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
     const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
     return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
+  }
+
+  isToday() {
+    return this.op.dayOfWeek.toUpperCase() === DAYS[new Date().getDay()];
   }
 
   openDialog(): void {
