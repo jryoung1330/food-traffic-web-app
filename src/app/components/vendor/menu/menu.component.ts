@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
 import { MenuItem } from 'src/entities/menuItem';
+import { ConfirmationDialog } from '../../confirmation/confirmation.component';
 
 const DELETE = 'DELETE';
 
@@ -63,7 +64,15 @@ export class MenuComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if(result == 'DELETE') {
+        this.vendorService.deleteMenu(window.location.pathname, this.menu)
+          .subscribe((payload) => {
+            this.vendorService.getMenusForSub(this.menu.vendorId);
+          });
+      } else if (result && typeof result === 'object') {
+        this.vendorService.updateMenu(window.location.pathname, this.menu)
+          .subscribe((payload) => this.menu = payload);
+      }
     });
   }
 }
@@ -78,18 +87,29 @@ export class MenuDialog {
     public dialogRef: MatDialogRef<MenuDialog>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: Menu) {}
+    @Input('hasError') hasError: boolean = false;
 
     onNoClick(): void {
       this.dialogRef.close(undefined);
     }
 
+    save(data: Menu): void {
+      if(!data.name || data.name.length == 0) {
+        this.hasError = true;
+      } else {
+        // TODO: call update menu endpoint
+        this.dialogRef.close(data);
+      }
+    }
+
     openDialog(): void {
       const dialogRef = this.dialog.open(ConfirmationDialog, {
         width: '25rem',
-        data: this.data
+        data: "Are you sure you want to delete menu: " + this.data.name + "?"
       });
   
       dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
         if(result) {
           this.dialogRef.close(DELETE);
         }
@@ -98,21 +118,21 @@ export class MenuDialog {
     
 }
 
-@Component({
-  selector: 'confirmation-dialog',
-  templateUrl: 'confirmation-dialog.html',
-  styleUrls: ['./menu.component.css']
-})
-export class ConfirmationDialog {
-  constructor(
-    public dialogRef: MatDialogRef<ConfirmationDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Menu) {}
+// @Component({
+//   selector: 'confirmation-dialog',
+//   templateUrl: 'confirmation-dialog.html',
+//   styleUrls: ['./menu.component.css']
+// })
+// export class ConfirmationDialog {
+//   constructor(
+//     public dialogRef: MatDialogRef<ConfirmationDialog>,
+//     @Inject(MAT_DIALOG_DATA) public data: Menu) {}
 
-    onNoClick(): void {
-      this.dialogRef.close(undefined);
-    }
+//     onNoClick(): void {
+//       this.dialogRef.close(undefined);
+//     }
 
-    delete(): void {
-      this.dialogRef.close(true);
-    }
-}
+//     delete(): void {
+//       this.dialogRef.close(true);
+//     }
+// }

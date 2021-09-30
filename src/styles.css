@@ -18,9 +18,21 @@ body {
     flex-wrap: wrap;
 }
 
+.flexcon-start {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .flexcon-around {
     display: flex;
     justify-content: space-around;
+}
+
+.flexcon-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .flexcon-col {
@@ -32,6 +44,20 @@ body {
 .component-container {
     padding-top: 60px;
     align-items: center;
+}
+
+.delete {
+    cursor: pointer;
+    color: red;
+}
+
+.bad {
+    color: red;
+}
+
+.bad-bold {
+    color: red;
+    font-weight: bold;
 }
 
 button {

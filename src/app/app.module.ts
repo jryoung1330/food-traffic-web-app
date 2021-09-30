@@ -28,6 +28,7 @@ import { MenuComponent, MenuDialog } from './components/vendor/menu/menu.compone
 import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
 import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { ConfirmationDialog } from './components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LandingComponent } from './components/landing/landing.component';
     MenuDialog,
     VendorMenuItemComponent,
     OperationsComponent,
-    LandingComponent
+    LandingComponent,
+    ConfirmationDialog
   ],
   imports: [
     BrowserModule,

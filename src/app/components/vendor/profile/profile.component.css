@@ -86,6 +86,14 @@ header {
     margin-top: 2%;
 }
 
+#add-menu-btn {
+    color: white;
+    background-color: #fd7e14;
+    border-radius: 100%;
+    padding: 0.1rem;
+    cursor: pointer;
+}
+
 #vendor-ops-list {
     display: flex;
     flex-direction: row;

@@ -73,6 +73,10 @@ app-menu-item {
     margin-right: 10%;
 }
 
+#menu-header {
+    width: 100%;
+}
+
 /* Dialog Styling */
 
 .button-row {
@@ -127,6 +131,6 @@ app-menu-item {
     color: #fd7e14;
 }
 
-#title {
+.dialog-header>#title {
     font-size: 1.5rem;
 }
