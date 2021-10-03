@@ -79,25 +79,10 @@ app-menu-item {
 
 /* Dialog Styling */
 
-.button-row {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-around;
-}
-
 .dialog-container {
     display: flex;
     flex-flow: column;
     align-items: center;
-}
-
-.dialog-row {
-    width: 100%;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 0.9rem;
 }
 
 .dialog-header {
@@ -110,27 +95,25 @@ app-menu-item {
     margin-bottom: 2rem;
 }
 
-.dialog-header>div {
+.dialog-row {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.dialog-header>#title {
     font-weight: bold;
+    font-size: 1.5rem;
 }
 
-.dialog-header>div:hover {
+.save, .bad {
     cursor: pointer;
-}
-
-.caution {
-    color: red;
-}
-
-.caution-btn {
-    color: white;
-    background-color: red;
+    font-weight: bold;
 }
 
 .save {
     color: #fd7e14;
-}
-
-.dialog-header>#title {
-    font-size: 1.5rem;
 }

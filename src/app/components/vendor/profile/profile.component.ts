@@ -1,5 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
 import { Operation } from 'src/entities/operation';
@@ -91,7 +92,7 @@ export class VendorProfileComponent implements OnInit {
   createMenu(menu: Menu) {
     if(menu.name != null && menu.name.length !== 0) {
       menu.vendorId = this.vendor.id;
-      if(menu.displayOrder > this.menus.length) menu.displayOrder = this.menus.length;
+      menu.displayOrder = this.menus.length;
       this.vendorService.createMenu(window.location.pathname, menu).subscribe((payload) => {
         this.menus.push(payload);
       });
@@ -142,5 +143,17 @@ export class VendorProfileComponent implements OnInit {
         this.createMenu(newMenu);
       }
     });
+  }
+
+  drop(event: CdkDragDrop<Menu[]>) {
+    moveItemInArray(this.menus, event.previousIndex, event.currentIndex);
+    this.setDisplayOrder(this.menus);
+  }
+
+  setDisplayOrder(menus : Menu[]) : void {
+    for(let i=0; i<menus.length; i++) {
+      menus[i].displayOrder = i;
+      this.vendorService.updateMenu(window.location.pathname, menus[i]).subscribe((payload) => menus[i] = payload);
+    }
   }
 }

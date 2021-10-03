@@ -3,11 +3,10 @@
         <div class="save" (click)="save(data)">Save</div>
         <div *ngIf="data.id" id="title">Edit Menu</div>
         <div *ngIf="!data.id" id="title">Add Menu</div>
-        <div *ngIf="data.id" class="caution" (click)="openDialog()">Delete</div>
+        <div *ngIf="data.id" class="bad" (click)="openDialog()">Delete</div>
     </div>
     <div class="dialog-row">
         <input type="text" maxlength="100" [(ngModel)]="data.name" placeholder="Name">
-        <input type="text" size="5" maxlength="1" [(ngModel)]="data.displayOrder" placeholder="Order">
     </div>
     <div class="dialog-row">
         <textarea class="fill-row" maxlength="300" rows="3" cols="41" [(ngModel)]="data.description" placeholder="Description"></textarea>

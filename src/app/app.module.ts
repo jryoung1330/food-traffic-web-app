@@ -29,6 +29,7 @@ import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendo
 import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConfirmationDialog } from './components/confirmation/confirmation.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ConfirmationDialog } from './components/confirmation/confirmation.compo
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    DragDropModule
   ],
   providers: [
     HttpErrorHandler,

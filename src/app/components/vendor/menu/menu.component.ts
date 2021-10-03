@@ -97,7 +97,6 @@ export class MenuDialog {
       if(!data.name || data.name.length == 0) {
         this.hasError = true;
       } else {
-        // TODO: call update menu endpoint
         this.dialogRef.close(data);
       }
     }
@@ -109,30 +108,9 @@ export class MenuDialog {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
         if(result) {
           this.dialogRef.close(DELETE);
         }
       });
     }
-    
 }
-
-// @Component({
-//   selector: 'confirmation-dialog',
-//   templateUrl: 'confirmation-dialog.html',
-//   styleUrls: ['./menu.component.css']
-// })
-// export class ConfirmationDialog {
-//   constructor(
-//     public dialogRef: MatDialogRef<ConfirmationDialog>,
-//     @Inject(MAT_DIALOG_DATA) public data: Menu) {}
-
-//     onNoClick(): void {
-//       this.dialogRef.close(undefined);
-//     }
-
-//     delete(): void {
-//       this.dialogRef.close(true);
-//     }
-// }
