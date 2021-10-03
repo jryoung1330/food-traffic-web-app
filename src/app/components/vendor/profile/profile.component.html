@@ -13,7 +13,7 @@
         <div id="today" *ngIf="this.today.openTime == null">Hours: Closed</div>
       </div>
     </div>
-    <div id="bottom" class="flexcon">
+    <div class="flexcon">
       <div id="schedule">
         <header id="ops-header">Hours of Operation</header>
         <ul id="vendor-ops-list" class="list-group list-group-flush">
@@ -21,9 +21,14 @@
         </ul>
       </div>
       <div id="menus">
-        <header>Menus</header>
-        <ul id="menu-list" class="list-group list-group-flush">
-          <app-menu class="list-group-item p-0 bg-inherit" *ngFor="let menu of this.menus" [menu] = menu></app-menu>
+        <div class="flexcon-start">
+          <header>Menus</header>
+          <i id="add-menu-btn" class="material-icons" (click)="openDialog()">add</i>
+        </div>
+        <ul class="list-group list-group-flush" cdkDropList (cdkDropListDropped)="drop($event)">
+          <app-menu class="list-group-item p-0 bg-inherit" *ngFor="let menu of this.menus" [menu] = menu cdkDrag>
+            <div *cdkDragPreview>{{menu.name}}</div>
+          </app-menu>
         </ul>
       </div>
     </div>

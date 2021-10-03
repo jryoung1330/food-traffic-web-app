@@ -71,6 +71,7 @@ export class NavbarComponent implements OnInit {
       .subscribe(() => {
         window.localStorage.removeItem('user');
         window.localStorage.removeItem('vendor');
+        window.localStorage.removeItem('userFullName');
         this.displayName = null;
         this.router.navigateByUrl('/login');
       });

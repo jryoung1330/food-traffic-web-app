@@ -95,6 +95,14 @@ export class VendorService {
     return this.httpClient.post<Menu>('http://localhost:8892' + path + '/menus', JSON.stringify(menu), header);
   }
 
+  public updateMenu(path: string, menu: Menu): Observable<Menu> {
+    return this.httpClient.put<Menu>('http://localhost:8892' + path + '/menus/' + menu.id, JSON.stringify(menu), header);
+  }
+
+  public deleteMenu(path: string, menu: Menu): Observable<Menu> {
+    return this.httpClient.delete<Menu>('http://localhost:8892' + path + '/menus/' + menu.id, header);
+  }
+
   public createMenuItem(path: string, menuItem: MenuItem): Observable<MenuItem> {
     return this.httpClient.post<MenuItem>('http://localhost:8892' + path + '/menus/' + menuItem.menuId + '/menu-items', JSON.stringify(menuItem), header);
   }

@@ -1,0 +1,13 @@
+.dialog-row {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.caution-btn {
+    color: white;
+    background-color: red;
+}

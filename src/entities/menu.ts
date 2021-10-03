@@ -5,5 +5,6 @@ export class Menu {
     vendorId: number;
     name: String;
     description: String;
+    displayOrder: number;
     menuItems: Array<MenuItem>;
 }

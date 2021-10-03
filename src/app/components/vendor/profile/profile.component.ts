@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
 import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
+import { MenuDialog } from '../menu/menu.component';
 
 const MILLISECONS_TO_HOURS : number = 36000000;
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
@@ -18,12 +21,9 @@ export class VendorProfileComponent implements OnInit {
   vendor: Vendor;
   operationItems: OperationItem[];
   menus: Menu[];
-  createNewMenu: boolean = false;
-  newMenu: Menu = new Menu();
-  addMenu: boolean = false;
   today: OperationItem;
 
-  constructor(private vendorService: VendorService) { }
+  constructor(private vendorService: VendorService, public menuDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.vendorService.menu$.subscribe((payload) => {
@@ -89,13 +89,12 @@ export class VendorProfileComponent implements OnInit {
     }
   }
 
-  createMenu() {
-    if(this.newMenu.name != null && this.newMenu.name.length !== 0) {
-      this.newMenu.vendorId = this.vendor.id;
-      this.vendorService.createMenu(window.location.pathname, this.newMenu).subscribe((payload) => {
+  createMenu(menu: Menu) {
+    if(menu.name != null && menu.name.length !== 0) {
+      menu.vendorId = this.vendor.id;
+      menu.displayOrder = this.menus.length;
+      this.vendorService.createMenu(window.location.pathname, menu).subscribe((payload) => {
         this.menus.push(payload);
-        this.createNewMenu = false;
-        this.newMenu = new Menu();
       });
     } else {
       // TODO: handle error
@@ -130,4 +129,31 @@ export class VendorProfileComponent implements OnInit {
     return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
   }
 
+  openDialog(): void {
+    let newMenu = new Menu();
+    newMenu.displayOrder = this.menus.length;
+
+    const dialogRef = this.menuDialog.open(MenuDialog, {
+      width: '30rem',
+      data: newMenu
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.createMenu(newMenu);
+      }
+    });
+  }
+
+  drop(event: CdkDragDrop<Menu[]>) {
+    moveItemInArray(this.menus, event.previousIndex, event.currentIndex);
+    this.setDisplayOrder(this.menus);
+  }
+
+  setDisplayOrder(menus : Menu[]) : void {
+    for(let i=0; i<menus.length; i++) {
+      menus[i].displayOrder = i;
+      this.vendorService.updateMenu(window.location.pathname, menus[i]).subscribe((payload) => menus[i] = payload);
+    }
+  }
 }
