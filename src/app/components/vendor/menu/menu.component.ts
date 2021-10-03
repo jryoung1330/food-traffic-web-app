@@ -1,11 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
 import { MenuItem } from 'src/entities/menuItem';
-import { ConfirmationDialog } from '../../confirmation/confirmation.component';
-
-const DELETE = 'DELETE';
+import { MenuDialog } from './menu-dialog/menu-dialog.component';
 
 @Component({
   selector: 'app-menu',
@@ -77,40 +75,3 @@ export class MenuComponent implements OnInit {
   }
 }
 
-@Component({
-  selector: 'menu-dialog',
-  templateUrl: 'menu-dialog.html',
-  styleUrls: ['./menu.component.css']
-})
-export class MenuDialog {
-  constructor(
-    public dialogRef: MatDialogRef<MenuDialog>,
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: Menu) {}
-    @Input('hasError') hasError: boolean = false;
-
-    onNoClick(): void {
-      this.dialogRef.close(undefined);
-    }
-
-    save(data: Menu): void {
-      if(!data.name || data.name.length == 0) {
-        this.hasError = true;
-      } else {
-        this.dialogRef.close(data);
-      }
-    }
-
-    openDialog(): void {
-      const dialogRef = this.dialog.open(ConfirmationDialog, {
-        width: '25rem',
-        data: "Are you sure you want to delete menu: " + this.data.name + "?"
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if(result) {
-          this.dialogRef.close(DELETE);
-        }
-      });
-    }
-}

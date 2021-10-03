@@ -6,7 +6,7 @@ import { Menu } from 'src/entities/menu';
 import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
-import { MenuDialog } from '../menu/menu.component';
+import { MenuDialog } from '../menu/menu-dialog/menu-dialog.component';
 
 const MILLISECONS_TO_HOURS : number = 36000000;
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
@@ -134,7 +134,8 @@ export class VendorProfileComponent implements OnInit {
     newMenu.displayOrder = this.menus.length;
 
     const dialogRef = this.menuDialog.open(MenuDialog, {
-      width: '30rem',
+      width: '30%',
+      height: '32%',
       data: newMenu
     });
 

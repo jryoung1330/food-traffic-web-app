@@ -1,0 +1,55 @@
+.dialog-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.dialog-header {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    background-color: #fd7e14;
+    color: white;
+    padding: 0.8rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8%;
+}
+
+.dialog-header>#title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.closex {
+    cursor: pointer;
+    color: white;
+}
+
+.dialog-row {
+    width: 60%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+input, textarea {
+    width: 100%;
+}
+
+.save {
+    color: white;
+    background-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.cancel {
+    color: #fd7e14;
+    background-color: white;
+    border-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}

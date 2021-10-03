@@ -24,12 +24,13 @@ import { MenuItemComponent, MenuItemDialog } from './components/vendor/menu/menu
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MenuComponent, MenuDialog } from './components/vendor/menu/menu.component';
+import { MenuComponent } from './components/vendor/menu/menu.component';
 import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
 import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConfirmationDialog } from './components/confirmation/confirmation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     VendorMenuItemComponent,
     OperationsComponent,
     LandingComponent,
-    ConfirmationDialog
+    ConfirmationDialog,
+    MenuDialog
   ],
   imports: [
     BrowserModule,
