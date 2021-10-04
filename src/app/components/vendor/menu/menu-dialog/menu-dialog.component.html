@@ -1,10 +1,8 @@
 <div class="dialog-container">
     <div class="dialog-header">
-        <!-- <div class="save" (click)="save(data)">Save</div> -->
-        <div *ngIf="data.id" id="title">Edit Menu</div>
+        <div *ngIf="data.id" id="title">{{data.name.toUpperCase()}}</div>
         <div *ngIf="!data.id" id="title">ADD MENU</div>
-        <i class="material-icons closex" (click)="onNoClick()">close</i>
-        <!-- <div *ngIf="data.id" class="bad" (click)="openDialog()">Delete</div> -->
+        <i class="material-icons dialog-trash" (click)="openDialog()">delete</i>
     </div>
     <div class="dialog-row">
         <input type="text" maxlength="100" [(ngModel)]="data.name" placeholder="Name">

@@ -1,0 +1,131 @@
+.dialog-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.dialog-header {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    background-color: #fd7e14;
+    color: white;
+    padding: 0.8rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8%;
+}
+
+.dialog-row {
+    width: 60%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.dialog-header>#title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.menu-item-image-lg {
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    height: 12rem;
+    width: 40%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.menu-item-image-lg:hover {
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.input-row {
+    width: 100%;
+    border-radius: 0.2rem;
+    border: 1px solid black;
+    padding: 0.5rem;
+    overflow: hidden;
+}
+
+.input-row-md {
+    width: 40%;
+    border-radius: 0.2rem;
+    border: 1px solid black;
+    padding: 0.5rem;
+    overflow: hidden;
+    text-align: right;
+}
+
+.prefixed-input, .suffixed-input {
+    width: 40%;
+    border-radius: 0.2rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.prefix {
+    width: 25%;
+    padding: 0.5rem;
+    border-right: 1px solid black;
+    background-color: #6c757d30;
+}
+
+.suffix {
+    width: 25%;
+    padding: 0.5rem;
+    border-left: 1px solid black;
+    background-color: #6c757d30;
+}
+
+.prefixed-input>input {
+    width: 75%;
+    padding: 0.5rem;
+    text-align: right;
+    border: none;
+}
+
+.suffixed-input>input {
+    width: 75%;
+    padding: 0.5rem;
+    text-align: left;
+    border: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.checkbox-input {
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+.save {
+    color: white;
+    background-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.control-buttons {
+    justify-content: space-around;
+}

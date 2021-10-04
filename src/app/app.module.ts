@@ -20,7 +20,7 @@ import { MessageService } from './services/message.service';
 import { VendorTagCardComponent } from './components/customer/vendor-tag-card/vendor-tag-card.component';
 import { VendorOperationsComponent } from './components/customer/vendor-operations/vendor-operations.component';
 import { VendorMenuComponent } from './components/customer/vendor-menu/vendor-menu.component';
-import { MenuItemComponent, MenuItemDialog } from './components/vendor/menu/menu-item/menu-item.component';
+import { MenuItemComponent } from './components/vendor/menu/menu-item/menu-item.component';
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -31,6 +31,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { ConfirmationDialog } from './components/confirmation/confirmation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.component';
+import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dialog/menu-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.com
     OperationsComponent,
     LandingComponent,
     ConfirmationDialog,
-    MenuDialog
+    MenuDialog,
+    MenuItemDialog
   ],
   imports: [
     BrowserModule,
