@@ -12,6 +12,10 @@ body {
     /* font-family: Roboto, "Helvetica Neue", sans-serif; */
 }
 
+.row {
+    width: 100%;
+}
+
 .flexcon {
     display: flex;
     justify-content: center;
@@ -41,18 +45,36 @@ body {
     align-items: center;
 }
 
+.flexcon-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .component-container {
     padding-top: 60px;
     align-items: center;
 }
 
 .delete {
-    cursor: pointer;
     color: red;
+    background-color: white;
+    border-color: red;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
-.bad {
-    color: red;
+.cancel {
+    color: #fd7e14;
+    background-color: white;
+    border-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.dialog-trash {
+    cursor: pointer;
+    color: white;
 }
 
 .bad-bold {

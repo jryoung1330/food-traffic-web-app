@@ -1,5 +1,6 @@
 <div class="menu-container">
-    <div class="menu-title">{{this.menu.name}} <span><i class="material-icons" (click)="openDialog()">edit</i></span></div>
+    <div class="menu-title">{{menu.name}} <span><i class="material-icons" (click)="openDialog()">edit</i></span></div>
+    <i id="description" class="row flexcon-start">{{menu.description}}</i>
     <ul class="menu-item-list">
         <app-menu-item id="new-item" [item]="newMenuItem"></app-menu-item>
         <div id="list-container" class="flexcon">

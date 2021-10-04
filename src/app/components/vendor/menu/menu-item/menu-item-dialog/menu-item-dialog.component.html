@@ -1,0 +1,54 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div *ngIf="data.id" id="title">{{data.name.toUpperCase()}}</div>
+        <div *ngIf="!data.id" id="title">NEW MENU ITEM</div>
+        <i class="material-icons dialog-trash" (click)="openDialog()">delete</i>
+    </div>
+    <div class="menu-item-image-lg"></div>
+    <div class="dialog-row">
+        <input class="input-row" id="name" type="text" maxlength="100" [(ngModel)]="data.name" placeholder="Name">
+    </div>
+    <div class="dialog-row">
+        <textarea class="input-row" maxlength="300" rows="3" [(ngModel)]="data.description" placeholder="Description"></textarea>
+    </div>
+    <div class="dialog-row">
+        <div class="prefixed-input">
+            <div class="prefix flexcon-centered">$</div>
+            <input class="flexcon-centered" type="number" [(ngModel)]="data.price" placeholder="Price">
+        </div>
+        <div class="suffixed-input">
+            <input class="flexcon-centered" type="number" [(ngModel)]="data.calories" placeholder="Calories">
+            <div class="suffix flexcon-centered">cal.</div>
+        </div>
+    </div>
+    <div class="dialog-row">
+        <div class="checkbox-input">
+            <label for="closed">Vegan</label>
+            <input type="checkbox" [checked]="data.vegan" name="Vegan" (change)="data.vegan = !data.vegan">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Vegetarian</label>
+            <input type="checkbox" [checked]="data.vegetarian" name="Vegetarian" (change)="data.vegetarian = !data.vegetarian">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Gluten Free</label>
+            <input type="checkbox" [checked]="data.glutenFree" name="Gluten Free" (change)="data.glutenFree = !data.glutenFree">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Dairy Free</label>
+            <input type="checkbox" [checked]="data.dairyFree" name="Dairy Free" (change)="data.dairyFree = !data.dairyFree">
+        </div>
+
+        <div class="checkbox-input">
+            <label for="closed">Contains Nuts</label>
+            <input type="checkbox" [checked]="data.containsNuts" name="Contains Nuts" (change)="data.containsNuts = !data.containsNuts">
+        </div>
+    </div>
+    <div class="dialog-row control-buttons">
+        <button class="cancel" (click)="onNoClick()">CANCEL</button>
+        <button class="save" (click)="save(data)">SAVE</button>
+    </div>
+</div>
