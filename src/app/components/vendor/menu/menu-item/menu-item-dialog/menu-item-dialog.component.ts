@@ -30,7 +30,7 @@ export class MenuItemDialog implements OnInit {
 
     openDialog(): void {
       const dialogRef = this.dialog.open(ConfirmationDialog, {
-        width: '25rem',
+        width: '25%',
         data: "Are you sure you want to delete item: " + this.data.name + "?"
       });
   

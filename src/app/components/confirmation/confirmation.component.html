@@ -1,8 +1,11 @@
 <div class="flexcon">
+    <div class="dialog-header">
+        <div id="title"><span><i class="material-icons">front_hand</i></span> ATTENTION</div>
+    </div>
     <div class="dialog-row">
         <div>{{message}}</div>
     </div>
-    <div class="dialog-row">
+    <div class="dialog-row control-buttons">
         <button class="caution-btn" (click)="onNoClick()">No</button>
         <button class="btn-primary" (click)="onYesClick()">Yes</button>
     </div>
