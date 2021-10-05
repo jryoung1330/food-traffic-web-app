@@ -7,7 +7,7 @@
         <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}
             <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
-        <div *ngIf="this.op.closed">CLOSE
+        <div *ngIf="this.op.closed">CLOSED
             <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}
         <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
-    <div *ngIf="this.op.closed">CLOSE
+    <div *ngIf="this.op.closed">CLOSED
         <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
 </div>

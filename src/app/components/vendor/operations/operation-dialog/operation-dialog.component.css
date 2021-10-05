@@ -1,0 +1,87 @@
+input[type=number] {
+    width: 12%;
+    text-align: center;
+}
+
+label {
+    margin-right: 1rem;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.dialog-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.dialog-row {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 70%;
+}
+
+.dialog-row-sm {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.dialog-header {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    background-color: #fd7e14;
+    color: white;
+    padding: 0.8rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8%;
+}
+
+.dialog-header>#title {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 25%;
+}
+
+.closex {
+    cursor: pointer;
+    color: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+select {
+    padding: 0.2rem;
+}
+
+.flexcon-start {
+    width: 65%;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.save {
+    color: white;
+    background-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
