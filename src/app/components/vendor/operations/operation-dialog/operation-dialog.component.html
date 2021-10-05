@@ -1,0 +1,35 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div id="title">{{data.dayOfWeek.toUpperCase()}}</div>
+    </div>
+    <div class="dialog-row">
+        <label for="open">Open:</label>
+        <input type="number" [(ngModel)]="data.open.hours" [disabled]="data.closed">
+        <div>:</div>
+        <input type="number" [(ngModel)]="data.open.minutes" [disabled]="data.closed">
+        <select [(ngModel)]="data.open.timeOfDay" [disabled]="data.closed">
+            <option>AM</option>
+            <option>PM</option>
+        </select>
+    </div>
+    <div class="dialog-row">
+        <label for="close">Close:</label>
+        <input type="number" [(ngModel)]="data.close.hours" [disabled]="data.closed">
+        <div>:</div>
+        <input type="number" [(ngModel)]="data.close.minutes" [disabled]="data.closed">
+        <select [(ngModel)]="data.close.timeOfDay" [disabled]="data.closed">
+            <option>AM</option>
+            <option>PM</option>
+        </select>
+    </div>
+    <div class="flexcon-start">
+        <div class="dialog-row-sm">
+            <label for="closed">Closed?</label>
+            <input type="checkbox" [(ngModel)]="data.closed" name="closed">
+        </div>
+    </div>
+    <div class="dialog-row">
+        <button class="cancel" (click)="onNoClick()">CANCEL</button>
+        <button class="save" (click)="save(data)">SAVE</button>
+    </div>
+</div>

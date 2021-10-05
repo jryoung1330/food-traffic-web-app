@@ -26,12 +26,13 @@ import { VendorProfileComponent } from './components/vendor/profile/profile.comp
 import { MatDialogModule } from '@angular/material/dialog';
 import { MenuComponent } from './components/vendor/menu/menu.component';
 import { VendorMenuItemComponent } from './components/customer/vendor-menu/vendor-menu-item/vendor-menu-item.component';
-import { OperationEditDialog, OperationsComponent } from './components/vendor/operations/operations.component';
+import { OperationsComponent } from './components/vendor/operations/operations.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConfirmationDialog } from './components/confirmation/confirmation.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.component';
 import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dialog/menu-item-dialog.component';
+import { OperationDialog } from './components/vendor/operations/operation-dialog/operation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,6 @@ import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dia
     MenuItemComponent,
     VendorHomeComponent,
     VendorProfileComponent,
-    OperationEditDialog,
     MenuItemDialog,
     MenuComponent,
     MenuDialog,
@@ -59,7 +59,8 @@ import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dia
     LandingComponent,
     ConfirmationDialog,
     MenuDialog,
-    MenuItemDialog
+    MenuItemDialog,
+    OperationDialog
   ],
   imports: [
     BrowserModule,

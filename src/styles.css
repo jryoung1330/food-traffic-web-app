@@ -9,6 +9,7 @@ html, body {
 
 body {
     margin: 0;
+    overflow: overlay;
     /* font-family: Roboto, "Helvetica Neue", sans-serif; */
 }
 
@@ -84,6 +85,7 @@ body {
 
 mat-dialog-container {
     padding: 0 !important;
+    overflow: overlay;
 }
 
 button {
@@ -103,4 +105,19 @@ button {
     border-radius: .25rem;
     cursor: pointer;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.5); 
 }

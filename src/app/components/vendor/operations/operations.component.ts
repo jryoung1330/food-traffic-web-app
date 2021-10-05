@@ -1,8 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { VendorService } from 'src/app/services/vendor.service';
 import { OperationItem } from 'src/entities/operationItem';
 import { Time } from 'src/entities/time';
+import { OperationDialog } from './operation-dialog/operation-dialog.component';
 
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
@@ -39,9 +40,13 @@ export class OperationsComponent implements OnInit {
   }
 
   convertTime(time: String) {
-    const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
-    const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
-    return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
+    if(time != null) {
+      const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
+      const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
+      return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
+    } else {
+      return '';
+    }
   }
 
   isToday() {
@@ -49,8 +54,9 @@ export class OperationsComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(OperationEditDialog, {
-      width: '25rem',
+    const dialogRef = this.dialog.open(OperationDialog, {
+      width: '25%',
+      height: '32%',
       data: this.op
     });
 
@@ -82,29 +88,5 @@ export class OperationsComponent implements OnInit {
     }
 
     return true;
-  }
-}
-
-@Component({
-  selector: 'operation-edit-dialog',
-  templateUrl: 'operation-edit-dialog.html',
-  styleUrls: ['./operations.component.css']
-})
-export class OperationEditDialog {
-  constructor(
-    public dialogRef: MatDialogRef<OperationEditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: OperationItem) {
-      this.data.open = new Time();
-      this.data.open.splitTime(this.data.openTime);
-      this.data.close = new Time();
-      this.data.close.splitTime(this.data.closeTime);
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close(undefined);
-  }
-
-  capitalCase(str: String) {
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 }
