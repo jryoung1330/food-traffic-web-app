@@ -18,12 +18,12 @@ export class OperationDialog implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: OperationItem) {
       this.data.open = new Time();
       this.data.close = new Time();
+      
       if(this.data.openTime) {
-        this.data.openTime = '9:00';
         this.data.open.splitTime(this.data.openTime);
       }
+
       if(this.data.closeTime) {
-        this.data.closeTime = '17:00';
         this.data.close.splitTime(this.data.closeTime);
       }
     }
