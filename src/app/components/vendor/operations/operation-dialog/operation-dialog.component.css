@@ -52,11 +52,6 @@ label {
     width: 25%;
 }
 
-.closex {
-    cursor: pointer;
-    color: white;
-}
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -77,11 +72,4 @@ select {
     width: 65%;
     align-items: center;
     margin-bottom: 5%;
-}
-
-.save {
-    color: white;
-    background-color: #fd7e14;
-    font-size: 0.8rem;
-    font-weight: bold;
 }

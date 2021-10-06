@@ -119,13 +119,6 @@ input[type=number] {
     font-size: 0.7rem;
 }
 
-.save {
-    color: white;
-    background-color: #fd7e14;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
 .control-buttons {
     justify-content: space-around;
 }

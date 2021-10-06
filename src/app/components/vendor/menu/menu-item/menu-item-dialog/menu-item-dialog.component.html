@@ -2,7 +2,7 @@
     <div class="dialog-header">
         <div *ngIf="data.id" id="title">{{data.name.toUpperCase()}}</div>
         <div *ngIf="!data.id" id="title">NEW MENU ITEM</div>
-        <i class="material-icons dialog-trash" (click)="openDialog()">delete</i>
+        <i class="material-icons closex" (click)="onNoClick()">close</i>
     </div>
     <div class="menu-item-image-lg"></div>
     <div class="dialog-row">
@@ -48,6 +48,7 @@
         </div>
     </div>
     <div class="dialog-row control-buttons">
+        <button *ngIf="data.id" class="delete" (click)="openDialog()">DELETE</button>
         <button class="cancel" (click)="onNoClick()">CANCEL</button>
         <button class="save" (click)="save(data)">SAVE</button>
     </div>

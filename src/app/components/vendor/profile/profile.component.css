@@ -6,9 +6,11 @@
 #top-container {
     height: 50%;
     width: inherit;
-    background-color: #fd7d149c;
+    /* background-color: #fd7d149c; */
+    background-color: #fcaa65;
     color: white;
-    padding-top: 80px;
+    margin-top: 60px;
+    padding-top: 5%;
     display: flex;
     justify-content: center;
 }
@@ -86,6 +88,13 @@ header {
     padding: 1rem;
 }
 
+#menu-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
 #vendor-ops-list {
     display: flex;
     flex-direction: row;
@@ -102,9 +111,17 @@ app-operations {
     margin-bottom: 2%;
 }
 
+app-menu {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
 #ops-header {
     border-bottom: 1px solid rgba(0,0,0,.125);
     margin-bottom: 1.5rem;
+}
+
+#menu-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
 #add-menu-btn {
