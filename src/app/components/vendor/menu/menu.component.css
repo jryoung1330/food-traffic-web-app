@@ -11,7 +11,6 @@
     text-decoration: underline;
     font-size: 1.2rem;
     padding: 1rem;
-    width: 100%;
 }
 
 #description {
@@ -37,7 +36,7 @@
 
 #list-container {
     padding: 0.2rem;
-    width: 75%;
+    width: -webkit-fill-available;
     justify-content: space-between;
 }
 
@@ -75,8 +74,20 @@ app-menu-item {
 }
 
 #new-item {
-    width: 17%;
-    margin-right: 10%;
+    display: flex;
+    align-items: center;
+    color: #fd7e14;
+    cursor: pointer;
+    white-space: pre;
+    font-weight: bold;
+}
+
+#new-item>i {
+    font-size: 1.2rem;
+}
+
+#new-item:hover {
+    color: #fd7d14bd;
 }
 
 #menu-header {

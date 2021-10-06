@@ -1,8 +1,16 @@
 <div class="menu-container">
-    <div class="menu-title">{{menu.name}} <span><i class="material-icons" (click)="openDialog()">edit</i></span></div>
+    <div class="row flexcon-between">
+        <div class="menu-title">
+            {{menu.name}}
+            <span><i class="material-icons" (click)="openDialog()">edit</i></span>
+        </div>
+        <div id="new-item" (click)="createMenuItemDialog()">
+            <div>Add New Item </div>
+            <i class="material-icons">add</i>
+        </div>
+    </div>
     <i id="description" class="row flexcon-start">{{menu.description}}</i>
     <ul class="menu-item-list">
-        <app-menu-item id="new-item" [item]="newMenuItem"></app-menu-item>
         <div id="list-container" class="flexcon">
             <i class="material-icons arrow arrow-left" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
             <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.start !== 0))"></div>

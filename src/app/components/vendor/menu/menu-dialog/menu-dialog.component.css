@@ -21,11 +21,6 @@
     font-weight: bold;
 }
 
-.closex {
-    cursor: pointer;
-    color: white;
-}
-
 .dialog-row {
     width: 60%;
     margin-bottom: 1rem;
@@ -37,11 +32,4 @@
 
 input, textarea {
     width: 100%;
-}
-
-.save {
-    color: white;
-    background-color: #fd7e14;
-    font-size: 0.8rem;
-    font-weight: bold;
 }

@@ -73,6 +73,18 @@ body {
     font-weight: bold;
 }
 
+.save {
+    color: white;
+    background-color: #fd7e14;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.closex {
+    cursor: pointer;
+    color: white;
+}
+
 .dialog-trash {
     cursor: pointer;
     color: white;
@@ -85,7 +97,6 @@ body {
 
 mat-dialog-container {
     padding: 0 !important;
-    overflow: overlay;
 }
 
 button {

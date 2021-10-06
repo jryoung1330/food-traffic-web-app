@@ -26,8 +26,9 @@ nav {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
+    background-color: #fcaa65;
 }
 
 button {
