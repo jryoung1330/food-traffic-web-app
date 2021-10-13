@@ -72,8 +72,8 @@ export class VendorService {
     return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
   }
 
-  public getHoursOfOperation(id: number, searchKey: string): Observable<Operation> {
-    return this.httpClient.get<Operation>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
+  public getHoursOfOperation(id: number, searchKey: string): Observable<OperationItem[]> {
+    return this.httpClient.get<OperationItem[]>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {
