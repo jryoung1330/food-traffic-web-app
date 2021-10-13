@@ -37,7 +37,7 @@
 #list-container {
     padding: 0.2rem;
     width: -webkit-fill-available;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .arrow {
@@ -47,6 +47,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 0.5rem;
+}
+
+.arrow-left {
+    margin-right: 2.5%;
+}
+
+.arrow-right {
+    margin-left: 2.5%;
 }
 
 .arrow-left:hover {
@@ -71,6 +79,15 @@ span>.material-icons {
 
 app-menu-item {
     width: 25%;
+    margin-right: 5%;
+}
+
+#list-container app-menu-item:first-of-type {
+    margin-left: 0;
+}
+
+#list-container app-menu-item:last-of-type {
+    margin-right: 0;
 }
 
 #new-item {

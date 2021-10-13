@@ -9,21 +9,24 @@
               <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag] = tag></app-vendor-tag>
             </ul>
         </div>
-        <div id="today" *ngIf="this.today.openTime !== null">Hours: {{this.convertTime(this.today.openTime)}} - {{this.convertTime(this.today.closeTime)}}</div>
-        <div id="today" *ngIf="this.today.openTime == null">Hours: Closed</div>
+        <div id="today" *ngIf="this.today.openTime !== null">{{this.convertTime(this.today.openTime)}} - {{this.convertTime(this.today.closeTime)}}</div>
+        <div id="today" *ngIf="this.today.openTime == null">Closed</div>
       </div>
     </div>
     <div class="flexcon">
       <div id="schedule">
-        <header id="ops-header">Hours of Operation</header>
+        <div id="ops-header">
+          <header>Hours of Operation</header>
+          <div id="add-event-btn" class="flexcon-centered" (click)="createEvent()">Add Event <i class="material-icons">add</i></div>
+        </div>
         <ul id="vendor-ops-list" class="list-group list-group-flush">
           <app-operations *ngFor="let item of this.operationItems" [op]=item [list]="true"></app-operations>
         </ul>
       </div>
       <div id="menus">
-        <div id="menu-header" class="flexcon-start">
+        <div id="menu-header">
           <header>Menus</header>
-          <i id="add-menu-btn" class="material-icons" (click)="openDialog()">add</i>
+          <div id="add-menu-btn" class="flexcon-centered" (click)="openDialog()">Add Menu <i class="material-icons">add</i></div>
         </div>
         <ul id="menu-list" cdkDropList (cdkDropListDropped)="drop($event)">
           <app-menu *ngFor="let menu of this.menus" [menu] = menu cdkDrag>

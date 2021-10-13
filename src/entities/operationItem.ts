@@ -5,8 +5,6 @@ export class OperationItem {
     operationId: number;
     dayOfWeek: String;
     closed: boolean;
-    reason: String;
-    date: Date;
     openTime: String;
     closeTime: String;
     openDateTime: Date;
@@ -14,4 +12,9 @@ export class OperationItem {
     timeLeft: number;
     open: Time;
     close: Time;
+    event: boolean;
+    eventName: String;
+    eventUrl: String;
+    eventStartDate: Date;
+    eventEndDate: Date;
 }

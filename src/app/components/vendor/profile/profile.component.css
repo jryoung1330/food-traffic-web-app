@@ -115,20 +115,36 @@ app-menu {
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
+#menu-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #ops-header {
     border-bottom: 1px solid rgba(0,0,0,.125);
     margin-bottom: 1.5rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#menu-header {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-#add-menu-btn {
+#add-event-btn, #add-menu-btn {
     color: #fd7e14;
     font-weight: bold;
-    padding: 0.1rem;
     cursor: pointer;
+    white-space: pre;
+}
+
+#add-event-btn:hover, #add-menu-btn:hover {
+    color: #fd7d14bd;
+}
+
+#add-event-btn>i, #add-menu-btn>i {
+    font-size: 1.2rem;
 }
 
 .cdk-drag-preview {

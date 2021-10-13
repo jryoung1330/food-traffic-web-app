@@ -7,6 +7,8 @@ import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
 import { MenuDialog } from '../menu/menu-dialog/menu-dialog.component';
+import { EventDialog } from '../operations/event-dialog/event-dialog.component';
+import { Time } from 'src/entities/time';
 
 const MILLISECONS_TO_HOURS : number = 36000000;
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
@@ -23,7 +25,7 @@ export class VendorProfileComponent implements OnInit {
   menus: Menu[];
   today: OperationItem;
 
-  constructor(private vendorService: VendorService, public menuDialog: MatDialog) { }
+  constructor(private vendorService: VendorService, public menuDialog: MatDialog, public eventDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.vendorService.menu$.subscribe((payload) => {
@@ -156,5 +158,46 @@ export class VendorProfileComponent implements OnInit {
       menus[i].displayOrder = i;
       this.vendorService.updateMenu(window.location.pathname, menus[i]).subscribe((payload) => menus[i] = payload);
     }
+  }
+
+  createEvent(): void {
+    let opItem = new OperationItem();
+
+    const dialogRef = this.eventDialog.open(EventDialog, {
+      width: '30%',
+      height: '45%',
+      data: opItem
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result && this.validateTime(result.open) && this.validateTime(result.close)) {
+        result.openTime = result.open.toString();
+        result.closeTime = result.close.toString();
+        result.operationId = this.operationItems[0].operationId;
+        result.vendorId = this.vendor.id;
+        this.vendorService.createEvent(window.location.pathname, result).subscribe((payload) => {
+          // do nothing
+        });
+      }
+    });
+  }
+
+  // TODO: set up form validation
+  validateTime(time: Time): boolean {
+    let hours = Number.parseInt(time.hours);
+    let minutes = Number.parseInt(time.minutes);
+
+    if(hours < 0 || hours > 12) {
+      console.log('Invalid hours');
+      return false;
+    }
+
+    if(minutes < 0 || minutes > 59) {
+      console.log("Invalid minutes");
+      return false;
+    }
+
+    return true;
   }
 }
