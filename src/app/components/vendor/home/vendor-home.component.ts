@@ -34,9 +34,9 @@ export class VendorHomeComponent implements OnInit {
 
   getHoursOfOperation(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
-      this.vendorService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: Operation) => {
+      this.vendorService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: OperationItem[]) => {
         if(payload !== null) {
-          this.operationItems = this.convertOperations(payload.operationItems);
+          this.operationItems = this.convertOperations(payload);
         } else {
           this.operationItems = null;
         }
