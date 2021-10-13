@@ -65,7 +65,6 @@ export class OperationsComponent implements OnInit {
         result.openTime = result.open.toString();
         result.closeTime = result.close.toString();
         this.vendorService.updateOperationItem(window.location.pathname, this.op).subscribe((payload) => {
-          console.log(payload);
           this.op = payload;
         });
       }

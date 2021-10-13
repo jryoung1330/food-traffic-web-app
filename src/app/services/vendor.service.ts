@@ -24,7 +24,6 @@ const header = {
 })
 
 export class VendorService {
-  
   private locationData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public location$ = this.locationData.asObservable();
 
@@ -89,6 +88,10 @@ export class VendorService {
   public updateOperationItem(path: string, operationItem: OperationItem): Observable<OperationItem> {
     return this.httpClient.put<OperationItem>('http://localhost:8888' + path + "/operations/" + operationItem.operationId + "/operation-items/" + operationItem.id, 
       JSON.stringify(operationItem), header);
+  }
+
+  public createEvent(path: string, operationItem: OperationItem): Observable<OperationItem> {
+    return this.httpClient.post<OperationItem>('http://localhost:8888' + path + '/operations/' + operationItem.operationId + "/operation-items", JSON.stringify(operationItem), header)
   }
 
   public createMenu(path: string, menu: Menu) {

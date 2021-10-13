@@ -33,6 +33,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.component';
 import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dialog/menu-item-dialog.component';
 import { OperationDialog } from './components/vendor/operations/operation-dialog/operation-dialog.component';
+import { EventDialog } from './components/vendor/operations/event-dialog/event-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { OperationDialog } from './components/vendor/operations/operation-dialog
     ConfirmationDialog,
     MenuDialog,
     MenuItemDialog,
-    OperationDialog
+    OperationDialog,
+    EventDialog
   ],
   imports: [
     BrowserModule,
