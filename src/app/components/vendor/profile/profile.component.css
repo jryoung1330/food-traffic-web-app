@@ -6,7 +6,6 @@
 #top-container {
     height: 50%;
     width: inherit;
-    /* background-color: #fd7d149c; */
     background-color: #fcaa65;
     color: white;
     margin-top: 60px;
@@ -77,7 +76,7 @@ app-vendor-tag {
     justify-content: center;
 }
 
-#schedule, #menus {
+#schedule, #menus, #events {
     width: 80%;
     margin-top: 2%;
 }
@@ -115,6 +114,10 @@ app-menu {
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
+app-menu:last-of-type {
+    border-bottom: none;
+}
+
 #menu-header {
     border-bottom: 1px solid rgba(0,0,0,.125);
     display: flex;
@@ -123,7 +126,7 @@ app-menu {
     align-items: center;
 }
 
-#ops-header {
+#ops-header, #events-header {
     border-bottom: 1px solid rgba(0,0,0,.125);
     margin-bottom: 1.5rem;
     display: flex;
@@ -166,4 +169,30 @@ app-menu {
 
 .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+#event-detail-section {
+    margin-bottom: 2rem;
+    display: flex;
+}
+
+#event-detail-section-left {
+    border-right: 1px solid rgba(0,0,0,.125);
+    width: 35%;
+}
+
+#event-detail-section-right {
+    width: 65%;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 95%;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 0.5rem;
+}
+
+#event-list {
+    width: 95%;
 }

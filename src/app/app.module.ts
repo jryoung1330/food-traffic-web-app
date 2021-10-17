@@ -34,6 +34,10 @@ import { MenuDialog } from './components/vendor/menu/menu-dialog/menu-dialog.com
 import { MenuItemDialog } from './components/vendor/menu/menu-item/menu-item-dialog/menu-item-dialog.component';
 import { OperationDialog } from './components/vendor/operations/operation-dialog/operation-dialog.component';
 import { EventDialog } from './components/vendor/operations/event-dialog/event-dialog.component';
+import { StatusPillComponent } from './components/vendor/status-pill/status-pill.component';
+import { CalendarDateComponent } from './components/calendar-date/calendar-date.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { EventCardComponent } from './components/vendor/event-card/event-card.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +66,11 @@ import { EventDialog } from './components/vendor/operations/event-dialog/event-d
     MenuDialog,
     MenuItemDialog,
     OperationDialog,
-    EventDialog
+    EventDialog,
+    StatusPillComponent,
+    CalendarDateComponent,
+    CalendarComponent,
+    EventCardComponent
   ],
   imports: [
     BrowserModule,

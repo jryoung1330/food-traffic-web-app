@@ -1,0 +1,23 @@
+<i *ngIf="isVendor && closed && !vendor.online" class="material-icons offline pill closed-state" title="Offline"
+    (click)="toggleState()">do_not_disturb_on</i>
+
+<i *ngIf="isVendor && closed && vendor.online"class="material-icons online pill closed-state" title="Online"
+(click)="toggleState()">check_circle</i>
+
+<div *ngIf="isVendor && !closed" id="opened-state" class="pill" [ngClass]="vendor.online ? 'online' : 'offline'">
+    <div id="header">
+        <i class="material-icons" (click)="toggleState()">minimize</i>
+    </div>
+    <div id="map">
+        MAP GOES HERE
+    </div>
+    <div id="footer">
+        <div id="footer-left">
+            <i id="location-btn" class="material-icons" (click)="updateLocation()">location_on</i>
+        </div>
+        <label id="footer-right">
+            <input type="checkbox" [(ngModel)]="vendor.online" (click)="switchState()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>

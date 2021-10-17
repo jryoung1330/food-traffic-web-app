@@ -24,8 +24,9 @@ export class VendorProfileComponent implements OnInit {
   operationItems: OperationItem[];
   menus: Menu[];
   today: OperationItem;
+  events: OperationItem[];
 
-  constructor(private vendorService: VendorService, public menuDialog: MatDialog, public eventDialog: MatDialog) { }
+  constructor(private vendorService: VendorService, public menuDialog: MatDialog, public eventDialog: MatDialog) {}
 
   ngOnInit(): void {
     this.vendorService.menu$.subscribe((payload) => {
@@ -37,6 +38,15 @@ export class VendorProfileComponent implements OnInit {
       this.getHoursOfOperation(payload);
       this.getMenus(payload);
     });
+
+  }
+
+  getEvents(operationId: number) {
+    let today = new Date();
+    this.vendorService.getEvents(window.location.pathname, operationId, today)
+      .subscribe((payload) => {
+        this.events = this.convertOperations(payload);
+      })
   }
 
   getHoursOfOperation(vendor: Vendor) {
@@ -44,6 +54,7 @@ export class VendorProfileComponent implements OnInit {
       this.vendorService.getHoursOfOperation(vendor.id, "week").subscribe((payload: OperationItem[]) => {
         if(payload !== null) {
           this.operationItems = this.convertOperations(payload);
+          this.getEvents(this.operationItems[0].operationId);
         } else {
           this.operationItems = null;
         }
@@ -200,4 +211,5 @@ export class VendorProfileComponent implements OnInit {
 
     return true;
   }
+
 }

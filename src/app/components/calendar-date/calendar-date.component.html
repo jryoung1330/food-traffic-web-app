@@ -1,0 +1,9 @@
+<div class="cell">
+    <div class="top-row">
+        <div [ngClass]="{'today' : todaysDate.toLocaleDateString() === day?.toLocaleDateString()}">{{day?.getDate()}}
+        </div>
+    </div>
+    <div class="event-container">
+        <div *ngFor="let item of events" class="event-indicator"></div>
+    </div>
+</div>
