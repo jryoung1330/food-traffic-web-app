@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" [ngClass]="'/login' === hRouter.url ? 'plain-bar' : 'theme-bar'">
+<nav id="main-navbar" class="navbar navbar-expand-lg" [ngClass]="'/login' === hRouter.url ? 'plain-bar' : 'theme-bar'">
   <div id="title" [ngClass]="'/login' === hRouter.url ? 'theme' : 'plain'" routerLink="/"> 
     <div id="title-logo" *ngIf="displayName == null">T</div>
     FOOD TRAFFIC
