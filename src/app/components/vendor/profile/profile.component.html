@@ -42,12 +42,13 @@
         <div id="event-detail-section">
           <div id="event-detail-section-left">
             <div class="subtitle">Upcoming Events</div>
+            <div *ngIf="upcomingEvents.length == 0" class="emptyMessage">No upcoming events in this month</div>
             <ul id="event-list" class="list-group list-group-flush">
-              <app-event-card *ngFor="let item of this.events" [event]=item [isVendor]="vendor"></app-event-card>
+              <app-event-card *ngFor="let item of this.upcomingEvents" [event]=item [isVendor]="vendor"></app-event-card>
             </ul>
           </div>
           <div *ngIf="operationItems && events" id="event-detail-section-right">
-            <app-calendar [vendor]="vendor" [operationId]="operationItems[0].operationId" [events]="events"></app-calendar>
+            <app-calendar [vendor]="vendor" [events]="events"></app-calendar>
           </div>
         </div>
       </div>

@@ -53,8 +53,11 @@ export class EventCardComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
-        if(result) {
+        if("DELETE" === result) {
+          this.vendorService.deleteEvent(window.location.pathname, this.event).subscribe((payload) => {
+            this.vendorService.getEventsForMonthSub(window.location.pathname, new Date());
+          });
+        } else if(result) {
           if(result.closed) {
             result.openTime = null;
             result.closeTime = null;
@@ -62,7 +65,7 @@ export class EventCardComponent implements OnInit {
             result.openTime = result.open.toString();
             result.closeTime = result.close.toString();
           }
-          this.vendorService.createEvent(window.location.pathname, result).subscribe((payload) => {
+          this.vendorService.updateOperationItem(window.location.pathname, result).subscribe((payload) => {
             // do nothing
           });
         }

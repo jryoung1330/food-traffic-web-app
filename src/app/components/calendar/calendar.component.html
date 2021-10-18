@@ -8,6 +8,6 @@
         <th *ngFor="let dow of this.daysOfWeek" class="dayOfWeek">{{dow}}</th>
     </tr>
     <tr *ngFor="let week of this.month">
-        <app-calendar-date *ngFor="let weekday of week" [day]="weekday" [events]="events" (click)="createEvent(weekday)"></app-calendar-date>
+        <app-calendar-date *ngFor="let weekday of week" [day]="weekday" [events]="events" [vendorId]="vendor.id"></app-calendar-date>
     </tr>
 </table>

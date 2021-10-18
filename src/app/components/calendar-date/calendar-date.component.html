@@ -1,4 +1,4 @@
-<div class="cell">
+<div class="cell" (click)="createOrEditEvent()">
     <div class="top-row">
         <div [ngClass]="{'today' : todaysDate.toLocaleDateString() === day?.toLocaleDateString()}">{{day?.getDate()}}
         </div>

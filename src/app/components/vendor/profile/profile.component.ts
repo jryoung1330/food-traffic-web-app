@@ -1,14 +1,13 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
-import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
+import { Time } from 'src/entities/time';
 import { Vendor } from 'src/entities/vendor';
 import { MenuDialog } from '../menu/menu-dialog/menu-dialog.component';
 import { EventDialog } from '../operations/event-dialog/event-dialog.component';
-import { Time } from 'src/entities/time';
 
 const MILLISECONS_TO_HOURS : number = 36000000;
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
@@ -25,6 +24,7 @@ export class VendorProfileComponent implements OnInit {
   menus: Menu[];
   today: OperationItem;
   events: OperationItem[];
+  upcomingEvents: OperationItem[] = [];
 
   constructor(private vendorService: VendorService, public menuDialog: MatDialog, public eventDialog: MatDialog) {}
 
@@ -33,20 +33,31 @@ export class VendorProfileComponent implements OnInit {
       this.menus = payload;
     });
 
+    this.vendorService.events$.subscribe((payload) => {
+      this.events = this.convertOperations(payload);
+
+      // remove events that have already passed
+      this.upcomingEvents = [];
+      let today = new Date();
+      payload.forEach(event => {
+        if(new Date(event.eventStartDate) >= today) {
+          this.upcomingEvents.push(this.convertOperation(event));
+        }
+      });
+    });
+
     this.vendorService.getVendor(window.localStorage.getItem('vendor')).subscribe((payload) => {
       this.vendor = payload;
       this.getHoursOfOperation(payload);
+      this.getEvents();
       this.getMenus(payload);
     });
 
   }
 
-  getEvents(operationId: number) {
+  getEvents() {
     let today = new Date();
-    this.vendorService.getEvents(window.location.pathname, operationId, today)
-      .subscribe((payload) => {
-        this.events = this.convertOperations(payload);
-      })
+    this.vendorService.getEventsForMonthSub(window.location.pathname, today);
   }
 
   getHoursOfOperation(vendor: Vendor) {
@@ -54,7 +65,6 @@ export class VendorProfileComponent implements OnInit {
       this.vendorService.getHoursOfOperation(vendor.id, "week").subscribe((payload: OperationItem[]) => {
         if(payload !== null) {
           this.operationItems = this.convertOperations(payload);
-          this.getEvents(this.operationItems[0].operationId);
         } else {
           this.operationItems = null;
         }
@@ -84,6 +94,25 @@ export class VendorProfileComponent implements OnInit {
       }
     });
     return operationItems;
+  }
+
+  convertOperation(op: OperationItem) {
+    let now = new Date();
+    if(op.dayOfWeek === DAYS[now.getDay()]) {
+      this.today = op;
+    }
+
+    if(!op.closed) {
+      let closeTime = new Date();
+      closeTime.setHours(this.getHours(op.closeTime), this.getMinutes(op.closeTime), 0, 0);
+      op.closeDateTime = closeTime;
+      op.timeLeft = (op.closeDateTime.valueOf() - now.valueOf()) / MILLISECONS_TO_HOURS;
+
+      let openTime = new Date();
+      openTime.setHours(this.getHours(op.openTime), this.getMinutes(op.openTime), 0, 0);
+      op.openDateTime = openTime;
+    }
+    return op;
   }
 
   getHours(time : String) : number {
@@ -181,17 +210,27 @@ export class VendorProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if(result && this.validateTime(result.open) && this.validateTime(result.close)) {
         result.openTime = result.open.toString();
         result.closeTime = result.close.toString();
-        result.operationId = this.operationItems[0].operationId;
         result.vendorId = this.vendor.id;
         this.vendorService.createEvent(window.location.pathname, result).subscribe((payload) => {
-          // do nothing
+          this.addEventToList(payload);
         });
       }
     });
+  }
+
+  addEventToList(payload: OperationItem) {
+    let opDate = new Date(payload.eventStartDate);
+    let addIndex: number = 0;
+    for (let i = 0; i < this.events.length; i++) {
+      if(this.events[i].eventStartDate > opDate) {
+        addIndex = i;
+        break;
+      }
+    }
+    this.events.splice(addIndex, 0, this.convertOperation(payload));
   }
 
   // TODO: set up form validation

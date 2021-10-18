@@ -32,6 +32,9 @@ export class VendorService {
   private MenuData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public menu$ = this.MenuData.asObservable();
 
+  private EventData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public events$ = this.EventData.asObservable();
+
   private handleError: HandleError;
 
   constructor(private httpClient: HttpClient, httpErrorHandler: HttpErrorHandler) { 
@@ -84,10 +87,6 @@ export class VendorService {
     return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
   }
 
-  public getHoursOfOperation(id: number, searchKey: string): Observable<OperationItem[]> {
-    return this.httpClient.get<OperationItem[]>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
-  }
-
   public getMenus(id: number): Observable<Array<Menu>> {
     return this.httpClient.get<Array<Menu>>('http://localhost:8892/vendors/' + id + "/menus");
   }
@@ -95,15 +94,6 @@ export class VendorService {
   public getMenusForSub(id: number) {
     this.httpClient.get<Array<Menu>>('http://localhost:8892/vendors/' + id + "/menus")
       .subscribe((payload) => this.MenuData.next(payload));
-  }
-
-  public updateOperationItem(path: string, operationItem: OperationItem): Observable<OperationItem> {
-    return this.httpClient.put<OperationItem>('http://localhost:8888' + path + "/operations/" + operationItem.operationId + "/operation-items/" + operationItem.id, 
-      JSON.stringify(operationItem), header);
-  }
-
-  public createEvent(path: string, operationItem: OperationItem): Observable<OperationItem> {
-    return this.httpClient.post<OperationItem>('http://localhost:8888' + path + '/operations/' + operationItem.operationId + "/operation-items", JSON.stringify(operationItem), header)
   }
 
   public createMenu(path: string, menu: Menu) {
@@ -134,8 +124,34 @@ export class VendorService {
     return this.httpClient.get<Array<MenuItem>>('http://localhost:8892/vendors/' + id + '/menus/menu-items/top-sellers');
   }
 
-  public getEvents(path:String, operationId: number, date: Date): Observable<Array<OperationItem>> {
-    return this.httpClient.get<Array<OperationItem>>('http://localhost:8888' + path + '/operations/' + operationId + "/operation-items?search=upcoming&date=" + date.toISOString().split('T')[0]);
+  public getHoursOfOperation(id: number, searchKey: string): Observable<OperationItem[]> {
+    return this.httpClient.get<OperationItem[]>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
+  }
+
+  public getEventsForMonthSub(path:String, date: Date) {
+    this.httpClient.get<Array<OperationItem>>('http://localhost:8888' + path + "/events?search=month&date=" + date.toISOString().split('T')[0])
+      .subscribe((payload) => this.EventData.next(payload));
+  }
+
+  public getEventsForMonth(path:String, date: Date): Observable<Array<OperationItem>> {
+    return this.httpClient.get<Array<OperationItem>>('http://localhost:8888' + path + "/events?search=month&date=" + date.toISOString().split('T')[0]);
+  }
+
+  public getEvents(path:String, date: Date): Observable<Array<OperationItem>> {
+    return this.httpClient.get<Array<OperationItem>>('http://localhost:8888' + path + "/events?search=upcoming&date=" + date.toISOString().split('T')[0]);
+  }
+
+  public createEvent(path: string, operationItem: OperationItem): Observable<OperationItem> {
+    return this.httpClient.post<OperationItem>('http://localhost:8888' + path + '/events/', JSON.stringify(operationItem), header);
+  }
+
+  public updateOperationItem(path: string, operationItem: OperationItem): Observable<OperationItem> {
+    return this.httpClient.put<OperationItem>('http://localhost:8888' + path + "/operations/" + operationItem.id, 
+      JSON.stringify(operationItem), header);
+  }
+
+  public deleteEvent(path: string, operationItem: OperationItem): Observable<OperationItem> {
+    return this.httpClient.delete<OperationItem>('http://localhost:8888' + path + "/events/" + operationItem.id, header);
   }
 
 }
