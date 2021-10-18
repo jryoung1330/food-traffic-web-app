@@ -1,6 +1,7 @@
 <div class="dialog-container">
     <div class="dialog-header">
-        <div id="title">ADD EVENT</div>
+        <div *ngIf="!data.id" id="title">ADD EVENT</div>
+        <div *ngIf="data.id" id="title">{{data.eventName}}</div>
         <i class="material-icons closex" (click)="onNoClick()">close</i>
     </div>
     <div class="dialog-row">
@@ -12,11 +13,11 @@
     </div>
     <div class="dialog-row">
         <label for="start">Event Start Date:</label>
-        <input type="date" [(ngModel)]="data.eventStartDate">
+        <input type="date" [ngModel]="data.eventStartDate | date:'yyyy-MM-dd'" (ngModelChange)="data.eventStartDate = $event">
     </div>
     <div class="dialog-row">
         <label for="end">Event End Date:</label>
-        <input type="date" [(ngModel)]="data.eventEndDate">
+        <input type="date" [ngModel]="data.eventEndDate | date:'yyyy-MM-dd'" (ngModelChange)="data.eventEndDate = $event">
     </div>
     <div class="dialog-row">
         <label for="open">Hours:</label>
@@ -47,6 +48,7 @@
         </div>
     </div>
     <div class="button-row">
+        <button *ngIf="data.id" class="delete" (click)="openDialog()">DELETE</button>
         <button class="cancel" (click)="onNoClick()">CANCEL</button>
         <button class="save" (click)="save(data)">SAVE</button>
     </div>

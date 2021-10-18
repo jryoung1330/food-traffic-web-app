@@ -1,0 +1,17 @@
+.card-container {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-container:hover {
+    background-color: rgba(0,0,0,.125);
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.dates, .hours {
+    font-size: 0.9rem;
+}

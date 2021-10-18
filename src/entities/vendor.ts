@@ -15,5 +15,6 @@ export class Vendor {
     locationDetails: string;
     description: string;
     profileImage: string;
+    online: boolean;
     tags: Array<Tag>
 }

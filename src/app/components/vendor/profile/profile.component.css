@@ -6,7 +6,6 @@
 #top-container {
     height: 50%;
     width: inherit;
-    /* background-color: #fd7d149c; */
     background-color: #fcaa65;
     color: white;
     margin-top: 60px;
@@ -77,22 +76,32 @@ app-vendor-tag {
     justify-content: center;
 }
 
-#schedule, #menus {
+#schedule, #menus, #events {
     width: 80%;
     margin-top: 2%;
+}
+
+#ops-header, #events-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 1rem;
-}
-
-#menu-list {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
 }
 
 #vendor-ops-list {
@@ -111,27 +120,6 @@ app-operations {
     margin-bottom: 2%;
 }
 
-app-menu {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-#menu-header {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#ops-header {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 #add-event-btn, #add-menu-btn {
     color: #fd7e14;
     font-weight: bold;
@@ -145,6 +133,21 @@ app-menu {
 
 #add-event-btn>i, #add-menu-btn>i {
     font-size: 1.2rem;
+}
+
+#menu-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+app-menu {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+app-menu:last-of-type {
+    border-bottom: none;
 }
 
 .cdk-drag-preview {
@@ -166,4 +169,42 @@ app-menu {
 
 .cdk-drag-animating {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+#event-detail-section {
+    margin-bottom: 2rem;
+    display: flex;
+    height: 42rem;
+    overflow: hidden;
+}
+
+#event-detail-section-left {
+    border-right: 1px solid rgba(0,0,0,.125);
+    width: 35%;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 95%;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 0.5rem;
+}
+
+#event-list {
+    width: 95%;
+    height: 70%;
+    overflow-y: scroll;
+}
+
+#event-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.emptyMessage {
+    padding: 1rem;
+}
+
+#event-detail-section-right {
+    width: 65%;
 }

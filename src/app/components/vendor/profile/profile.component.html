@@ -1,7 +1,7 @@
 <div id="profile-container">
-    <div id="top-container">
+    <div *ngIf="vendor && currentDate" id="top-container">
       <div id="top">
-        <div id="name">{{spaceOut(this.vendor.displayName.toUpperCase())}}</div>
+        <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
         <!-- <div id="description"><i>{{this.vendor.description}}</i></div> -->
         <div id="tags" class="flexcon">
             <div class="tag-separator"></div>
@@ -9,30 +9,47 @@
               <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag] = tag></app-vendor-tag>
             </ul>
         </div>
-        <div id="today" *ngIf="this.today.openTime !== null">{{this.convertTime(this.today.openTime)}} - {{this.convertTime(this.today.closeTime)}}</div>
-        <div id="today" *ngIf="this.today.openTime == null">Closed</div>
+        <div id="today" *ngIf="currentDate.openTime !== null">{{opService.printEventTime(currentDate)}}</div>
+        <div id="today" *ngIf="currentDate.openTime == null">Closed</div>
       </div>
     </div>
     <div class="flexcon">
       <div id="schedule">
         <div id="ops-header">
           <header>Hours of Operation</header>
-          <div id="add-event-btn" class="flexcon-centered" (click)="createEvent()">Add Event <i class="material-icons">add</i></div>
         </div>
         <ul id="vendor-ops-list" class="list-group list-group-flush">
-          <app-operations *ngFor="let item of this.operationItems" [op]=item [list]="true"></app-operations>
+          <app-operations *ngFor="let item of hoursOfOperation" [op]=item [list]="true"></app-operations>
         </ul>
       </div>
       <div id="menus">
         <div id="menu-header">
           <header>Menus</header>
-          <div id="add-menu-btn" class="flexcon-centered" (click)="openDialog()">Add Menu <i class="material-icons">add</i></div>
+          <div id="add-menu-btn" class="flexcon-centered" (click)="openMenuDialog()">Add Menu <i class="material-icons">add</i></div>
         </div>
         <ul id="menu-list" cdkDropList (cdkDropListDropped)="drop($event)">
-          <app-menu *ngFor="let menu of this.menus" [menu] = menu cdkDrag>
+          <app-menu *ngFor="let menu of menus" [menu] = menu cdkDrag>
             <div *cdkDragPreview>{{menu.name}}</div>
           </app-menu>
         </ul>
+      </div>
+      <div id="events">
+        <div id="events-header">
+          <header>Events</header>
+          <div id="add-event-btn" class="flexcon-centered" (click)="createEvent()">Add Event <i class="material-icons">add</i></div>
+        </div>
+        <div id="event-detail-section">
+          <div id="event-detail-section-left">
+            <div class="subtitle">Upcoming Events</div>
+            <div *ngIf="upcomingEvents.length == 0" class="emptyMessage">No upcoming events in this month</div>
+            <ul id="event-list" class="list-group list-group-flush">
+              <app-event-card *ngFor="let item of upcomingEvents" [event]=item [isVendor]="vendor"></app-event-card>
+            </ul>
+          </div>
+          <div *ngIf="hoursOfOperation && events" id="event-detail-section-right">
+            <app-calendar [vendor]="vendor" [events]="events"></app-calendar>
+          </div>
+        </div>
       </div>
     </div>
 </div>

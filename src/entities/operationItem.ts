@@ -2,7 +2,7 @@ import { Time } from "./time";
 
 export class OperationItem {
     id: number;
-    operationId: number;
+    vendorId: number;
     dayOfWeek: String;
     closed: boolean;
     openTime: String;
@@ -17,4 +17,6 @@ export class OperationItem {
     eventUrl: String;
     eventStartDate: Date;
     eventEndDate: Date;
+    startDate: Date;
+    endDate: Date;
 }

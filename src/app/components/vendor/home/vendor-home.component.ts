@@ -1,14 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RoutingService } from 'src/app/services/routing.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { VendorService } from 'src/app/services/vendor.service';
 import { MenuItem } from 'src/entities/menuItem';
-import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
-
-const MILLISECONS_TO_HOURS : number = 36000000;
-const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 @Component({
   selector: 'app-vendor-home',
@@ -21,7 +16,7 @@ export class VendorHomeComponent implements OnInit {
   operationItems: OperationItem[];
   menuItems: Array<MenuItem>;
 
-  constructor(private vendorService: VendorService) { }
+  constructor(private vendorService: VendorService, private opService: OperationService) { }
 
   ngOnInit(): void {
     this.vendorService.getVendor(window.localStorage.getItem('vendor'))
@@ -34,9 +29,9 @@ export class VendorHomeComponent implements OnInit {
 
   getHoursOfOperation(vendor: Vendor) {
     if (vendor !== undefined || vendor !== null) {
-      this.vendorService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: OperationItem[]) => {
+      this.opService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: OperationItem[]) => {
         if(payload !== null) {
-          this.operationItems = this.convertOperations(payload);
+          this.operationItems = this.opService.convertOperations(payload);
         } else {
           this.operationItems = null;
         }
@@ -45,37 +40,6 @@ export class VendorHomeComponent implements OnInit {
     } else {
       this.operationItems = null;
     }
-  }
-
-  convertOperations(operationItems: OperationItem[]) {
-    let now = new Date();
-    operationItems.forEach(op => {
-      if(op.dayOfWeek === DAYS[now.getDay()]) {
-        op.dayOfWeek = 'TODAY';
-      } else if(op.dayOfWeek === DAYS[now.getDay()+1]) {
-        op.dayOfWeek = 'TOMORROW';
-      }
-
-      if(!op.closed) {
-        let closeTime = new Date();
-        closeTime.setHours(this.getHours(op.closeTime), this.getMinutes(op.closeTime), 0, 0);
-        op.closeDateTime = closeTime;
-        op.timeLeft = (op.closeDateTime.valueOf() - now.valueOf()) / MILLISECONS_TO_HOURS;
-
-        let openTime = new Date();
-        openTime.setHours(this.getHours(op.openTime), this.getMinutes(op.openTime), 0, 0);
-        op.openDateTime = openTime;
-      }
-    });
-    return operationItems;
-  }
-
-  getHours(time : String) : number {
-    return parseInt(time.split(':')[0]);
-  }
-
-  getMinutes(time: String) : number {
-    return parseInt(time.split(':')[1]);
   }
 
   getTopSellers(vendor: Vendor) {

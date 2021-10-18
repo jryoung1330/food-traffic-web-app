@@ -1,2 +1,3 @@
 <router-outlet></router-outlet>
 <app-navbar *ngIf="'/' !== route.url"></app-navbar>
+<app-status-pill *ngIf="route.url.indexOf('/vendors/') >= 0"></app-status-pill>

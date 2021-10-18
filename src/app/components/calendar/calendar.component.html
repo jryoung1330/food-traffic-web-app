@@ -1,0 +1,13 @@
+<div class="flexcon-around">
+    <i class="material-icons" (click)="prevMonth()">arrow_left</i>
+    <h3 *ngIf="month">{{monthName}} <span>{{year}}</span></h3>
+    <i class="material-icons" (click)="nextMonth()">arrow_right</i>
+</div>
+<table *ngIf="month">
+    <tr>
+        <th *ngFor="let dow of this.daysOfWeek" class="dayOfWeek">{{dow}}</th>
+    </tr>
+    <tr *ngFor="let week of this.month">
+        <app-calendar-date *ngFor="let weekday of week" [day]="weekday" [events]="events" [vendorId]="vendor.id"></app-calendar-date>
+    </tr>
+</table>

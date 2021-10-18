@@ -1,15 +1,12 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { User } from 'src/entities/user';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Location } from 'src/entities/location';
+import { Menu } from 'src/entities/menu';
+import { MenuItem } from 'src/entities/menuItem';
+import { Tag } from 'src/entities/tag';
 import { Vendor } from 'src/entities/vendor';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
-import { Tag } from 'src/entities/tag';
-import { Operation } from 'src/entities/operation';
-import { Menu } from 'src/entities/menu';
-import { OperationItem } from 'src/entities/operationItem';
-import { MenuItem } from 'src/entities/menuItem';
 
 const header = {
   headers: new HttpHeaders({
@@ -47,6 +44,15 @@ export class VendorService {
       });
   }
 
+  public fetchLocationForVendor(vendor: Vendor) {
+    this.httpClient.get<Location>('http://ip-api.com/json')
+    .subscribe((payload) => {
+      vendor.latitude = payload.lat;
+      vendor.longitude = payload.lon;
+      this.updateVendor(vendor).subscribe((payload) => {})
+    });
+  }
+
   public getVendorsByLocation(city: string, state: string) {
     if (city != null && state != null) {
       this.httpClient.get('http://localhost:8888/vendors?city=' + city + '&state=' + state)
@@ -68,12 +74,12 @@ export class VendorService {
     }
   }
 
-  public getAllTags(): Observable<Array<Tag>> {
-    return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
+  public updateVendor(vendor: Vendor): Observable<Vendor> {
+    return this.httpClient.put<Vendor>('http://localhost:8888/vendors/' + vendor.id, JSON.stringify(vendor), header);
   }
 
-  public getHoursOfOperation(id: number, searchKey: string): Observable<OperationItem[]> {
-    return this.httpClient.get<OperationItem[]>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);
+  public getAllTags(): Observable<Array<Tag>> {
+    return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {
@@ -83,15 +89,6 @@ export class VendorService {
   public getMenusForSub(id: number) {
     this.httpClient.get<Array<Menu>>('http://localhost:8892/vendors/' + id + "/menus")
       .subscribe((payload) => this.MenuData.next(payload));
-  }
-
-  public updateOperationItem(path: string, operationItem: OperationItem): Observable<OperationItem> {
-    return this.httpClient.put<OperationItem>('http://localhost:8888' + path + "/operations/" + operationItem.operationId + "/operation-items/" + operationItem.id, 
-      JSON.stringify(operationItem), header);
-  }
-
-  public createEvent(path: string, operationItem: OperationItem): Observable<OperationItem> {
-    return this.httpClient.post<OperationItem>('http://localhost:8888' + path + '/operations/' + operationItem.operationId + "/operation-items", JSON.stringify(operationItem), header)
   }
 
   public createMenu(path: string, menu: Menu) {
