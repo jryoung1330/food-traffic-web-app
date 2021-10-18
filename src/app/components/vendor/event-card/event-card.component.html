@@ -1,9 +1,9 @@
-<div class="card-container" (click)="editEvent()">
+<div class="card-container" (click)="updateEvent()">
     <div class="flexcon-between">
         <div class="title">{{event.eventName}}</div>
-        <div *ngIf="event.eventStartDate === event.eventEndDate" class="dates">{{printDate(event.eventStartDate)}}</div>
-        <div *ngIf="event.eventStartDate !== event.eventEndDate" class="dates">{{printDate(event.eventStartDate)}} - {{printDate(event.eventEndDate)}}</div>
+        <div *ngIf="compareDates(event.startDate, event.endDate)" class="dates">{{printDate(event.eventStartDate)}}</div>
+        <div *ngIf="!compareDates(event.startDate, event.endDate)" class="dates">{{printDate(event.eventStartDate)}} - {{printDate(event.eventEndDate)}}</div>
     </div>
-    <div *ngIf="!event.closed" class="hours">{{this.convertTime(this.event?.openTime)}} - {{this.convertTime(this.event.closeTime)}}</div>
+    <div *ngIf="!event.closed" class="hours">{{opService.printEventTime(event)}}</div>
     <div *ngIf="event.closed" class="hours">Closed</div>
 </div>

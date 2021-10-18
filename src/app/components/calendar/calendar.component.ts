@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { VendorService } from 'src/app/services/vendor.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
 
-const MILLISECONS_TO_HOURS : number = 36000000;
+const MONTHS = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 @Component({
   selector: 'app-calendar',
@@ -13,34 +12,38 @@ const MILLISECONS_TO_HOURS : number = 36000000;
 })
 export class CalendarComponent implements OnInit {
 
-  months = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  todaysDate = new Date();
-  month: Date[][] = [];
-  monthName: String;
-  currentDate: Date = new Date();
+  
   @Input('vendor') vendor: Vendor;
   @Input('events') events: OperationItem[];
 
-  constructor(private vendorService: VendorService, public eventDialog: MatDialog) { }
+  currentDate: Date = new Date(); // used to track the month (not today's date)
+
+  month: Date[][] = [];
+  monthName: String;
+  year: number;
+
+  constructor(private opService: OperationService) { }
 
   ngOnInit(): void {
     this.month = this.generateMonth(this.currentDate);
 
-    this.vendorService.events$.subscribe((payload) => {
-      this.events = this.convertOperations(payload);
+    this.opService.events$.subscribe((payload) => {
+      this.events = this.opService.convertOperations(payload);
       this.month = this.generateMonth(this.currentDate);
     });
   }
 
+  // @click
   prevMonth() {
     this.currentDate = this.addNDays(this.getStartOfMonth(this.currentDate), -1);
-    this.vendorService.getEventsForMonthSub(window.location.pathname, this.currentDate);
+    this.opService.getEventsForMonthSub(window.location.pathname, this.currentDate);
   }
 
+  // @click
   nextMonth() {
     this.currentDate = this.addNDays(this.getEndOfMonth(this.currentDate), 1);
-    this.vendorService.getEventsForMonthSub(window.location.pathname, this.currentDate);
+    this.opService.getEventsForMonthSub(window.location.pathname, this.currentDate);
   }
 
   generateMonth(date: Date): Date[][] {
@@ -54,11 +57,13 @@ export class CalendarComponent implements OnInit {
     let startOfMonth: Date = this.getStartOfMonth(date);
     let endOfMonth: Date = this.getEndOfMonth(date);
 
-    this.monthName = this.months[startOfMonth.getMonth()];
+    this.monthName = MONTHS[startOfMonth.getMonth()];
+    this.year = date.getFullYear();
  
     let day: Date = startOfMonth;
     let count: number = 1;
  
+    // set up first week
     for(let i=0; i<7; i++) {
       if(((day.getDay() + 6) % 7) === i) {
        month[0][i] = new Date(day);
@@ -67,6 +72,7 @@ export class CalendarComponent implements OnInit {
       }
     }
  
+    // set up other weeks
     for(let j=1; j<month.length; j++) {
      for(let k=0; k<7; k++) {
        month[j][k] = new Date(day);
@@ -98,29 +104,4 @@ export class CalendarComponent implements OnInit {
      endOfMonth.setDate(endOfMonth.getDate() - endOfMonth.getDate());
      return endOfMonth;
    }
-
-  convertOperations(operationItems: OperationItem[]) {
-    let now = new Date();
-    operationItems.forEach(op => {
-      if(!op.closed) {
-        let closeTime = new Date();
-        closeTime.setHours(this.getHours(op.closeTime), this.getMinutes(op.closeTime), 0, 0);
-        op.closeDateTime = closeTime;
-        op.timeLeft = (op.closeDateTime.valueOf() - now.valueOf()) / MILLISECONS_TO_HOURS;
-
-        let openTime = new Date();
-        openTime.setHours(this.getHours(op.openTime), this.getMinutes(op.openTime), 0, 0);
-        op.openDateTime = openTime;
-      }
-    });
-    return operationItems;
-  }
-
-  getHours(time : String) : number {
-    return parseInt(time.split(':')[0]);
-  }
-
-  getMinutes(time: String) : number {
-    return parseInt(time.split(':')[1]);
-  }
 }

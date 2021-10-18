@@ -81,17 +81,27 @@ app-vendor-tag {
     margin-top: 2%;
 }
 
+#ops-header, #events-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#menu-header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 header {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 1rem;
-}
-
-#menu-list {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
 }
 
 #vendor-ops-list {
@@ -110,31 +120,6 @@ app-operations {
     margin-bottom: 2%;
 }
 
-app-menu {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-app-menu:last-of-type {
-    border-bottom: none;
-}
-
-#menu-header {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#ops-header, #events-header {
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
 #add-event-btn, #add-menu-btn {
     color: #fd7e14;
     font-weight: bold;
@@ -148,6 +133,21 @@ app-menu:last-of-type {
 
 #add-event-btn>i, #add-menu-btn>i {
     font-size: 1.2rem;
+}
+
+#menu-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+app-menu {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+app-menu:last-of-type {
+    border-bottom: none;
 }
 
 .cdk-drag-preview {
@@ -174,17 +174,13 @@ app-menu:last-of-type {
 #event-detail-section {
     margin-bottom: 2rem;
     display: flex;
-    height: 40rem;
+    height: 42rem;
     overflow: hidden;
 }
 
 #event-detail-section-left {
     border-right: 1px solid rgba(0,0,0,.125);
     width: 35%;
-}
-
-#event-detail-section-right {
-    width: 65%;
 }
 
 .subtitle {
@@ -207,4 +203,8 @@ app-menu:last-of-type {
 
 .emptyMessage {
     padding: 1rem;
+}
+
+#event-detail-section-right {
+    width: 65%;
 }

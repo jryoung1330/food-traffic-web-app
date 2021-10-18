@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { VendorService } from 'src/app/services/vendor.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { OperationItem } from 'src/entities/operationItem';
-import { Time } from 'src/entities/time';
 import { EventDialog } from '../vendor/operations/event-dialog/event-dialog.component';
 
 @Component({
@@ -18,22 +17,28 @@ export class CalendarDateComponent implements OnInit {
   @Input("vendorId") vendorId: number;
 
   todaysDate = new Date();
-  hasEvent: boolean;
   events: OperationItem[];
+  path: string;
 
-  constructor(private vendorService: VendorService, public eventDialog: MatDialog) { }
+  constructor(private eventDialog: MatDialog, private opService: OperationService) { }
 
   ngOnInit(): void {
-    this.containsEvent().subscribe((payload) => {
+    this.path = window.location.pathname;
+
+    // async get event if in array
+    this.getEvents().subscribe((payload) => {
       this.events = payload;
     });
   }
 
-  containsEvent(): Observable<OperationItem[]> {
+  /**
+   * Searches events property for events on this day
+   * @returns observable of events
+   */
+  getEvents(): Observable<OperationItem[]> {
     let sumEvents: OperationItem[] = [];
     this.allEvents.forEach(event => {
-      let temp = this.addNDays(new Date(event.eventStartDate), 1);
-      if(temp.toDateString() == this.day?.toDateString()) {
+      if(event.startDate <= this.day && event.endDate >= this.day) {
         sumEvents.push(event);
       }
     });
@@ -43,78 +48,50 @@ export class CalendarDateComponent implements OnInit {
     });
   }
 
-  addNDays(day: Date, n: number) : Date {
-    day.setDate(day.getDate() + n);
-    return day;
-  }
+  /**
+   * Pop-up dialog to create or edit an event for this day
+   */
+  createOrUpdateEvent() {
+    let opItem: OperationItem;
+    let edit = (this.events.length > 0);
 
-  createOrEditEvent(): void {
-    let opItem = new OperationItem();
-    let update = false;
-
-    // FIXME: Expand for multiple events on the same day
-    if(this.events.length > 0) {
+    if(!edit) {
+      // set up new event
+      opItem = new OperationItem();
+      opItem.eventStartDate = this.day;
+      opItem.eventEndDate = this.day;
+    } else {
       opItem = this.events[0];
-      update = true;
     }
 
-    if(this.vendorId) {
-      if(!update) {
-        opItem.eventStartDate = this.day;
-        opItem.eventEndDate = this.day;
-      }
+    const dialogRef = this.eventDialog.open(EventDialog, {
+      width: '35%',
+      height: '45%',
+      data: opItem
+    });
 
-      const dialogRef = this.eventDialog.open(EventDialog, {
-        width: '35%',
-        height: '45%',
-        data: opItem
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if("DELETE" === result) {
-          this.vendorService.deleteEvent(window.location.pathname, opItem).subscribe((payload) => {
-            this.vendorService.getEventsForMonthSub(window.location.pathname, new Date(opItem.eventStartDate));
+    dialogRef.afterClosed().subscribe(result => {
+      if("DELETE" === result) {
+        this.opService.handleDelete(opItem, this.path).subscribe(
+          (payload) => {
+            // remove event from day and refresh list
+            this.opService.getEventsForMonthSub(this.path, this.day);
+        });
+      } else if(result) {
+        if(edit) {
+          this.opService.handleUpdate(opItem, opItem.vendorId, this.path).subscribe((payload) => {
+            // refresh list
+            this.opService.getEventsForMonthSub(this.path, this.day);
           });
-        } else if(result) {
-          if(result.closed) {
-            result.openTime = null;
-            result.closeTime = null;
-          } else if(this.validateTime(result.open) && this.validateTime(result.close)) {
-            result.openTime = result.open.toString();
-            result.closeTime = result.close.toString();
-          }
-          result.vendorId = this.vendorId;
-          if(!update) {
-            this.vendorService.createEvent(window.location.pathname, result).subscribe((payload) => {
-              this.events.push(payload);
-              this.vendorService.getEventsForMonthSub(window.location.pathname, new Date(payload.eventStartDate));
-            });
-          } else {
-            this.vendorService.updateOperationItem(window.location.pathname, result).subscribe((payload) => {
-              this.vendorService.getEventsForMonthSub(window.location.pathname, new Date(payload.eventStartDate));
-            });
-          }
+        } else {
+          this.opService.handleCreate(opItem, this.vendorId, this.path)
+            .subscribe((payload) => {
+              // add event to day and refresh list
+              this.opService.getEventsForMonthSub(this.path, this.day);
+          });
         }
-      });
-    }
-  }
-
-  // TODO: set up form validation
-  validateTime(time: Time): boolean {
-    let hours = Number.parseInt(time.hours);
-    let minutes = Number.parseInt(time.minutes);
-
-    if(hours < 0 || hours > 12) {
-      console.log('Invalid hours');
-      return false;
-    }
-
-    if(minutes < 0 || minutes > 59) {
-      console.log("Invalid minutes");
-      return false;
-    }
-
-    return true;
+      }
+    });
   }
 
 }

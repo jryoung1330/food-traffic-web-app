@@ -17,4 +17,6 @@ export class OperationItem {
     eventUrl: String;
     eventStartDate: Date;
     eventEndDate: Date;
+    startDate: Date;
+    endDate: Date;
 }

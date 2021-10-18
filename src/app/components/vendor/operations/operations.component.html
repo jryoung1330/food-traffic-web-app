@@ -4,7 +4,7 @@
         <div>{{this.capitalCase(this.op.dayOfWeek)}}</div>
     </div>
     <div class="op-body">
-        <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}
+        <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}
             <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
         <div *ngIf="this.op.closed">CLOSED
@@ -15,7 +15,7 @@
 <div *ngIf="this.list" id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'"  (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
     <div class="dayOfWeek">{{this.capitalCase(this.op.dayOfWeek)}}</div>
     <div *ngIf="op.eventName">{{op.eventName}}</div>
-    <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}
+    <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}
         <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
     <div *ngIf="this.op.closed">CLOSED

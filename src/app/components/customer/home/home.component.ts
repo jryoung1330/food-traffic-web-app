@@ -1,9 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { slideInLeftOnEnterAnimation, slideOutLeftOnLeaveAnimation } from 'angular-animations';
-import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
-import { Operation } from 'src/entities/operation';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
 
@@ -15,9 +13,6 @@ const header = {
   }),
   withCredentials: true
 };
-
-const MILLISECONS_TO_HOURS : number = 36000000;
-const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 @Component({
   selector: 'app-home',
@@ -39,7 +34,7 @@ export class HomeComponent implements OnInit {
   operationItems: OperationItem[];
   menus: Array<Menu>;
 
-  constructor(private http: HttpClient, private vendorService: VendorService) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getLocation();
@@ -71,13 +66,6 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  toggleShowVendor(vendor: Vendor) {
-    if(this.vendor === undefined || vendor.id == this.vendor.id) this.showVendor = !this.showVendor;
-    this.vendor = vendor;
-    this.getHoursOfOperation(this.vendor);
-    this.getMenus(this.vendor);
-  }
-
   toggleFavorites() {
     this.showFavorites = !this.showFavorites;
     if (this.showFavorites) {
@@ -87,66 +75,6 @@ export class HomeComponent implements OnInit {
         });
     } else {
       this.getVendorsInArea()
-    }
-  }
-
-  getHoursOfOperation(vendor: Vendor) {
-    if (vendor !== undefined || vendor !== null) {
-      this.vendorService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: OperationItem[]) => {
-        if(payload !== null) {
-          this.operationItems = this.convertOperations(payload);
-        } else {
-          this.operationItems = null;
-        }
-        
-      });
-    } else {
-      this.operationItems = null;
-    }
-  }
-
-  convertOperations(operationItems: OperationItem[]) {
-    let now = new Date();
-    operationItems.forEach(op => {
-      if(op.dayOfWeek === DAYS[now.getDay()]) {
-        op.dayOfWeek = 'TODAY';
-      } else if(op.dayOfWeek === DAYS[now.getDay()+1]) {
-        op.dayOfWeek = 'TOMORROW';
-      }
-
-      if(!op.closed) {
-        let closeTime = new Date();
-        closeTime.setHours(this.getHours(op.closeTime), this.getMinutes(op.closeTime), 0, 0);
-        op.closeDateTime = closeTime;
-        op.timeLeft = (op.closeDateTime.valueOf() - now.valueOf()) / MILLISECONS_TO_HOURS;
-
-        let openTime = new Date();
-        openTime.setHours(this.getHours(op.openTime), this.getMinutes(op.openTime), 0, 0);
-        op.openDateTime = openTime;
-      }
-    });
-    return operationItems;
-  }
-
-  getHours(time : String) : number {
-    return parseInt(time.split(':')[0]);
-  }
-
-  getMinutes(time: String) : number {
-    return parseInt(time.split(':')[1]);
-  }
-
-  getMenus(vendor: Vendor) {
-    if (vendor !== undefined || vendor !== null) {
-      this.vendorService.getMenus(vendor.id).subscribe((payload: Array<Menu>) => {
-        if(payload !== null) {
-          this.menus = payload;
-        } else {
-          this.menus = null;
-        }
-      });
-    } else {
-      this.menus = null;
     }
   }
 
