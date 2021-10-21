@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
@@ -32,6 +32,16 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (document.body.scrollTop > 20 ||     
+    document.documentElement.scrollTop > 20) {
+      document.getElementById('main-navbar').classList.add('shadow');
+    } else {
+      document.getElementById('main-navbar').classList.remove('shadow');
+    }
+  }
 
   setUpComponentByPayload(payload: User) {
     if(payload.employee !== undefined && payload.employee.admin) {

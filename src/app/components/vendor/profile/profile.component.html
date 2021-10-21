@@ -2,15 +2,13 @@
     <div *ngIf="vendor && currentDate" id="top-container">
       <div id="top">
         <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
-        <!-- <div id="description"><i>{{this.vendor.description}}</i></div> -->
+        <div id="description"><i>{{this.vendor.description}}</i></div>
         <div id="tags" class="flexcon">
             <div class="tag-separator"></div>
             <ul id="vendor-tag-list" class="list-group list-group-flush">
               <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag] = tag></app-vendor-tag>
             </ul>
         </div>
-        <div id="today" *ngIf="currentDate.openTime !== null">{{opService.printEventTime(currentDate)}}</div>
-        <div id="today" *ngIf="currentDate.openTime == null">Closed</div>
       </div>
     </div>
     <div class="flexcon">

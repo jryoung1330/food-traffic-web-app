@@ -1,25 +1,40 @@
-<div class="col-12" id="home-component">
-    <div id="left-side" class="col-4">
-        <div id="map">SPACE RESERVED FOR THE MAP</div>
-    </div>
-    <div id="vendor-page" class="col-8">
-        <div class="buttons">
-            <div class="button-row">
-                <button id="acceptOrders" class="btn">Accept Orders</button>
+<div id="profile-container">
+    <div *ngIf="vendor && currentDate" id="top-container">
+        <div id="top">
+            <div id="today" *ngIf="currentDate.openTime !== null"><span>{{opService.printEventTime(currentDate)}}</span></div>
+            <div id="today" *ngIf="currentDate.openTime == null">Closed</div>
+            <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
+            <div id="description"><i>{{vendor.description}}</i></div>
+            <div id="tags" class="flexcon">
+                <div class="tag-separator"></div>
+                <ul id="vendor-tag-list" class="list-group list-group-flush">
+                    <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of vendor.tags"
+                        [tag]=tag></app-vendor-tag>
+                </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="row-header">Hours of Operation</div>
-            <ul id="vendor-ops-list">
-                <app-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}"
-                    *ngFor="let item of this.operationItems" [op]=item></app-operations>
-            </ul>
+    </div>
+    <div class="flexcon-evenly">
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 7vw;">1,200</b>
+                <p>views this month</p>
+            </div>
+            <a href="/vendors/{{vendor?.id}}">Edit Profile</a>
         </div>
-        <div class="row">
-            <div class="row-header">Top Sellers</div>
-            <ul class="menu-item-list">
-                <app-menu-item *ngFor="let item of this.menuItems" [item]=item></app-menu-item>
-            </ul>
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 2.5vw; text-align: center;">{{menuItems[0].name}}</b>
+                <p>top seller this month</p>
+            </div>
+            <a href="/vendors/{{vendor?.id}}#menus">Edit Menu</a>
+        </div>
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 8vw;">100</b>
+                <p>orders this month</p>
+            </div>
+            <a href="#">View Order History</a>
         </div>
     </div>
 </div>
