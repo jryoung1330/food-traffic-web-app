@@ -5,6 +5,8 @@ import { MenuItem } from 'src/entities/menuItem';
 import { OperationItem } from 'src/entities/operationItem';
 import { Vendor } from 'src/entities/vendor';
 
+const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+
 @Component({
   selector: 'app-vendor-home',
   templateUrl: './vendor-home.component.html',
@@ -13,8 +15,9 @@ import { Vendor } from 'src/entities/vendor';
 export class VendorHomeComponent implements OnInit {
 
   vendor: Vendor;
-  operationItems: OperationItem[];
+  hoursOfOperation: OperationItem[];
   menuItems: Array<MenuItem>;
+  currentDate: OperationItem;
 
   constructor(private vendorService: VendorService, private opService: OperationService) { }
 
@@ -31,14 +34,19 @@ export class VendorHomeComponent implements OnInit {
     if (vendor !== undefined || vendor !== null) {
       this.opService.getHoursOfOperation(vendor.id, "3-day").subscribe((payload: OperationItem[]) => {
         if(payload !== null) {
-          this.operationItems = this.opService.convertOperations(payload);
+          this.hoursOfOperation = this.opService.convertOperations(payload);
+          this.hoursOfOperation.forEach(op => {
+            if(op.dayOfWeek === DAYS[new Date().getDay()]) {
+              this.currentDate = op;
+            }
+          });
         } else {
-          this.operationItems = null;
+          this.hoursOfOperation = null;
         }
         
       });
     } else {
-      this.operationItems = null;
+      this.hoursOfOperation = null;
     }
   }
 
@@ -46,5 +54,14 @@ export class VendorHomeComponent implements OnInit {
     this.vendorService.getTopMenuItems(vendor.id).subscribe((payload) => {
       this.menuItems = payload;
     });
+  }
+
+  // @template
+  spaceOut(name: String) : String {
+    let newName = "";
+    for(let i=0; i<name.length; i++) {
+      newName += name.charAt(i) + " ";
+    }
+    return newName.trim();
   }
 }

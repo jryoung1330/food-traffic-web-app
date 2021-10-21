@@ -1,1 +1,40 @@
-<div id="home-component"></div>
+<div id="profile-container">
+    <div *ngIf="vendor && currentDate" id="top-container">
+        <div id="top">
+            <div id="today" *ngIf="currentDate.openTime !== null"><span>{{opService.printEventTime(currentDate)}}</span></div>
+            <div id="today" *ngIf="currentDate.openTime == null">Closed</div>
+            <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
+            <div id="description"><i>{{vendor.description}}</i></div>
+            <div id="tags" class="flexcon">
+                <div class="tag-separator"></div>
+                <ul id="vendor-tag-list" class="list-group list-group-flush">
+                    <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of vendor.tags"
+                        [tag]=tag></app-vendor-tag>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="flexcon-evenly">
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 7vw;">1,200</b>
+                <p>views this month</p>
+            </div>
+            <a href="/vendors/{{vendor?.id}}">Edit Profile</a>
+        </div>
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 2.5vw; text-align: center;">{{menuItems[0].name}}</b>
+                <p>top seller this month</p>
+            </div>
+            <a href="/vendors/{{vendor?.id}}#menus">Edit Menu</a>
+        </div>
+        <div class="article">
+            <div class="article-icon">
+                <b style="font-size: 8vw;">100</b>
+                <p>orders this month</p>
+            </div>
+            <a href="#">View Order History</a>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,12 @@ body {
     justify-content: space-around;
 }
 
+.flexcon-evenly {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .flexcon-between {
     display: flex;
     justify-content: space-between;

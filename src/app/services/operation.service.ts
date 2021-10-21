@@ -79,7 +79,8 @@ export class OperationService {
     if(op.event) {
       op.startDate = new Date(op.eventStartDate.toString().replace(/-/g, '\/'));
       op.endDate = new Date(op.eventEndDate.toString().replace(/-/g, '\/'));
-      op.endDate.setUTCHours(23, 59, 59);
+      op.startDate.setUTCHours(4, 0, 0);
+      op.endDate.setUTCHours(27, 59, 59);
     }
     return op;
   }
