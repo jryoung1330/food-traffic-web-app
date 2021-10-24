@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OperationItem } from 'src/entities/operationItem';
 import { Time } from 'src/entities/time';
-import { EventDialog } from '../components/vendor/operations/event-dialog/event-dialog.component';
 
 const header = {
   headers: new HttpHeaders({
@@ -149,7 +147,7 @@ export class OperationService {
   }
 
   getTimeOfDay(num: number) {
-    return num >= 12 ? 'PM' : 'AM';
+    return num >= 12 && num < 24 ? 'PM' : 'AM';
   }
 
   convertTime(time: String) {

@@ -37,6 +37,16 @@ label {
     align-items: center;
 }
 
+.dialog-row-lg {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+app-event-card {
+    width: inherit;
+}
+
 .dialog-row {
     margin-bottom: 1.5rem;
     display: flex;
@@ -65,7 +75,18 @@ label {
     margin-bottom: 8%;
 }
 
-.dialog-header>#title {
+.dialog-header-m0 {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    background-color: #fd7e14;
+    color: white;
+    padding: 0.8rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
     font-size: 1rem;
     font-weight: bold;
     display: flex;
@@ -107,4 +128,16 @@ select {
     align-items: center;
     justify-content: space-around;
     width: 75%;
+}
+
+.create {
+    width: inherit;
+    text-align: center;
+    padding: 1rem;
+    color: #007bff;
+}
+
+.create:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

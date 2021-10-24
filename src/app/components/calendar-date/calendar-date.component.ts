@@ -67,7 +67,10 @@ export class CalendarDateComponent implements OnInit {
     const dialogRef = this.eventDialog.open(EventDialog, {
       width: '35%',
       height: '45%',
-      data: opItem
+      data: {
+        events: this.events,
+        editMode: false
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

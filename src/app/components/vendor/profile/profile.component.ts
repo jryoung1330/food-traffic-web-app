@@ -154,7 +154,10 @@ export class VendorProfileComponent implements OnInit {
     const dialogRef = this.eventDialog.open(EventDialog, {
       width: '35%',
       height: '45%',
-      data: opItem
+      data: {
+        opItem: opItem,
+        editMode: true
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
