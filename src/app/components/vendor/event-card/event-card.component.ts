@@ -28,7 +28,7 @@ export class EventCardComponent implements OnInit {
 
   // @template
   compareDates(date1: Date, date2: Date): boolean {
-    return date1.toLocaleDateString() === date2.toLocaleDateString();
+    return date1.toString() === date2.toString();
   }
 
   // @click
@@ -36,7 +36,10 @@ export class EventCardComponent implements OnInit {
     const dialogRef = this.eventDialog.open(EventDialog, {
       width: '35%',
       height: '45%',
-      data: this.event
+      data:  {
+        opItem: this.event,
+        editMode: true
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

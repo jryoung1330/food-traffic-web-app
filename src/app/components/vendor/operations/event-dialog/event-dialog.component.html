@@ -1,41 +1,54 @@
-<div class="dialog-container">
+<div *ngIf="!editMode" class="dialog-container">
+    <div class="dialog-header-m0">
+        <div class="title">EVENTS</div>
+        <i class="material-icons closex" (click)="onNoClick()">close</i>
+    </div>
+    <div class="dialog-row-lg">
+        <app-event-card *ngFor="let item of events" [event]=item [isVendor]="true"></app-event-card>
+    </div>
+    <div class="dialog-row-lg">
+        <div class="create" (click)="createEvent()">Create a new event</div>
+    </div>
+</div>
+
+<div *ngIf="editMode" class="dialog-container">
     <div class="dialog-header">
-        <div *ngIf="!data.id" id="title">ADD EVENT</div>
-        <div *ngIf="data.id" id="title">{{data.eventName}}</div>
+        <div *ngIf="!opItem.id" class="title">ADD EVENT</div>
+        <div *ngIf="opItem.id" class="title">{{opItem.eventName}}</div>
         <i class="material-icons closex" (click)="onNoClick()">close</i>
     </div>
     <div class="dialog-row">
         <label for="name">Event Name:</label>
         <div class="text-link">
-            <input type="text" [(ngModel)]="data.eventName">
+            <input type="text" [(ngModel)]="opItem.eventName">
             <i class="material-icons">link</i>
         </div>
     </div>
     <div class="dialog-row">
         <label for="start">Event Start Date:</label>
-        <input type="date" [ngModel]="data.eventStartDate | date:'yyyy-MM-dd'" (ngModelChange)="data.eventStartDate = $event">
+        <input type="date" [ngModel]="opItem.eventStartDate | date:'yyyy-MM-dd'" (ngModelChange)="opItem.eventStartDate = $event">
     </div>
     <div class="dialog-row">
         <label for="end">Event End Date:</label>
-        <input type="date" [ngModel]="data.eventEndDate | date:'yyyy-MM-dd'" (ngModelChange)="data.eventEndDate = $event">
+        <input type="date" [ngModel]="opItem.eventEndDate | date:'yyyy-MM-dd'" (ngModelChange)="opItem.eventEndDate = $event">
     </div>
     <div class="dialog-row">
         <label for="open">Hours:</label>
         <div class="time-input">
-            <input type="text" maxlength="2" class="time-component" [(ngModel)]="data.open.hours" [disabled]="data.closed">
+            <input type="text" maxlength="2" class="time-component" [(ngModel)]="opItem.open.hours" [disabled]="opItem.closed">
             <div>:</div>
-            <input type="text" maxlength="2" class="time-component" [(ngModel)]="data.open.minutes" [disabled]="data.closed">
-            <select [(ngModel)]="data.open.timeOfDay" [disabled]="data.closed">
+            <input type="text" maxlength="2" class="time-component" [(ngModel)]="opItem.open.minutes" [disabled]="opItem.closed">
+            <select [(ngModel)]="opItem.open.timeOfDay" [disabled]="opItem.closed">
                 <option>AM</option>
                 <option>PM</option>
             </select>
         </div>
         <div>&#8212;</div> <!-- long dash -->
         <div class="time-input">
-            <input type="text" maxlength="2" class="time-component" [(ngModel)]="data.close.hours" [disabled]="data.closed">
+            <input type="text" maxlength="2" class="time-component" [(ngModel)]="opItem.close.hours" [disabled]="opItem.closed">
             <div>:</div>
-            <input type="text" maxlength="2" class="time-component" [(ngModel)]="data.close.minutes" [disabled]="data.closed">
-            <select [(ngModel)]="data.close.timeOfDay" [disabled]="data.closed">
+            <input type="text" maxlength="2" class="time-component" [(ngModel)]="opItem.close.minutes" [disabled]="opItem.closed">
+            <select [(ngModel)]="opItem.close.timeOfDay" [disabled]="opItem.closed">
                 <option>AM</option>
                 <option>PM</option>
             </select>
@@ -44,12 +57,12 @@
     <div class="flexcon-start">
         <div class="dialog-row-sm">
             <label for="closed">Closed?</label>
-            <input type="checkbox" [(ngModel)]="data.closed" name="closed">
+            <input type="checkbox" [(ngModel)]="opItem.closed" name="closed">
         </div>
     </div>
     <div class="button-row">
-        <button *ngIf="data.id" class="delete" (click)="openDialog()">DELETE</button>
+        <button *ngIf="opItem.id" class="delete" (click)="openDialog()">DELETE</button>
         <button class="cancel" (click)="onNoClick()">CANCEL</button>
-        <button class="save" (click)="save(data)">SAVE</button>
+        <button class="save" (click)="save(opItem)">SAVE</button>
     </div>
 </div>
