@@ -2,7 +2,7 @@
     <div *ngIf="vendor && currentDate" id="top-container">
         <div id="top">
             <div id="today" *ngIf="currentDate.openTime !== null"><span>{{opService.printEventTime(currentDate)}}</span></div>
-            <div id="today" *ngIf="currentDate.openTime == null">Closed</div>
+            <div id="today" *ngIf="currentDate.openTime == null"><span>Closed</span></div>
             <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
             <div id="description"><i>{{vendor.description}}</i></div>
             <div id="tags" class="flexcon">
