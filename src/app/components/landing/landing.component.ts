@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { slideInDownOnEnterAnimation } from 'angular-animations';
 
 @Component({
@@ -9,9 +11,21 @@ import { slideInDownOnEnterAnimation } from 'angular-animations';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  customerLogin() {
+    this.auth.loginWithRedirect({
+      appState: { target: '/home' }
+    });
+  }
+
+  vendorLogin() {
+    this.auth.loginWithRedirect({
+      appState: { target: '/vendors/home' }
+    });
   }
 
 }

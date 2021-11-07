@@ -5,7 +5,7 @@
 #landing-top {
     height: 100%;
     width: 100%;
-    background-color: #fd7d149c;
+    background-color: #fcaa65;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -20,16 +20,18 @@
 
 #subtitle {
     font-size: 1.5rem;
+    margin-bottom: 5rem;
 }
 
 #button-group {
     width: 12%;
-    margin-top: 5rem;
+    margin-bottom: 1rem;
 }
 
 .btn {
     color: #fd7d14;
     background-color: white;
     font-weight: bold;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
 }

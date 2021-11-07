@@ -46,6 +46,10 @@ export class UserService {
     return this.httpClient.post<User>('http://localhost:8889/users/token', null, header);
   }
 
+  public getUser(): Observable<User> {
+    return this.httpClient.get<User>('http://localhost:8889/users/token');
+  }
+
   public logoutUser(userId: string, router: Router): Observable<User> {
     this.userData.next(null);
     return this.httpClient.post<User>('http://localhost:8889/users/' + userId + '/logout', null, header);

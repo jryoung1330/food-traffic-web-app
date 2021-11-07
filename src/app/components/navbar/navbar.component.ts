@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { User } from 'src/entities/user';
-import { UserService } from 'src/app/services/user.service';
+import { DOCUMENT } from '@angular/common';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { UserService } from 'src/app/services/user.service';
 import { VendorService } from 'src/app/services/vendor.service';
+import { Vendor } from 'src/entities/vendor';
 
 @Component({
   selector: 'app-navbar',
@@ -12,78 +14,50 @@ import { VendorService } from 'src/app/services/vendor.service';
 export class NavbarComponent implements OnInit {
 
   displayName: string;
-  hRouter: Router;
   isVendor: boolean;
-  vendorId: string;
+  vendorId: number;
 
-  constructor(private userService: UserService, private vendorService: VendorService, private router: Router) {
-    this.hRouter = router;
-    this.userService.user$.subscribe((payload: User) => {
-      if (payload !== undefined && payload !== null) {
-        if(payload.id === undefined) {
-          this.setUpComponentByStorage();
-        } else {
-          this.setUpComponentByPayload(payload);
-        }
-      } else {
-        this.displayName = null;
-      }
-    });
-  }
+	constructor(private userService: UserService, 
+				private vendorService: VendorService,
+				public router: Router,
+				public auth: AuthService,
+				@Inject(DOCUMENT) private doc: Document) {
+
+		this.auth.isAuthenticated$.subscribe((authenticated) => {
+			if (authenticated) {
+				this.userService.getUser().subscribe((payload) => {
+					if (payload.employee) {
+						this.isVendor = true;
+						this.vendorId = payload.employee.vendorId;
+						this.getVendorName(payload.employee.vendorId);
+						this.vendorService.vendor$.subscribe((vendor: Vendor) => {
+							this.displayName = vendor.displayName;
+						});
+					} else {
+						this.displayName = payload.firstName + ' ' + payload.lastName;
+					}
+				});
+			}
+		});
+	}
 
   ngOnInit() { }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (document.body.scrollTop > 20 ||     
-    document.documentElement.scrollTop > 20) {
-      document.getElementById('main-navbar').classList.add('shadow');
-    } else {
-      document.getElementById('main-navbar').classList.remove('shadow');
-    }
+	if (document.body.scrollTop > 20 ||     
+	document.documentElement.scrollTop > 20) {
+	  document.getElementById('main-navbar').classList.add('shadow');
+	} else {
+	  document.getElementById('main-navbar').classList.remove('shadow');
+	}
   }
 
-  setUpComponentByPayload(payload: User) {
-    if(payload.employee !== undefined && payload.employee.admin) {
-      this.isVendor = true;
-      this.vendorId = payload.employee.vendorId.toString();
-      this.displayName = payload.firstName + " " + payload.lastName;
-      // this.getVendorName(payload.employee.vendorId.toString());
-    } else {
-      this.displayName = payload.firstName + " " + payload.lastName;
-    }
-  }
-
-  setUpComponentByStorage() {
-    this.vendorId = window.localStorage.getItem('vendor');
-    // let user = window.localStorage.getItem('user');
-    this.isVendor = this.vendorId !== undefined;
-    // if (user !== null && !this.isVendor) {
-    //   this.displayName = user.substring(user.indexOf(':') + 1);
-    // } else if (user !== null && this.isVendor) {
-    //   this.getVendorName(window.localStorage.getItem('vendor'));
-    // }
-    this.displayName = window.localStorage.getItem('userFullName');
-  }
-
-  getVendorName(vendorId: string) {
-    this.vendorService.getVendor(vendorId)
-      .subscribe((payload) => {
-        if(payload !== undefined && payload !== null) {
-          this.displayName = payload.displayName;
-        }
-      });
+  getVendorName(vendorId: number) {
+	this.vendorService.getVendorSub(vendorId);
   }
 
   logout() {
-    let user = window.localStorage.getItem('user');
-    this.userService.logoutUser(user.substring(0, user.indexOf(':')), this.router)
-      .subscribe(() => {
-        window.localStorage.removeItem('user');
-        window.localStorage.removeItem('vendor');
-        window.localStorage.removeItem('userFullName');
-        this.displayName = null;
-        this.router.navigateByUrl('/login');
-      });
+	this.auth.logout({ returnTo: this.doc.location.origin });
   }
 }

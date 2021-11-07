@@ -72,6 +72,7 @@ app-vendor-tag {
     align-items: center;
     justify-content: right;
     padding-right: 2rem;
+    padding-top: 0.5rem;
 }
 
 #today>span {

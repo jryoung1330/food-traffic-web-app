@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OperationService } from 'src/app/services/operation.service';
+import { UserService } from 'src/app/services/user.service';
 import { VendorService } from 'src/app/services/vendor.service';
 import { MenuItem } from 'src/entities/menuItem';
 import { OperationItem } from 'src/entities/operationItem';
@@ -19,15 +20,19 @@ export class VendorHomeComponent implements OnInit {
   menuItems: Array<MenuItem>;
   currentDate: OperationItem;
 
-  constructor(private vendorService: VendorService, private opService: OperationService) { }
+  constructor(private vendorService: VendorService,
+              private opService: OperationService,
+              private userService: UserService) { }
 
   ngOnInit(): void {
-    this.vendorService.getVendor(window.localStorage.getItem('vendor'))
+    this.userService.user$.subscribe((user) => {
+      this.vendorService.getVendor(user.employee.vendorId + '')
       .subscribe((payload) => {
         this.vendor = payload;
         this.getHoursOfOperation(this.vendor);
         this.getTopSellers(this.vendor);
       });
+    });
   }
 
   getHoursOfOperation(vendor: Vendor) {

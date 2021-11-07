@@ -24,7 +24,7 @@
         </div>
         <div class="article">
             <div class="article-icon">
-                <b style="font-size: 2.5vw; text-align: center;">{{menuItems[0].name}}</b>
+                <b *ngIf="menuItems" style="font-size: 2.5vw; text-align: center;">{{menuItems[0].name}}</b>
                 <p>top seller this month</p>
             </div>
             <a href="/vendors/{{vendor?.id}}#menus">Edit Menu</a>

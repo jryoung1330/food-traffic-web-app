@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 
@@ -38,6 +38,8 @@ import { StatusPillComponent } from './components/vendor/status-pill/status-pill
 import { CalendarDateComponent } from './components/calendar-date/calendar-date.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventCardComponent } from './components/vendor/event-card/event-card.component';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { environment as env } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -79,11 +81,26 @@ import { EventCardComponent } from './components/vendor/event-card/event-card.co
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    DragDropModule
+    DragDropModule,
+    AuthModule.forRoot({
+      ...env.auth,
+      httpInterceptor: {
+        ...env.httpInterceptor,
+      },
+    }),
   ],
   providers: [
     HttpErrorHandler,
-    MessageService
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
+    },
+    {
+      provide: Window,
+      useValue: window,
+    },
   ],
   bootstrap: [AppComponent]
 })
