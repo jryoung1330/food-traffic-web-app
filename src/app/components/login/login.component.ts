@@ -10,37 +10,8 @@ import { User } from 'src/entities/user';
 })
 export class LoginComponent implements OnInit {
 
-  @Input('user') user: User = new User;
-  loggedInUser: User;
+  constructor() { }
 
-  constructor(private userService: UserService, private router: Router) { }
-
-  ngOnInit() {
-    if(window.localStorage.getItem('vendor') !== null && window.localStorage.getItem('vendor') !== 'undefined') {
-      this.router.navigateByUrl('/vendors/' + window.localStorage.getItem('vendor') + '/home');
-    } else if(window.localStorage.getItem('user') !== null && window.localStorage.getItem('user') !== 'undefined') {
-      this.router.navigateByUrl('/home');
-    }
-  }
-
-  loginUser() {
-    let credentials = btoa(this.user.username + ':' + this.user.passwordHash);
-    this.userService.loginUser(this.user, credentials).subscribe((payload : User) => {
-      if(payload != undefined && payload != null) {
-        this.loggedInUser = payload;
-        window.localStorage.setItem('user', payload.id + ':' + payload.username);
-        window.localStorage.setItem('userFullName', payload.firstName + " " + payload.lastName);
-        let vendorId = null;
-        if(payload.employee !== undefined && payload.employee !== null && payload.employee.admin) {
-          vendorId = payload.employee.vendorId.toString();
-          window.localStorage.setItem('vendor', vendorId);
-        }
-        let url = vendorId !== null ? '/vendors/' + vendorId + '/home' : '/home';
-        this.router.navigateByUrl(url);
-      }
-    });
-  }
-
-
+  ngOnInit() {}
 
 }

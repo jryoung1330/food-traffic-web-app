@@ -26,12 +26,14 @@ export class VendorHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.user$.subscribe((user) => {
-      this.vendorService.getVendor(user.employee.vendorId + '')
-      .subscribe((payload) => {
-        this.vendor = payload;
-        this.getHoursOfOperation(this.vendor);
-        this.getTopSellers(this.vendor);
-      });
+      if(user && user.employee) {
+        this.vendorService.getVendor(user.employee.vendorId + '')
+        .subscribe((payload) => {
+          this.vendor = payload;
+          this.getHoursOfOperation(this.vendor);
+          this.getTopSellers(this.vendor);
+        });
+      }
     });
   }
 

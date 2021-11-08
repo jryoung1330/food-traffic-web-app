@@ -25,7 +25,8 @@ export class NavbarComponent implements OnInit {
 
 		this.auth.isAuthenticated$.subscribe((authenticated) => {
 			if (authenticated) {
-				this.userService.getUser().subscribe((payload) => {
+				this.userService.getUserForSub();
+				this.userService.user$.subscribe((payload) => {
 					if (payload.employee) {
 						this.isVendor = true;
 						this.vendorId = payload.employee.vendorId;
