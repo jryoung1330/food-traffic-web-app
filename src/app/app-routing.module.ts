@@ -1,46 +1,42 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@auth0/auth0-angular';
 import { HomeComponent } from './components/customer/home/home.component';
 import { UserComponent } from './components/customer/user/user.component';
+import { LandingComponent } from './components/landing/landing.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FavoritesComponent } from './components/customer/favorites/favorites.component';
-import { LoginComponent } from './components/login/login.component';
 import { VendorHomeComponent } from './components/vendor/home/vendor-home.component';
 import { VendorProfileComponent } from './components/vendor/profile/profile.component';
-import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [
   {
     path: '',
-    component:LandingComponent
-  },
-  {
-    path: 'login',
-    component:LoginComponent
+    component: LandingComponent
   },
   {
     path: 'home', 
-    component:HomeComponent        
+    component: HomeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'user',
-    component:UserComponent
+    component: UserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
-    component:RegisterComponent
+    component:RegisterComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path: 'favorites',
-    component:FavoritesComponent
-  },
-  {
-    path: 'vendors/:id/home',
-    component:VendorHomeComponent
+    path: 'vendors/home',
+    component: VendorHomeComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'vendors/:id',
-    component:VendorProfileComponent
+    component: VendorProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -64,6 +64,11 @@ export class VendorService {
     return this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id, header);
   }
 
+  public getVendorSub(id: number) {
+    this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id, header)
+      .subscribe((payload) => {this.vendorData.next(payload)});
+  }
+
   public createVendor(vendor: Vendor): Observable<Vendor> {
     if(vendor != null) {
       return this.httpClient.post<Vendor>('http://localhost:8888/vendors', JSON.stringify(vendor), header);
