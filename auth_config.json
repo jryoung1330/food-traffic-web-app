@@ -1,8 +1,7 @@
 {
   "domain": "dev-dka-np5l.us.auth0.com",
   "clientId": "bOMuxk3A6bWRJjwvLjRDLOUH3tbq0R3B",
-  "audience": "https://foodtraffic.telementapps.com/users",
-  "apiUri": "http://localhost:8889",
+  "audience": "https://foodtraffic.telementapps.com/organizer",
   "appUri": "http://localhost:4200",
   "errorPath": "/error"
 }

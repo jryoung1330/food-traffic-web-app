@@ -61,11 +61,11 @@ export class VendorService {
   }
 
   public getVendor(id: string): Observable<Vendor> {
-    return this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id, header);
+    return this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id);
   }
 
   public getVendorSub(id: number) {
-    this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id, header)
+    this.httpClient.get<Vendor>('http://localhost:8888/vendors/' + id)
       .subscribe((payload) => {this.vendorData.next(payload)});
   }
 
@@ -84,7 +84,7 @@ export class VendorService {
   }
 
   public getAllTags(): Observable<Array<Tag>> {
-    return this.httpClient.get<Array<Tag>>('http://localhost:8888/tags');
+    return this.httpClient.get<Array<Tag>>('http://localhost:8888/vendors/tags');
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {

@@ -36,7 +36,7 @@ export class CalendarComponent implements OnInit {
 
   // @click
   prevMonth() {
-    this.currentDate = this.addNDays(this.getStartOfMonth(this.currentDate), -1);
+    this.currentDate = this.getStartOfMonth(this.addNDays(this.getStartOfMonth(this.currentDate), -1));
     this.opService.getEventsForMonthSub(window.location.pathname, this.currentDate);
   }
 
