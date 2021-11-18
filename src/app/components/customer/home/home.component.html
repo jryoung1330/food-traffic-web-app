@@ -1,13 +1,13 @@
 <div class="col-12" id="home-component">
   <div *ngIf="showVendor" [@slideInLeftOnEnter] [@slideOutLeftOnLeave] id="vendor-page" [ngClass]="showVendor ? 'col-7' : 'col-6'">
     <div id="vendor-pic-container">
-      <img src="{{this.vendor.profileImage}}"/>
+      <img src="../../../../assets/eureka.jpg"/>
     </div>
-    <div id="vendor-name">{{this.vendor.displayName}}</div>
+    <div id="vendor-name">{{this.vendorToShow.displayName}}</div>
     <div>
       <ul id="vendor-tag-list">
         <div class="tag-separator"></div>
-        <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendor.tags" [tag] = tag></app-vendor-tag>
+        <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendorToShow.tags" [tag] = tag></app-vendor-tag>
       </ul>
     </div>
     <div id="ops">

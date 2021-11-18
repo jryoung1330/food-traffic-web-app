@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { slideInLeftOnEnterAnimation, slideOutLeftOnLeaveAnimation } from 'angular-animations';
+import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
+import { ResponseMetaData } from 'src/entities/metadata';
 import { OperationItem } from 'src/entities/operationItem';
+import { Payload } from 'src/entities/payload';
 import { Vendor } from 'src/entities/vendor';
 
 const header = {
@@ -25,44 +28,44 @@ export class HomeComponent implements OnInit {
 
   city: string;
   state: string;
-  vendors: Array<Vendor>;
+  vendors: Array<Vendor> = [];
   expanded: number;
   searchKey: string;
   showVendor: boolean;
-  vendor: Vendor;
+  vendorToShow: Vendor;
   showFavorites: boolean;
   operationItems: OperationItem[];
   menus: Array<Menu>;
+  pageInfo: ResponseMetaData;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private vendorService: VendorService) { 
+    this.vendorService.vendor$.subscribe((payload) => {
+      if(this.vendors.length === 0) {
+        this.vendors = payload;
+      } else {
+        this.vendors = this.vendors.concat(payload);
+      }
+    });
 
-  ngOnInit() {
-    this.getLocation();
-    this.showFavorites = false;
-  }
+    this.vendorService.meta$.subscribe((payload) => {
+      this.pageInfo = payload;
+    });
 
-  getLocation() {
-    this.http.get('http://ip-api.com/json')
-    .subscribe((data) => {
-      this.city = data['city'],
-      this.state = data['region'];
-      this.getVendorsInArea();
+    this.vendorService.location$.subscribe((currentLocation) => {
+      this.city = currentLocation.city;
+      this.state = currentLocation.region;
     });
   }
 
-  getVendorsInArea() {
-    if (this.city != null && this.state != null) {
-      this.http.get('http://localhost:8888/vendors?city=' + this.city + '&state=' + this.state)
-      .subscribe((data: Array<Vendor>) => {
-        this.vendors = data;
-      });
-    }
+  ngOnInit() {
+    this.vendorService.fetchLocation();
+    this.showFavorites = false;
   }
 
   searchVendors(value : string) {
     this.http.get('http://localhost:8888/vendors?name=' + value)
-      .subscribe((data: Array<Vendor>) => {
-        this.vendors = data;
+      .subscribe((payload: Payload) => {
+        this.vendors = payload.data;
       });
   }
 
@@ -74,7 +77,20 @@ export class HomeComponent implements OnInit {
           this.vendors = data;
         });
     } else {
-      this.getVendorsInArea()
+      this.vendors = [];
+      this.vendorService.fetchLocation();
+    }
+  }
+
+  toggleShowVendor(vendor: Vendor) {
+    if(this.vendorToShow == null || this.vendorToShow.id === vendor.id) {
+      this.showVendor = !this.showVendor;
+    }
+
+    if(this.showVendor) {
+      this.vendorToShow = vendor;
+    } else {
+      this.vendorToShow = null;
     }
   }
 
