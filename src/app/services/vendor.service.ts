@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Location } from 'src/entities/location';
 import { Menu } from 'src/entities/menu';
 import { MenuItem } from 'src/entities/menuItem';
+import { Payload } from 'src/entities/payload';
 import { Tag } from 'src/entities/tag';
 import { Vendor } from 'src/entities/vendor';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
@@ -30,6 +31,9 @@ export class VendorService {
   private MenuData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public menu$ = this.MenuData.asObservable();
 
+  private metaData: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public meta$ = this.metaData.asObservable();
+
   private handleError: HandleError;
 
   constructor(private httpClient: HttpClient, httpErrorHandler: HttpErrorHandler) { 
@@ -44,6 +48,21 @@ export class VendorService {
       });
   }
 
+  public getVendorsByLocation(city: string, state: string) {
+    if (city != null && state != null) {
+      this.httpClient.get('http://localhost:8888/vendors?city=' + city + '&state=' + state)
+        .subscribe((payload: Payload) => {
+          this.vendorData.next(payload.data);
+          this.metaData.next(payload._meta);
+        });
+    }
+  }
+
+  public getVendorsByLocationNextPage(uri: string) {
+    this.httpClient.get('http://localhost:8888' + uri)
+        .subscribe((payload) => { this.vendorData.next(payload); });
+  }
+
   public fetchLocationForVendor(vendor: Vendor) {
     this.httpClient.get<Location>('http://ip-api.com/json')
     .subscribe((payload) => {
@@ -51,13 +70,6 @@ export class VendorService {
       vendor.longitude = payload.lon;
       this.updateVendor(vendor).subscribe((payload) => {})
     });
-  }
-
-  public getVendorsByLocation(city: string, state: string) {
-    if (city != null && state != null) {
-      this.httpClient.get('http://localhost:8888/vendors?city=' + city + '&state=' + state)
-        .subscribe((payload) => { this.vendorData.next(payload); });
-    }
   }
 
   public getVendor(id: string): Observable<Vendor> {
