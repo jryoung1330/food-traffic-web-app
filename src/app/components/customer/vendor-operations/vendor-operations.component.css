@@ -1,35 +1,22 @@
-.op-container {
+#op-container-list {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 0.5rem;
     display: flex;
     flex-flow: column;
     align-items: center;
-    justify-content: space-around;
-    height: inherit;
-    color: inherit;
+    border-radius: 0.5rem;
 }
 
-.op-header {
-    padding: 0.2rem;
-    color: inherit;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+.today {
+    border: 1px solid #fd7e14;
+    color: #fd7e14;
 }
 
-.op-body {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    height: inherit;
+.not-today {
+    border: 1px solid black;
+}
+
+.dayOfWeek {
     font-weight: bold;
-}
-
-.op-time {
-    width: 100%;
-}
-
-.calendar {
-    font-size: 3rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
 }

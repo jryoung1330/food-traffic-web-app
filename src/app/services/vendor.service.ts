@@ -58,7 +58,15 @@ export class VendorService {
     }
   }
 
-  public getVendorsByLocationNextPage(uri: string) {
+  public getFavoriteVendors() {
+    this.httpClient.get('http://localhost:8888/vendors/favorites')
+    .subscribe((payload: Payload) => {
+      this.vendorData.next(payload.data);
+      this.metaData.next(payload._meta);
+    });
+  }
+
+  public getVendorsNextPage(uri: string) {
     this.httpClient.get('http://localhost:8888' + uri)
         .subscribe((payload) => { this.vendorData.next(payload); });
   }

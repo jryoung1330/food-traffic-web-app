@@ -1,10 +1,6 @@
-<div class="op-container">
-    <div class="op-header">
-        <i class="material-icons calendar">calendar_today</i>
-        <div>{{this.capitalCase(this.op.dayOfWeek)}}</div>
-    </div>
-    <div class="op-body">
-        <div *ngIf="!this.op.closed">{{this.convertTime(this.op.openTime)}} - {{this.convertTime(this.op.closeTime)}}</div>
-        <div *ngIf="this.op.closed">CLOSE</div>
-    </div>
+<div id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'">
+    <div class="dayOfWeek">{{this.capitalCase(this.op.dayOfWeek)}}</div>
+    <div *ngIf="op.eventName">{{op.eventName}}</div>
+    <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}</div>
+    <div *ngIf="this.op.closed">CLOSED</div>
 </div>

@@ -42,4 +42,13 @@ export class UserService {
       this.userData.next(payload);
     });
   }
+
+  public setFavorite(userId: number, vendorId: number) {
+    this.httpClient.put('http://localhost:8889/users/' + userId + '/favorites/' + vendorId, '')
+      .subscribe();
+  }
+
+  public getFavorite(userId: number, vendorId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>('http://localhost:8889/users/' + userId + '/favorites/' + vendorId);
+  }
 }

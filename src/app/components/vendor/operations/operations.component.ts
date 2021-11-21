@@ -6,8 +6,6 @@ import { OperationItem } from 'src/entities/operationItem';
 import { Time } from 'src/entities/time';
 import { OperationDialog } from './operation-dialog/operation-dialog.component';
 
-const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-
 @Component({
   selector: 'app-operations',
   templateUrl: './operations.component.html',
@@ -18,8 +16,11 @@ export class OperationsComponent implements OnInit {
   @Input('op') op: OperationItem;
   @Input('list') list: boolean;
   editText: boolean = false;
+  days: string[];
 
-  constructor(public dialog: MatDialog, private opService: OperationService) {}
+  constructor(public dialog: MatDialog, private opService: OperationService) {
+    this.days = opService.getDays();
+  }
 
   ngOnInit(): void {}
 
@@ -28,7 +29,7 @@ export class OperationsComponent implements OnInit {
   }
 
   isToday() {
-    return this.op.dayOfWeek.toUpperCase() === DAYS[new Date().getDay()];
+    return this.op.dayOfWeek.toUpperCase() === this.days[new Date().getDay()];
   }
 
   openDialog(): void {

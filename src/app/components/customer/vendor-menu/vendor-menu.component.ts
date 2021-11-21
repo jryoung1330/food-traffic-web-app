@@ -22,35 +22,32 @@ export class VendorMenuComponent implements OnInit {
     this.menuItemTriplet = [];
     this.start = 0;
     this.end = 0;
-    this.shiftRight();
+    this.initializeTriplet();
+  }
+
+  initializeTriplet() {
+    for (let i = 0; i < this.menuItems.length && i < 3; i++) {
+      this.menuItemTriplet.push(this.menuItems[i]);
+      this.end++;
+    }
   }
 
   shiftRight() {
-    let isEmpty = this.menuItemTriplet.length === 0;
-    let i = this.end === this.menuItems.length ? 0 : this.end;
-    let j = 0;
-    while(i<this.menuItems.length && j<3) {
-      if(!isEmpty) this.menuItemTriplet.shift();
-      this.menuItemTriplet.push(this.menuItems[i]);
-      i++;
-      j++;
+    if (this.end !== this.menuItems.length) {
+      this.menuItemTriplet.shift();
+      this.menuItemTriplet.push(this.menuItems[this.end]);
+      this.end++;
+      this.start++;
     }
-    this.end = i;
-    this.start = i - 3;
   }
 
   shiftLeft() {
-    let isEmpty = this.menuItemTriplet.length === 0;
-    let i = this.start <= 0 ? this.menuItems.length-1 : this.start;
-    let j = 0;
-    while(i>=0 && j<3) {
-      if(!isEmpty) this.menuItemTriplet.pop();
-      this.menuItemTriplet.unshift(this.menuItems[i]);
-      i--;
-      j++;
+    if (this.start > 0) {
+      this.menuItemTriplet.pop();
+      this.menuItemTriplet.unshift(this.menuItems[this.start - 1]);
+      this.end--;
+      this.start--;
     }
-    this.start = i+1;
-    this.end = i+1 + 3;
   }
 
 }

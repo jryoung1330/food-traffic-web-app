@@ -1,41 +1,53 @@
-<div class="col-12" id="home-component">
-  <div *ngIf="showVendor" [@slideInLeftOnEnter] [@slideOutLeftOnLeave] id="vendor-page" [ngClass]="showVendor ? 'col-7' : 'col-6'">
-    <div id="vendor-pic-container">
-      <img src="../../../../assets/eureka.jpg"/>
-    </div>
-    <div id="vendor-name">{{this.vendorToShow.displayName}}</div>
-    <div>
-      <ul id="vendor-tag-list">
-        <div class="tag-separator"></div>
-        <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendorToShow.tags" [tag] = tag></app-vendor-tag>
-      </ul>
-    </div>
-    <div id="ops">
-      <ul id="vendor-ops-list">
-        <app-vendor-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}" *ngFor="let item of this.operationItems" [op] = item></app-vendor-operations>
-      </ul>
-    </div>
-    <div id="menus">
-      <ul id="vendor-menu-list">
-        <app-vendor-menu *ngFor="let menu of this.menus" [menu] = menu></app-vendor-menu>
-      </ul>
-    </div>
-  </div>
+<div id="home-component">
+  <div id="home-container">
 
-  <div id="left-side" class="col-6" *ngIf="!showVendor">
-    <i class="material-icons favorite-button" (click)="toggleFavorites()" *ngIf="!showFavorites">favorite_border</i>
-    <i class="material-icons favorite-button" (click)="toggleFavorites()" *ngIf="showFavorites">favorite</i>
-    <div id="map">SPACE RESERVED FOR THE MAP</div>
-  </div>
-  <div id="truck-list" [ngClass]="showVendor ? 'col-5' : 'col-6'">
-    <div id="search-container">
-      <input id="search" type="search" placeholder="Find a Food Truck" [ngModel]="searchKey"
-        (ngModelChange)="searchVendors($event)" />
-      <button class="btn">Search</button>
+    <!-- left side -->
+    <div id="left-side">
+      <div id="map">
+        <div class="favorite-button" (click)="toggleFavorites()" *ngIf="!showFavorites">
+          <i class="material-icons">favorite_border</i>
+        </div>
+        <div class="favorite-button" (click)="toggleFavorites()" *ngIf="showFavorites">
+          <i class="material-icons">favorite</i>
+        </div>
+        SPACE RESERVED FOR THE MAP
+      </div>
+
+      <div *ngIf="showVendor" [@slideInLeftOnEnter] [@slideOutLeftOnLeave] id="vendor-page">
+        <div *ngIf="vendorToShow.profileImage" id="vendor-pic-container">
+          <img src="{{vendorToShow.profileImage}}"/>
+        </div>
+        <div id="vendor-name">{{vendorToShow.displayName}}</div>
+        <div>
+          <ul id="vendor-tag-list">
+            <div class="tag-separator"></div>
+            <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendorToShow.tags" [tag] = tag></app-vendor-tag>
+          </ul>
+        </div>
+        <div id="ops">
+          <ul id="vendor-ops-list">
+            <app-vendor-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}" *ngFor="let item of this.operationItems" [op] = item></app-vendor-operations>
+          </ul>
+        </div>
+        <div id="menus">
+          <ul id="vendor-menu-list">
+            <app-vendor-menu *ngFor="let menu of this.menus" [menu] = menu></app-vendor-menu>
+          </ul>
+        </div>
+      </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <app-vendor-card class="list-group-item bg-white border-bottom box-shadow" *ngFor="let vendor of vendors"
-        [vendor]=vendor (click)="toggleShowVendor(vendor)"></app-vendor-card>
-    </ul>
+
+    <!-- right side -->
+    <div id="right-side">
+      <div id="search-container">
+        <input id="search" type="search" placeholder="Find a Food Truck" [ngModel]="searchKey"
+          (ngModelChange)="searchVendors($event)" />
+        <button class="btn">Search</button>
+      </div>
+      <ul id="vendor-list" class="list-group list-group-flush">
+        <app-vendor-card class="list-group-item bg-white border-bottom box-shadow" *ngFor="let vendor of vendors"
+          [vendor]=vendor (click)="toggleShowVendor(vendor)"></app-vendor-card>
+      </ul>
+    </div>
   </div>
 </div>
