@@ -11,4 +11,5 @@ export class MenuItem {
     glutenFree: boolean;
     dairyFree: boolean;
     containsNuts: boolean;
+    image: String;
 }

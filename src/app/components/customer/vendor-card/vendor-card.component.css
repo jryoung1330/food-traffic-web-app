@@ -21,7 +21,7 @@
     height: 6rem;
     width: 6rem;
     border: 1px solid black;
-    border-radius: 25px;
+    border-radius: 0.5rem;
     margin-right: 2rem;
     overflow: hidden;
 }

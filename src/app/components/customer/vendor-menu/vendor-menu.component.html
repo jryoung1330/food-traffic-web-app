@@ -1,8 +1,13 @@
 <div class="menu-container">
-    <div class="menu-title">{{this.menu.name}}</div>
+    <div class="menu-title">{{menu.name}}</div>
+    <i id="description" class="row flexcon-start">{{menu.description}}</i>
     <ul class="menu-item-list">
-        <i class="material-icons" *ngIf="this.menuItems.length > 3" (click)="shiftLeft()">arrow_left</i>
-        <app-vendor-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-vendor-menu-item>
-        <i class="material-icons" *ngIf="this.menuItems.length > 3" (click)="shiftRight()">arrow_right</i>
+        <div id="list-container" class="flexcon">
+            <i class="material-icons arrow arrow-left" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
+            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.start !== 0))"></div>
+            <app-vendor-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-vendor-menu-item>
+            <i class="material-icons arrow arrow-right" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
+            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.end < this.menuItems.length))"></div>
+        </div>
     </ul>
 </div>

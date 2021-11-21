@@ -13,6 +13,7 @@ const header = {
 };
 
 const MILLISECONS_TO_HOURS : number = 36000000;
+const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class OperationService {
   public events$ = this.EventData.asObservable();
 
   constructor(private httpClient: HttpClient) { }
+
+  public getDays() {
+    return DAYS;
+  }
 
   public getHoursOfOperation(id: number, searchKey: string): Observable<OperationItem[]> {
     return this.httpClient.get<OperationItem[]>('http://localhost:8888/vendors/' + id + "/operations?search=" + searchKey);

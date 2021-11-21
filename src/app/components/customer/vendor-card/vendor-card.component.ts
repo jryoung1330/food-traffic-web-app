@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/entities/user';
 import { Vendor } from 'src/entities/vendor';
@@ -14,30 +14,28 @@ export class VendorCardComponent implements OnInit {
   @Input('vendor') vendor: Vendor;
   expanded: boolean;
   isFavorited: boolean;
-  userId: string;
+  user: User;
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    let user = window.localStorage.getItem('user');
-    if(user !== null) {
-      this.userId = user.substring(0, user.indexOf(':'));
-      this.getFavorite();
-    }
+    this.userService.user$.subscribe((payload) => {
+      if(payload && payload.id) {
+        this.user = payload;
+        this.getFavorite(payload.id);
+      }
+    });
   }
 
   toggleFavorite() {
     this.isFavorited = !this.isFavorited;
-    this.http.put('http://localhost:8889/users/' + this.userId + '/favorites/' + this.vendor.id, '')
-      .subscribe();
+    this.userService.setFavorite(this.user.id, this.vendor.id);
   }
 
-  getFavorite() {
-    this.http.get('http://localhost:8889/users/' + this.userId + '/favorites/' + this.vendor.id)
+  getFavorite(userId: number) {
+    this.userService.getFavorite(userId, this.vendor.id)
       .subscribe((data: boolean) => {
         this.isFavorited = data;
       });
   }
-
-
 }

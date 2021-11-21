@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { OperationService } from 'src/app/services/operation.service';
 import { OperationItem } from 'src/entities/operationItem';
 
 @Component({
@@ -9,9 +10,11 @@ import { OperationItem } from 'src/entities/operationItem';
 export class VendorOperationsComponent implements OnInit {
 
   @Input('op') op: OperationItem;
-  editText: boolean = false;
+  days: string[];
 
-  constructor() {}
+  constructor(private opService: OperationService) {
+    this.days = opService.getDays();
+  }
 
   ngOnInit(): void {}
 
@@ -19,22 +22,7 @@ export class VendorOperationsComponent implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
-  pad(num: String, size: number) {
-    while (num.length < size) num = "0" + num;
-    return num;
-  }
-
-  convert12Hour(num: number) {
-    return num > 12 ? num - 12 : num;
-  }
-
-  getTimeOfDay(num: number) {
-    return num >= 12 ? 'PM' : 'AM';
-  }
-
-  convertTime(time: String) {
-    const hours = this.convert12Hour(+time.substr(0, time.indexOf(":")));
-    const minutes = this.pad(time.substr(time.indexOf(":") + 1), 2);
-    return hours + ':' + minutes + ' ' + this.getTimeOfDay(+time.substr(0, time.indexOf(":")));
+  isToday() {
+    return this.op.dayOfWeek.toUpperCase() === this.days[new Date().getDay()];
   }
 }
