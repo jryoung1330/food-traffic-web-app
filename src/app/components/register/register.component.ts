@@ -7,6 +7,7 @@ import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { Tag } from 'src/entities/tag';
+import { ResponseMetaData } from 'src/entities/metadata';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +27,7 @@ export class RegisterComponent implements OnInit {
   file: File;
   newUser: User;
   tags: Array<Tag>;
+  tagMeta: ResponseMetaData;
 
   constructor(private vendorService: VendorService, private userService: UserService, private routingService: RoutingService, private router: Router) { }
 
@@ -35,7 +37,10 @@ export class RegisterComponent implements OnInit {
     this.vendorService.location$.subscribe((data) => this.location = data);
     this.vendorService.vendor$.subscribe((data) => this.vendors = data);
     this.vendorService.fetchLocation();
-    this.vendorService.getAllTags().subscribe((tags) => this.tags = tags);
+    this.vendorService.getAllTags().subscribe((payload) => {
+      this.tags = payload.data;
+      this.tagMeta = payload._meta;
+    });
   }
 
   moveForward() {
