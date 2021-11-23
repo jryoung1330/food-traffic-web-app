@@ -1,6 +1,0 @@
-<div id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'">
-    <div class="dayOfWeek">{{this.capitalCase(this.op.dayOfWeek)}}</div>
-    <div *ngIf="op.eventName">{{op.eventName}}</div>
-    <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}</div>
-    <div *ngIf="this.op.closed">CLOSED</div>
-</div>

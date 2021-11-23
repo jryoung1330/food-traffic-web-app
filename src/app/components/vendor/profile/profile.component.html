@@ -20,9 +20,10 @@
           <i (click)="updateVendorDescription(false)" class="material-icons submit">close</i>
         </form>
         <div id="tags" class="flexcon">
-            <div class="tag-separator"></div>
-            <ul id="vendor-tag-list" class="list-group list-group-flush">
-              <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of vendor.tags" [tag] = tag></app-vendor-tag>
+            <ul id="vendor-tag-list">
+              <app-vendor-tag *ngFor="let tag of vendor.tags" [tag] = tag></app-vendor-tag>
+              <span class="tag-separator"></span>
+              <i class="material-icons edit-icon" (click)="openTagDialog()">edit</i>
             </ul>
             <i class="material-icons edit-icon" (click)="openTagDialog()">edit</i>
         </div>
@@ -34,7 +35,7 @@
           <header>Hours of Operation</header>
         </div>
         <ul id="vendor-ops-list" class="list-group list-group-flush">
-          <app-operations *ngFor="let item of hoursOfOperation" [op]=item [list]="true"></app-operations>
+          <app-operations *ngFor="let item of hoursOfOperation" [op]=item [isList]="true" [mode]="'VENDOR'"></app-operations>
         </ul>
       </div>
       <div id="menus">
@@ -43,7 +44,7 @@
           <div id="add-menu-btn" class="flexcon-centered" (click)="openMenuDialog()">Add Menu <i class="material-icons">add</i></div>
         </div>
         <ul id="menu-list" cdkDropList (cdkDropListDropped)="drop($event)">
-          <app-menu *ngFor="let menu of menus" [menu] = menu cdkDrag>
+          <app-menu *ngFor="let menu of menus" [menu] = menu [mode]="'VENDOR'" cdkDrag>
             <div *cdkDragPreview>{{menu.name}}</div>
           </app-menu>
         </ul>

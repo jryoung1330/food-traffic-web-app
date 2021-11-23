@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OperationService } from 'src/app/services/operation.service';
-import { VendorService } from 'src/app/services/vendor.service';
 import { OperationItem } from 'src/entities/operationItem';
-import { Time } from 'src/entities/time';
 import { OperationDialog } from './operation-dialog/operation-dialog.component';
 
 @Component({
@@ -14,7 +12,8 @@ import { OperationDialog } from './operation-dialog/operation-dialog.component';
 export class OperationsComponent implements OnInit {
 
   @Input('op') op: OperationItem;
-  @Input('list') list: boolean;
+  @Input('isList') isList: boolean;
+  @Input('mode') mode: string;
   editText: boolean = false;
   days: string[];
 
@@ -30,6 +29,12 @@ export class OperationsComponent implements OnInit {
 
   isToday() {
     return this.op.dayOfWeek.toUpperCase() === this.days[new Date().getDay()];
+  }
+
+  setEditMode(on: boolean) {
+    if(this.mode == 'VENDOR') {
+      this.editText = on;
+    }
   }
 
   openDialog(): void {

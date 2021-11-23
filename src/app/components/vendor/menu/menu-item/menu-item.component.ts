@@ -14,11 +14,13 @@ const DELETE = 'DELETE';
 export class MenuItemComponent implements OnInit {
 
   @Input('item') item: MenuItem;
+  @Input('mode') mode: string;
 
   constructor(public dialog: MatDialog, private vendorService: VendorService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
+  /* VENDOR mode functions */
 
   openDialog(): void {
     const dialogRef = this.dialog.open(MenuItemDialog, {

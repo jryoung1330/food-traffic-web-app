@@ -46,12 +46,12 @@
     width: 0.5rem;
     border-radius: 100%;
     background-color: #fd7e14;
-    margin-right: 5px;
 }
 
 #vendor-tag-list {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 app-vendor-tag {

@@ -2,9 +2,9 @@
     <div class="row flexcon-between">
         <div class="menu-title">
             {{menu.name}}
-            <span><i class="material-icons" (click)="openDialog()">edit</i></span>
+            <span *ngIf="mode=='VENDOR'"><i class="material-icons" (click)="openDialog()">edit</i></span>
         </div>
-        <div id="new-item" (click)="createMenuItemDialog()">
+        <div *ngIf="mode=='VENDOR'" id="new-item" (click)="createMenuItemDialog()">
             <div>Add New Item </div>
             <i class="material-icons">add</i>
         </div>
@@ -12,11 +12,11 @@
     <i id="description" class="row flexcon-start">{{menu.description}}</i>
     <ul class="menu-item-list">
         <div id="list-container" class="flexcon">
-            <i class="material-icons arrow arrow-left" *ngIf="this.menuItems.length > 3 && (this.start !== 0)" (click)="shiftLeft()">arrow_left</i>
-            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.start !== 0))"></div>
-            <app-menu-item *ngFor="let item of this.menuItemTriplet" [item] = item></app-menu-item>
-            <i class="material-icons arrow arrow-right" *ngIf="this.menuItems.length > 3 && (this.end < this.menuItems.length)" (click)="shiftRight()">arrow_right</i>
-            <div class="buffer" *ngIf="!(this.menuItems.length > 3 && (this.end < this.menuItems.length))"></div>
+            <i class="material-icons arrow arrow-left" *ngIf="menuItems.length > 3 && (start !== 0)" (click)="shiftLeft()">arrow_left</i>
+            <div class="buffer" *ngIf="!(menuItems.length > 3 && (start !== 0))"></div>
+            <app-menu-item *ngFor="let item of menuItemTriplet" [item] = item [mode] = "mode"></app-menu-item>
+            <i class="material-icons arrow arrow-right" *ngIf="menuItems.length > 3 && (end < menuItems.length)" (click)="shiftRight()">arrow_right</i>
+            <div class="buffer" *ngIf="!(menuItems.length > 3 && (end < menuItems.length))"></div>
         </div>
     </ul>
 </div>

@@ -6,10 +6,10 @@
             <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
             <div id="description"><i>{{vendor.description}}</i></div>
             <div id="tags" class="flexcon">
-                <div class="tag-separator"></div>
-                <ul id="vendor-tag-list" class="list-group list-group-flush">
-                    <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of vendor.tags"
+                <ul id="vendor-tag-list">
+                    <app-vendor-tag *ngFor="let tag of vendor.tags"
                         [tag]=tag></app-vendor-tag>
+                    <span class="tag-separator"></span>
                 </ul>
             </div>
         </div>
