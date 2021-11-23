@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Location } from 'src/entities/location';
 import { Menu } from 'src/entities/menu';
 import { MenuItem } from 'src/entities/menuItem';
+import { ResponseMetaData } from 'src/entities/metadata';
 import { Payload } from 'src/entities/payload';
 import { Tag } from 'src/entities/tag';
 import { Vendor } from 'src/entities/vendor';
@@ -103,8 +104,21 @@ export class VendorService {
     return this.httpClient.put<Vendor>('http://localhost:8888/vendors/' + vendor.id, JSON.stringify(vendor), header);
   }
 
-  public getAllTags(): Observable<Array<Tag>> {
-    return this.httpClient.get<Array<Tag>>('http://localhost:8888/vendors/tags');
+  public updateVendorForSub(vendor: Vendor) {
+    this.httpClient.put<Vendor>('http://localhost:8888/vendors/' + vendor.id, JSON.stringify(vendor), header)
+      .subscribe((payload) => this.vendorData.next(payload));
+  }
+
+  public getAllTags(): Observable<Payload> {
+    return this.httpClient.get<Payload>('http://localhost:8888/vendors/tags');
+  }
+
+  public getAllTagsByName(name: string): Observable<Payload> {
+    return this.httpClient.get<Payload>('http://localhost:8888/vendors/tags?name=' + name);
+  }
+
+  public getTagsForPage(query: string): Observable<Payload> {
+    return this.httpClient.get<Payload>('http://localhost:8888' + query);
   }
 
   public getMenus(id: number): Observable<Array<Menu>> {

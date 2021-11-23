@@ -5,9 +5,11 @@ import { OperationService } from 'src/app/services/operation.service';
 import { VendorService } from 'src/app/services/vendor.service';
 import { Menu } from 'src/entities/menu';
 import { OperationItem } from 'src/entities/operationItem';
+import { Tag } from 'src/entities/tag';
 import { Vendor } from 'src/entities/vendor';
 import { MenuDialog } from '../menu/menu-dialog/menu-dialog.component';
 import { EventDialog } from '../operations/event-dialog/event-dialog.component';
+import { TagDialog } from '../tag/tag-dialog/tag-dialog.component';
 
 const DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
@@ -25,14 +27,17 @@ export class VendorProfileComponent implements OnInit {
   events: OperationItem[];
   upcomingEvents: OperationItem[] = [];
   path: string;
+  editDisplayName: boolean;
+  editDescription: boolean;
 
   constructor(private vendorService: VendorService,
               private opService: OperationService,
               private menuDialog: MatDialog,
-              private eventDialog: MatDialog) {
+              private eventDialog: MatDialog,
+              private tagDialog: MatDialog) {
     // set up for all components
     this.vendorService.vendor$.subscribe((payload) => {
-      if(payload) {
+      if(payload && payload.id) {
         this.vendor = payload;
         this.getHoursOfOperation(payload);
         this.getEvents();
@@ -168,6 +173,42 @@ export class VendorProfileComponent implements OnInit {
           .subscribe((payload) => {
             this.opService.getEventsForMonthSub(this.path, new Date());
           });
+      }
+    });
+  }
+
+  // @click
+  updateVendorDisplayName(updated: boolean) {
+    this.editDisplayName=false;
+    if(updated) {
+      this.vendorService.updateVendorForSub(this.vendor);
+    }
+  }
+
+  //@click
+  updateVendorDescription(updated: boolean) {
+    this.editDescription=false;
+    if(updated) {
+      this.vendorService.updateVendorForSub(this.vendor);
+    }
+  }
+
+  //@click
+  openTagDialog(): void {
+    let tags : Array<Tag> = [];
+    this.vendor.tags.forEach((t) => {
+      tags.push(t);
+    });
+    const dialogRef = this.tagDialog.open(TagDialog, {
+      width: '35%',
+      height: '50%',
+      data: tags
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.vendor.tags = tags;
+        this.vendorService.updateVendorForSub(this.vendor);
       }
     });
   }

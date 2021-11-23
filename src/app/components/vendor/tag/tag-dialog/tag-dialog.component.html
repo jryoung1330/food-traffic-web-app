@@ -1,0 +1,38 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div id="title">EDIT TAGS</div>
+        <i class="material-icons closex" (click)="onNoClick()">close</i>
+    </div>
+    <div class="dialog-row-lg">
+        <div id="search-container">
+            <input id="search" type="search" placeholder="Search all tags" [ngModel]="searchKey"
+              (ngModelChange)="searchTags($event)" />
+            <button class="cancel">Search</button>
+          </div>
+    </div>
+    <div class="dialog-row-lg">
+        <div id="tags" class="flexcon">
+            <ul id="vendor-tag-list" class="list-group list-group-flush">
+              <span class="tag-separator"></span>
+              <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of data" [tag] = tag></app-vendor-tag>
+            </ul>
+        </div>
+    </div>
+    <div class="dialog-row-lg">
+        <div (click)="movePrevPage()">
+            <i class="prev material-icons">arrow_left</i>
+        </div>
+        <div id="tag-container">
+            <ul>
+                <app-vendor-tag-card (click)="addOrRemove(tag)" *ngFor="let tag of allTags" [tag] = tag [selected] = tagIds.includes(tag.id)></app-vendor-tag-card>
+            </ul>
+        </div>
+        <div (click)="moveNextPage()">
+            <i class="next material-icons">arrow_right</i>
+        </div>
+    </div>
+    <div class="dialog-row">
+        <button class="cancel" (click)="onNoClick()">CANCEL</button>
+        <button class="save" (click)="save()">SAVE</button>
+    </div>
+</div>

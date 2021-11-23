@@ -1,1 +1,1 @@
-<div class="vendor-tag-card">{{tag.name}}</div>
+<div (click)="toggleSelect()" [ngClass]="selected ? 'vendor-tag-card-highlight' : 'vendor-tag-card'">{{tag.name}}</div>

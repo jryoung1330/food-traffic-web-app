@@ -36,6 +36,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { EventCardComponent } from './components/vendor/event/event-card.component';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment as env } from '../environments/environment';
+import { TagDialog } from './components/vendor/tag/tag-dialog/tag-dialog.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { environment as env } from '../environments/environment';
     StatusPillComponent,
     CalendarDateComponent,
     CalendarComponent,
-    EventCardComponent
+    EventCardComponent,
+    TagDialog,
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,31 @@
 <div id="profile-container">
     <div *ngIf="vendor && currentDate" id="top-container">
       <div id="top">
-        <div id="name">{{spaceOut(vendor.displayName.toUpperCase())}}</div>
-        <div id="description"><i>{{this.vendor.description}}</i></div>
+        <div *ngIf="!editDisplayName" id="name">{{spaceOut(vendor.displayName.toUpperCase())}}
+          <div class="edit-icon-container" (click)="editDisplayName=true"><i class="material-icons edit-icon">edit</i></div>
+        </div>
+        <form *ngIf="editDisplayName">
+          <div id="name-input">
+            <input type="text" [(ngModel)]="vendor.displayName" name="name" placeholder="Display Name"/>
+            <button [hidden]="true" type="submit" (click)="updateVendorDisplayName(true)">done</button>
+            <i (click)="updateVendorDisplayName(false)" class="material-icons submit">close</i>
+          </div>
+        </form>
+        <div *ngIf="!editDescription" id="description">
+          <i>{{vendor.description}} <span (click)="editDescription=true"><i class="material-icons edit-icon">edit</i></span></i>
+        </div>
+        <form *ngIf="editDescription" id="description-input">
+          <input type="text" [(ngModel)]="vendor.description" name="description" placeholder="Description"/>
+          <button [hidden]="true" type="submit" (click)="updateVendorDescription(true)">done</button>
+          <i (click)="updateVendorDescription(false)" class="material-icons submit">close</i>
+        </form>
         <div id="tags" class="flexcon">
             <ul id="vendor-tag-list">
               <app-vendor-tag *ngFor="let tag of vendor.tags" [tag] = tag></app-vendor-tag>
               <span class="tag-separator"></span>
               <i class="material-icons edit-icon" (click)="openTagDialog()">edit</i>
             </ul>
+            <i class="material-icons edit-icon" (click)="openTagDialog()">edit</i>
         </div>
       </div>
     </div>

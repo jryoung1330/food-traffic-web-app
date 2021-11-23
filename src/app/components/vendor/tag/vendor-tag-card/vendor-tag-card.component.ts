@@ -9,10 +9,14 @@ import { Tag } from 'src/entities/tag';
 export class VendorTagCardComponent implements OnInit {
 
   @Input('tag') tag: Tag;
+  @Input('selected') selected: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  toggleSelect() {
+    this.selected = !this.selected;
+  }
 }
