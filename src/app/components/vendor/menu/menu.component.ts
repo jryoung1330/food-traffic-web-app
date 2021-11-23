@@ -14,6 +14,7 @@ import { MenuItemDialog } from './menu-item/menu-item-dialog/menu-item-dialog.co
 export class MenuComponent implements OnInit {
 
   @Input('menu') menu: Menu;
+  @Input('mode') mode: string;
   menuItems: MenuItem[];
   menuItemTriplet: MenuItem[];
   start: number;
@@ -55,6 +56,8 @@ export class MenuComponent implements OnInit {
       this.start--;
     }
   }
+
+  /* VENDOR mode functions */
 
   openDialog(): void {
     const dialogRef = this.dialog.open(MenuDialog, {

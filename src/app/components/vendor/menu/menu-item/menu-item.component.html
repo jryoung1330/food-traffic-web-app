@@ -1,7 +1,13 @@
-<div class="menu-item-container" (click)="openDialog()">
-    <img src="{{item.image}}" />
-    <div *ngIf="this.item.id !== undefined" class="menu-item-price">${{item.price.toFixed(2)}}</div>
-    <div *ngIf="this.item.id === undefined" class="add-menu-item"><i class="material-icons">add_circle</i></div>
-    <div *ngIf="this.item.id !== undefined" class="menu-item-name">{{item.name}}</div>
-    <div *ngIf="this.item.id === undefined" class="menu-item-name">New Menu Item</div>
+<div *ngIf="mode == 'VENDOR'" class="menu-item-container" (click)="openDialog()">
+    <img class="img-lg" src="{{item.image}}" />
+    <div *ngIf="item.id !== undefined" class="menu-item-price">${{item.price.toFixed(2)}}</div>
+    <div *ngIf="item.id === undefined" class="add-menu-item"><i class="material-icons">add_circle</i></div>
+    <div *ngIf="item.id !== undefined" class="menu-item-name">{{item.name}}</div>
+    <div *ngIf="item.id === undefined" class="menu-item-name">New Menu Item</div>
+</div>
+
+<div *ngIf="mode == 'CUSTOMER'" class="menu-item-container">
+    <img class="img-sm" src="{{item.image}}" />
+    <div class="menu-item-price">${{item.price.toFixed(2)}}</div>
+    <div class="menu-item-name-sm">{{item.name}}</div>
 </div>

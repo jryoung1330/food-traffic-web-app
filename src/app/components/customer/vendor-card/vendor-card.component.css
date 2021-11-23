@@ -67,6 +67,8 @@ a:hover, #id:hover {
     flex-direction: row;
     padding-top: 10px;
     padding-bottom: 10px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 app-vendor-tag {
@@ -79,3 +81,10 @@ app-vendor-tag {
     font-size: 0.7rem;
 }
 
+.tag-separator {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 100%;
+    background-color: #fd7e14;
+    margin-right: 5px;
+}

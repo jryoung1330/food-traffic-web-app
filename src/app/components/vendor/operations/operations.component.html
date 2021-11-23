@@ -1,24 +1,25 @@
-<div *ngIf="!this.list" class="op-container" (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
+<div *ngIf="!isList" class="op-container" (mouseenter)="setEditMode(true)" (mouseleave)="setEditMode(false)">
     <div class="op-header">
         <i class="material-icons calendar">calendar_today</i>
-        <div>{{this.capitalCase(this.op.dayOfWeek)}}</div>
+        <div>{{capitalCase(op.dayOfWeek)}}</div>
     </div>
     <div class="op-body">
-        <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}
-            <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
+        <div *ngIf="!op.closed">{{opService.printEventTime(op)}}
+            <span *ngIf="editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
-        <div *ngIf="this.op.closed">CLOSED
-            <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
+        <div *ngIf="op.closed">CLOSED
+            <span *ngIf="editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
         </div>
     </div>
 </div>
-<div *ngIf="this.list" id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'"  (mouseenter)="this.editText = true" (mouseleave)="this.editText = false">
-    <div class="dayOfWeek">{{this.capitalCase(this.op.dayOfWeek)}}</div>
+
+<div *ngIf="isList" id="op-container-list" [ngClass]="isToday() ? 'today' : 'not-today'"  (mouseenter)="setEditMode(true)" (mouseleave)="setEditMode(false)">
+    <div class="dayOfWeek">{{capitalCase(op.dayOfWeek)}}</div>
     <div *ngIf="op.eventName">{{op.eventName}}</div>
-    <div *ngIf="!this.op.closed">{{opService.printEventTime(op)}}
-        <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
+    <div *ngIf="!op.closed">{{opService.printEventTime(op)}}
+        <span *ngIf="editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
-    <div *ngIf="this.op.closed">CLOSED
-        <span *ngIf="this.editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
+    <div *ngIf="op.closed">CLOSED
+        <span *ngIf="editText" (click)="openDialog()"><i class="material-icons edit">edit</i></span>
     </div>
 </div>

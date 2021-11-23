@@ -10,13 +10,13 @@ import { Payload } from 'src/entities/payload';
 import { Vendor } from 'src/entities/vendor';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-customer-home',
+  templateUrl: './customer-home.component.html',
+  styleUrls: ['./customer-home.component.css'],
   animations: [slideInLeftOnEnterAnimation({delay: 0, duration: 500}),
               slideOutLeftOnLeaveAnimation({delay: 0, duration: 500})],
 })
-export class HomeComponent implements OnInit {
+export class CustomerHomeComponent implements OnInit {
 
   city: string;
   state: string;

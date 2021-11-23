@@ -20,18 +20,18 @@
         <div id="vendor-name">{{vendorToShow.displayName}}</div>
         <div>
           <ul id="vendor-tag-list">
+            <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of vendorToShow.tags" [tag] = tag></app-vendor-tag>
             <div class="tag-separator"></div>
-            <app-vendor-tag class="list-group-item p-0 bg-inherit" *ngFor="let tag of this.vendorToShow.tags" [tag] = tag></app-vendor-tag>
           </ul>
         </div>
         <div id="ops">
           <ul id="vendor-ops-list">
-            <app-vendor-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}" *ngFor="let item of this.operationItems" [op] = item></app-vendor-operations>
+            <app-operations [ngClass]="{'today': item.dayOfWeek === 'TODAY'}" *ngFor="let item of operationItems" [op] = item [isList]="true" [mode]="'CUSTOMER'"></app-operations>
           </ul>
         </div>
         <div id="menus">
           <ul id="vendor-menu-list">
-            <app-vendor-menu *ngFor="let menu of this.menus" [menu] = menu></app-vendor-menu>
+            <app-menu *ngFor="let menu of menus" [menu] = menu [mode]="'CUSTOMER'"></app-menu>
           </ul>
         </div>
       </div>
